@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zj.rcbt.hibernate.model.ApplytableBean" table="applytable" schema="rcbt">
+        <id name="idNum" column="id_num"/>
+        <property name="userId" column="user_id"/>
+        <property name="photoLocation" column="photo_location"/>
+        <property name="name" column="name"/>
+        <property name="birthDate" column="birth_date"/>
+        <property name="sex" column="sex"/>
+        <property name="graduateDate" column="graduate_date"/>
+        <property name="major" column="major"/>
+        <property name="nation" column="nation"/>
+        <property name="nativePalce" column="native_palce"/>
+        <property name="education" column="education"/>
+        <property name="school" column="school"/>
+        <property name="politicalLandscape" column="political_landscape"/>
+        <property name="professionalTitle" column="professional_title"/>
+        <property name="workDate" column="work_date"/>
+        <property name="comeDate" column="come_date"/>
+        <property name="rcType" column="rc_type"/>
+        <property name="applyType" column="apply_type"/>
+        <property name="applyMoney" column="apply_money"/>
+        <property name="isFirstschool" column="is_firstschool"/>
+        <property name="phoneNum" column="phone_num"/>
+        <property name="companyType" column="company_type"/>
+        <property name="companyName" column="company_name"/>
+        <property name="companyAddress" column="company_address"/>
+        <property name="companyContact" column="company_contact"/>
+        <property name="post" column="post"/>
+        <property name="contactPhone" column="contact_phone"/>
+        <property name="bank" column="bank"/>
+        <property name="bankCard" column="bank_card"/>
+        <property name="educationQrcode" column="education_qrcode"/>
+        <property name="attatchment" column="attatchment"/>
+        <property name="applyTime" column="apply_time"/>
+        <property name="chsiReturn" column="chsi_return"/>
+        <property name="applyStatus" column="apply_status"/>
+        <property name="allowanceId" column="allowance_id"/>
+        <property name="auditComment" column="audit_comment"/>
+        <property name="batch" column="batch"/>
+    </class>
+</hibernate-mapping>

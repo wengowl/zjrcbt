@@ -1,0 +1,194 @@
+body{
+	background: #e0e0e0;
+}
+
+input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+
+.top-banner{
+	background: url(../img/topBg.jpg);
+    height: 50px;
+    line-height: 50px;
+    min-width: 1200px;
+    background-size: 50px;
+}
+.top-banner-c{
+	width: 1200px;
+	margin: 0 auto;
+}
+.top-banner-c h1{
+	float: left;
+	left: 0px;
+	font-size: 20px;
+	color: #FFFFFF;
+	margin-left: 20px;
+}
+.top-banner-c p{
+	color: #FFFFFF;
+	float: right;
+}
+.top-banner-c .layui-btn{
+	margin-left: 30px;
+}
+.layui-nav{
+	background: #ededec;
+	color: #3d3d3d;
+}
+.layui-nav-tree{
+	width: 200px;
+	padding-top: 55px;
+	float: left;
+}
+.nav1{
+	background: #f8b517;
+	font-size: 18px;
+	color: #3d3d3d!important;
+}
+.layui-nav-itemed .layui-nav-child{
+	background: #ededec!important;
+}
+.layui-nav-tree .layui-nav-child a{
+	color: #3d3d3d;
+	font-size: 14px;
+}
+.layui-nav-tree .layui-nav-item a:hover{
+	background: #f8b517;
+}
+.layui-nav-tree .layui-nav-child a:hover{
+	color: #187cd0;
+	background: #ddebf7;
+}
+.layui-nav-tree .layui-nav-bar{
+    opacity: 0!important;
+}
+.layui-nav-child{
+	font-size: 14px;
+	color: #3d3d3d;
+}
+.layui-nav-tree .layui-nav-item a{
+	height: 60px;
+	line-height: 60px;
+}
+.layui-nav-itemed .layui-nav-more{
+	top: 20px!important;
+}
+.layui-nav-tree .layui-nav-more{
+	top: 26px;
+}
+.layui-nav .layui-nav-item a{
+	padding: 0 40px;
+}
+.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
+	background-color: #ddebf7;
+    color: #187cd0;
+}
+.layui-nav-tree dl dd .active{
+	background-color: #ddebf7;
+    color: #187cd0;
+}
+.layui-nav-itemed>a{
+	/*color: #3d3d3d!important;*/
+}
+.layui-nav-child dd {
+    border-bottom: 1px solid #fff;
+}
+.layui-nav .layui-nav-item a{
+	color: #3d3d3d;
+	font-size: 16px;
+}
+a.nav1{
+	color: #FFFFFF!important;
+}
+
+.applicationTitC {
+    font-size: 18px;
+    color: #2f2e2e;
+    border-left: 5px solid;
+    border-color: #2f2e2e;
+    margin-top: 25px;
+    padding-left: 10px;
+}
+.applicationTitE {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #ffca4d;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
+}
+
+.footer{
+	background: #e0e0e0;
+	height: 60px;
+	line-height: 60px;
+}
+.footer p{
+	font-size: 14px;
+	text-align: center;
+}
+.type-size{
+	font-size: 18px;
+	width: 280px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	margin-right: 100px;
+	margin-left: 100px;
+}
+/*表格样式*/
+.layui-table{
+	text-align: center;
+}
+.layui-table th{
+	text-align: center;
+}
+
+.text-c{
+	text-align: center;
+}
+
+
+.content{
+	background: #ededec;
+}
+.content-r{
+	width: 900px; 
+	padding: 30px 50px;
+	float: right;
+	background: #FFFFFF;
+	min-height: 421px;
+}
+.content-r1{
+	width: 900px; 
+	padding: 30px 50px;
+	float: right;
+	background: #FFFFFF;
+	min-height: 399px;
+}
+#identifying-code {
+    border: 1px solid #e6e6e6;
+    width: 92px;
+    height: 36px;
+}
+
+
+table td a{
+	color: #007DDB;
+}
+table td a:hover{
+	color: #007DDB;
+	text-decoration: underline;
+}
+
+/*验证码*/
+.vCode{  
+    font-family:Arial;  
+    font-style:italic;  
+    font-weight:bold;  
+    border:0;  
+    letter-spacing:2px;  
+    color:blue;  
+    height: 38px;
+    width: 96px;
+    font-size: 18px;
+}

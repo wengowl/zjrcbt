@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>补贴申请表</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="renderer" content="webkit">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<!--layui-->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<!--公用样式-->
+		<link href="css/apply.css" rel="stylesheet" type="text/css" />
+		<!--项目申请样式-->
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+		  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="img/favicon.ico" />
+	</head>
+
+	<body>
+        <div id="header"></div>
+            
+		<div style="width: 1200px;margin: 0 auto;" class="content layui-clear">
+            <div id="menu"></div>
+	
+            <div id="main">
+			<!-- 内容主体区域 -->
+			<div class="c-apply">
+				<p class="applicationTitC" style="margin-left: 20px;">补贴申请表</p>
+				<p class="applicationTitE" style="margin-left: 20px;">Application for Subsidy</p>
+				<form class="layui-form layui-form-pane">
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20" style="padding: 0 75px;">
+							<div>
+								<img src="img/head.jpg" id="c-headImg" />
+							</div>
+							<div>
+								<a class="c-img-input">上传证件照<input type="file" id="c-headBtn" accept="image/gif,image/jpeg,image/jpg,image/png" lay-verify="header"/></a>
+
+							</div>
+							<p class="c-pictureMsg">近期一寸正面免冠证件照</p>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">姓名</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入姓名" class="layui-input" name="name" id="name" lay-verify="required" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">性别</label>
+								<div class="layui-input-block  radioSex">
+									<input type="radio" name="sex" id="male" value="0" title="男" checked="" />
+									<input type="radio" name="sex" id="female" value="1" title="女" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">身份证号码</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入身份证号码" class="layui-input" name="idCard" id="idCard" disabled="disabled" lay-verify="required|identity" value="512415198605251645"/>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">民族</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入民族" class="layui-input" name="national" id="national" lay-verify="required" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">籍贯</label>
+								<div class="form-inline" id="distpicker">
+									<div data-toggle="distpicker">
+										<select class="form-control" id="province" lay-ignore></select>
+										<select class="form-control" id="city" lay-ignore></select>
+									</div>
+								</div>
+							</div>
+							<div id="show"></div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">政治面貌</label>
+								<div class="layui-input-block">
+<!--									<select lay-verify="required" name="political" id="political">
+										<option value="">请选择</option>
+										<option value="中共党员">中共党员</option>
+										<option value="中共预备党员">中共预备党员</option>
+										<option value="共青团员">共青团员</option>
+										<option value="群众">群众</option>
+								</select>-->									
+								<input type="text" autocomplete="off" placeholder="请输入政治面貌" class="layui-input" name="politicsStatus" id="politicsStatus" lay-verify="required"/>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">出生年月</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请选择出生日期" class="layui-input" name="birth" id="birth" lay-verify="required" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">毕业时间</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请选择毕业时间" class="layui-input" name="graduationDate" id="graduationDate" lay-verify="required" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">毕业学校</label>
+								<div class="layui-input-block">
+									
+									<input type="text" autocomplete="off" placeholder="请输入毕业学校" class="layui-input" name="school" id="school" lay-verify="required" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">专业</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入专业" class="layui-input" name="professional" id="professional" lay-verify="required" />
+									
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">学历</label>
+								<div class="layui-input-block">
+									<select lay-verify="required" name="education" id="education">
+										<option value="">请选择</option>
+										<option value="0">专科</option>
+										<option value="1">本科</option>
+										<option value="2">硕士研究生</option>
+										<option value="3">博士研究生</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">职称</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入职称" class="layui-input" name="duty" id="duty" lay-verify="required" />
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">工作时间</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请选择工作时间" class="layui-input" name="workingTime" id="workingTime" lay-verify="required" />
+									
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">引进时间</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请选择参保时间" class="layui-input" name="introductionTime" id="introductionTime" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">申请时间</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请选择申请时间" class="layui-input" name="applyTime" id="applyTime" lay-verify="required" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">人才类别</label>
+								<div class="layui-input-block">
+									<select lay-verify="required" name="TalentCategory" id="TalentCategory">
+										<option value="">请选择</option>
+										<option value="0">大专</option>
+										<option value="1">本科</option>
+										<option value="2">研究生</option>
+										<option value="3">副高级专技</option>
+										<option value="4">高级技师</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">申请类别</label>
+								<div class="layui-input-block">
+									<select lay-verify="required" name="applicationCategory" id="applicationCategory" onchange="money1000(this)">
+										<option value="">请选择</option>
+										<option value="0">租房补贴</option>
+										<option value="1">生活补贴</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">申请金额</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入申请金额" class="layui-input" name="appliedAmount" id="appliedAmount" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label c-label-8">院校是否双一流</label>
+								<div class="layui-input-block layui-input-block-8">
+									<select lay-verify="required" name="doubleTop" id="doubleTop">
+										<option value="">请选择</option>
+										<option value="0">是</option>
+										<option value="1">否</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">联系电话</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入联系电话" class="layui-input" name="phone" id="userPhone" lay-verify="userPhone" />
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位性质</label>
+								<div class="layui-input-block">
+									<!--<select lay-verify="required" name="companyNature" id="companyNature">
+										<option value="">请选择</option>
+										<option value="国家行政企业">国家行政企业</option>
+										<option value="公私合作企业">公私合作企业</option>
+										<option value="中外合资企业">中外合资企业</option>
+										<option value="社会组织机构">社会组织机构</option>
+										<option value="国际组织机构">国际组织机构</option>
+										<option value="外资企业">外资企业</option>
+										<option value="私营企业">私营企业</option>
+										<option value="集体企业">集体企业</option>
+										<option value="国防军事企业">国防军事企业</option>
+									</select>-->
+									<input type="text" autocomplete="off" placeholder="请输入用人单位名称" class="layui-input" name="companyType" id="companyType" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md8 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label c-label-7">用人单位名称（创办市场主体名称）</label>
+								<div class="layui-input-block layui-input-block-7">
+									<input type="text" autocomplete="off" placeholder="请输入用人单位名称" class="layui-input" name="companyName" id="companyName" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md8 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单位地址</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入单位地址" class="layui-input" name="companyAddress" id="companyAddress" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label c-label-6">单位联系人</label>
+								<div class="layui-input-block layui-input-block-6">
+									<input type="text" autocomplete="off" placeholder="请输入单位联系人" class="layui-input" name="companyContact" id="companyContact" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">职务</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入职务" class="layui-input" name="contactProfessional" id="contactProfessional" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">联系电话</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入联系电话" class="layui-input" name="contactPhone" id="contactPhone" lay-verify="phone" />
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label">银行卡号</label>
+								<div class="layui-input-block">
+									<input type="text" autocomplete="off" placeholder="请输入银行卡号" class="layui-input" name="bankCard" id="bankCard" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<div class="layui-col-md8 c-padding-lr-20">
+							<div class="layui-form-item">
+								<label class="layui-form-label c-label-6">个人开户银行</label>
+								<div class="layui-input-block layui-input-block-6">
+									<input type="text" autocomplete="off" placeholder="请输入开户银行" class="layui-input" name="bank" id="bank" lay-verify="required" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row" style="float: right;margin-top: -266px;margin-right: 70px;">
+						<div>
+							<img src="img/qr-code.jpg" id="c-codeImg" />
+						</div>
+						<div>
+							<a class="c-img-input">上传学历二维码<input type="file" id="c-code" accept="image/gif,image/jpeg,image/jpg,image/png" /></a>
+						</div>
+						<p class="c-pictureMsg">若无学历二维码，请将学历认证信息放入证明材料中</p>
+					</div>
+					<div class="layui-clear"></div>
+					<div class="layui-form-item layui-form-text c-padding-lr-20">
+						<label class="layui-form-label" style="text-align: center;">本人主要简历</label>
+						<div class="layui-input-block">
+							<table class="layui-table" id="resume">
+								<thead>
+									<tr>
+										<th style="width: 20%;">起止时间</th>
+										<th style="width: 30%;">所在单位</th>
+										<th style="width: 20%;">部门</th>
+										<th style="width: 20%;">职务</th>
+										<th style="width: 10%;">操作</th>
+									</tr>
+								</thead>
+								<tbody id="work">
+									<tr>
+										<td><input name="date" class="inputStyle" placeholder="" id="rage1"/></td>
+										<td><input name="company" class="inputStyle" placeholder="" id="company1"/></td>
+										<td><input name="department" class="inputStyle" placeholder="" id="department1"/></td>
+										<td><input name="duty" class="inputStyle" placeholder="" id="duty1"/></td>
+										<td>
+										    <i class="layui-icon delete" style="font-size: 20px;" onclick="deleteTable(this)">&#xe640;</i> 
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" onclick="addTable()" class="layui-btn layui-btn-normal" style="float: right;"><i class="layui-icon"  style="font-size: 20px;">&#xe654;</i> </button>
+							<div class="layui-clear"></div>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text c-padding-lr-20">
+						<p class="applicationTitC">附件证明材料</p>
+						<p class="applicationTitE">EVIDENTIARY MATERIAL</p>
+						<div class="layui-row">
+						  	<div class="layui-col-md12" >
+						    	<div class="layui-form-item">
+							    	
+							    	<div class="">
+	                                	<a class="inputA">上传证明材料<input type="file" id="file1" accept=".pdf" lay-verify="attachment"/></a>
+	                                    <span id="upload_file"></span>
+							    		<div class="fileName">
+							    		</div>
+							    	</div>
+							  	</div>
+							</div>
+						</div>
+						<div class="layui-upload"></div>
+						<p class="applicationTitC">说明：<span>(请将所有资料放到一个pdf文件中上传)</span></p>
+						<p class="text1">1，大专生需提供的材料：(1)电商供应链创业证明文件；(2)学历证书文；(3)身份证；(4)工商注册登记的营业执照副本</p>
+						<p class="text1">2，本科生需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同</P>
+						<p class="text1">3，硕士生需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同</p>
+						<p class="text1">4，副高级专业技术职务任职资格、高级技师资格的人员需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同；(5)副高级别的专业技术任职资格证书或高级技师证书。
+					</div>
+					
+					<p class="text-c" style="margin: 40px 0;">
+						<button class="layui-btn" id="apply" lay-submit lay-filter="apply">提交</button>
+					</p>
+					
+				</form>
+			</div>
+            </div>
+		</div>
+		
+		<div id="footer" class="footer"></div>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/area/distpicker.data.js"></script>
+		<script src="js/area/distpicker.js"></script>
+		<script type="text/javascript" src="js/swfupload/uploadify/jquery.uploadify.min.js"></script>   <!--ie下图片上传-->
+		<script src="js/common.js"></script>
+		<script src="js/upload.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/apply.js"></script>
+        
+	</body>
+
+</html>

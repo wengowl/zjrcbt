@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>已复核</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="renderer" content="webkit">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<!--layui-->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<!--公用样式-->
+		<link href="css/list.css"  rel="stylesheet" type="text/css"/><!--个人列表-->
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+		  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header"></div>
+		<div style="width: 1200px;margin: 0 auto;" class="layui-clear content">
+			<div id="menu1"></div>
+			<!--<div style="float: left;text-align: center;">
+				<a href="javascript:;" style="width: 200px;height: 60px;margin-top: 55px;display: inline-block;background: #f8b517;color: #FFFFFF;font-size: 16px;line-height: 60px;">申报记录</a>
+			</div>-->
+			<div class="content-r" >
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+				    <div class="layui-input-inline" style="width: 120px;margin: 20px 0 0 20px;">
+				        <select name="apply_batch"  id="apply_batch" lay-verify="required" style="width: 100%;height: 38px; border: 1px solid #cecece; padding-left: 6px;" class="apply_name">
+				        	<option value="">申请类别</option>
+					        <option value="2017">租房补贴</option>
+					        <option value="2016">生活补贴</option>
+				        </select>
+				    </div>
+				    <div class="layui-input-inline" style="width: 120px;margin: 20px 0 0 20px;">
+				        <select name="apply_batch"  id="apply_batch" lay-verify="required" style="width: 100%;height: 38px; border: 1px solid #cecece; padding-left: 6px;" class="apply_name">
+				        	<option value="">状态</option>
+					        <option value="2017">已通过</option>
+					        <option value="2016">不通过</option>
+				        </select>
+				    </div>
+				    <button type="button" class="layui-btn layui-btn-normal" style="margin: 20px 0 0 20px;">搜索</button>
+				</div>
+			</form>
+					    
+			
+			<!-- 内容主体区域 -->
+			
+				<script id="list" type="text/html">
+					<table width="100%" border="1" class="layui-table" style="text-align: center;">
+						<thead>
+							<tr>
+								<th width="8%">姓名</th>
+								<th width="10%">身份证号</th>
+								<th width="8%">申请类别</th>
+								<th width="8%">引进时间</th>
+								<th width="8%">申报金额（元）</th>
+								<th width="15%">个人开户行</th>
+								<th width="10%">银行卡号</th>
+								<th width="6%">联系方式</th>
+								<th width="6%">申报状态</th>
+								
+						    </tr> 
+						</thead>
+					    <tbody id="list_all" class="list_all">
+					    	
+					    	{{#  layui.each(d.list, function(index, item){ }}
+							<tr>
+								<td><a href="applyDetails.html?id={{item.id}}" target="_blank">{{item.username}}</a></td>
+								<td>{{item.idCard}}</td>
+								<td>{{item.type}}</td>
+								<td>{{item.time}}</td>
+								<td>{{item.money}}</td>
+								<td>{{item.bank}}</td>
+								<td>{{item.bankCard}}</td>
+								<td>{{item.phone}}</td>
+								<td>{{item.status}}</td>
+							</tr>
+							{{#  }); }}
+							{{#  if(d.list.length === 0){ }}
+								<tr class="text-c"><td>没有无数据</td></tr>
+							{{#  } }} 
+							
+					    </tbody>
+					</table>
+				</script>
+				<div id="view"></div>
+				<div id="page"></div>
+			</div>
+		</div>
+		
+		<div id="footer" class="footer"></div>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/administrator.js"></script>
+	</body>
+</html>

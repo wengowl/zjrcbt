@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的申报</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="renderer" content="webkit">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<!--layui-->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<!--公用样式-->
+		<link href="css/apply.css" rel="stylesheet" type="text/css" />
+		<!--项目申请样式-->
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+		  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header"></div>
+		<div style="width: 1200px;margin: 0 auto;" class="layui-clear content">
+			<div id="menu"></div>
+
+			<!-- 内容主体区域 -->
+			<div class="" style="width: 920px; padding: 20px 40px;float: left; background: #FFFFFF;">
+				<form id="form8">
+					<p class="applicationTitC">附件证明材料</p>
+					<p class="applicationTitE">EVIDENTIARY MATERIAL</p>
+					<div class="layui-row">
+					  	<div class="layui-col-md12" >
+					    	<div class="layui-form-item">
+						    	
+						    	<div class="">
+                                	<a class="inputA">上传证明材料<input type="file" id="file1" accept=".pdf"/></a>
+                                    <span id="upload_file"></span>
+						    		<div class="fileName"></div>
+						    	</div>
+						  	</div>
+						</div>
+					</div>
+					<div class="layui-upload">
+					</div>
+					<p class="applicationTitC">说明：<span>(所有资料拍照放到一个pdf文件中上传)</span></p>
+					<p class="text1">1，大专生需提供的材料：(1)电商供应链创业证明文件；(2)学历证书文；(3)身份证；(4)工商注册登记的营业执照副本</p>
+					<p class="text1">2，本科生需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同</P>
+					<p class="text1">3，硕士生需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同</p>
+					<p class="text1">4，副高级专业技术职务任职资格、高级技师资格的人员需提供的材料：(1)学历、学位证书文件；(2)身份证；(3)工商注册登记的营业执照副本；(4)劳动合同；(5)副高级别的专业技术任职资格证书或高级技师证书。
+</p>
+				</form>
+			</div>
+		</div>
+		<div id="footer" class="footer"></div>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/material.js"></script>
+	</body>
+</html>

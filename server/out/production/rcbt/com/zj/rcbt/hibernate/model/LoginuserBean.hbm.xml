@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zj.rcbt.hibernate.model.LoginuserBean" table="loginuser" schema="rcbt">
+        <id name="idNum">
+            <column name="id_num" sql-type="varchar(18)" length="18"/>
+        </id>
+        <property name="userName">
+            <column name="user_name" sql-type="varchar(32)" length="32"/>
+        </property>
+        <property name="passwd">
+            <column name="passwd" sql-type="varchar(32)" length="32"/>
+        </property>
+        <property name="userType">
+            <column name="user_type" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

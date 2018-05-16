@@ -1,0 +1,144 @@
+.c-apply{
+	width: 1000px;
+	float: left;
+	background: #FFFFFF;
+}
+#c-headBtn {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    height: 35px;
+    width: 180px;
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+    filter: "alpha(opacity=0)";
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.c-img-input {
+    line-height: 35px;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    height: 35px;
+    background: #5eb877;
+    overflow: hidden;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.c-img-input:hover{
+	color: #FFFFFF;
+}
+#c-headImg{
+	width: 180px;
+	height: 240px;
+}
+#c-codeImg{
+	width: 180px;
+	height: 180px;
+	border: 1px solid #ccc;
+}
+#c-code {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    height: 35px;
+    width: 180px;
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+    filter: "alpha(opacity=0)";
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.c-padding-lr-20{
+	padding: 0 20px;
+}
+.c-pictureMsg{
+	color: red;
+	font-size: 12px;
+	width: 180px;
+	text-align: center;
+}
+.c-label-6{
+	width: 120px!important;
+}
+.layui-input-block-6{
+	margin-left: 120px!important;
+}
+.layui-form-pane .layui-input-block {
+    left: -2px;
+}
+.c-label-7{
+	width: 260px!important;
+}
+.layui-input-block-7{
+	margin-left: 260px!important;
+}
+.c-label-8{
+	width: 140px!important;
+}
+.layui-input-block-8{
+	margin-left: 140px!important;
+}
+#province,#city{
+	height: 38px;
+	line-height: 38px;
+	border: 1px solid #e6e6e6;
+	width: 88px;
+}
+/*附件证明材料*/
+.inputA {
+    line-height: 35px;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 160px;
+    height: 35px;
+    background: #5eb877;
+    overflow: hidden;
+    margin-top: 10px;
+}
+#file1 {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    height: 35px;
+    width: 160px;
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+    filter: "alpha(opacity=0)";
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.inputA:hover{
+    color: #FFFFFF;
+}
+
+.layui-table td, .layui-table th{
+	height: 36px;
+	line-height: 36px;
+	padding: 0px 20px;
+}
+.inputStyle{
+	height: 35px;
+	border: none;
+	width: 100%;
+	text-align: center;
+}
+.layui-table tbody tr:hover{
+	background-color: #ffffff;
+}
+
+.text1{
+	font-size: 16px;
+    padding: 5px;
+    line-height: 25px;
+}
+
+

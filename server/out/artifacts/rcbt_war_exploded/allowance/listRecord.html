@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>申报记录</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="renderer" content="webkit">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<!--layui-->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<!--公用样式-->
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+		  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header"></div>
+		<div style="width: 1200px;margin: 0 auto;" class="layui-clear content">
+			<div id="menu"></div>
+
+			<!-- 内容主体区域 -->
+			<div class="content-r1" >
+				<a class="layui-btn layui-btn-normal" href="apply.html">申请补贴</a>
+				<script id="demo" type="text/html">
+					<table width="100%" border="1" class="layui-table" style="text-align: center;">
+					<thead>
+						<tr>
+							<th width="10%">申报批次</th>
+							<th width="20%">申请类别</th>
+							<th width="25%">申报资料</th>
+							<th width="15%">申报金额</th>
+							<th width="10%">申报状态</th>
+							<th width="10%">&nbsp;</th>
+					    </tr> 
+					</thead>
+				    <tbody id="list_all" class="list_all">
+				    	{{#  layui.each(d.list, function(index, item){ }}
+							<tr>
+								<td>{{item.batch}}</td>
+								<td>{{item.type}}</td>
+								<td><a href="apply.html?id={{item.idCard}}">申请表</a></td>
+								<td>{{item.money}}</td>
+								<td>{{item.status}}</td>
+								<td>
+									<a target="_blank" href="applyDetails.html?id={{item.idCard}}">申请详情</a>
+								</td>
+							</tr>
+						{{#  }); }}
+						{{#  if(d.list.length === 0){ }}
+						    无数据
+						{{#  } }} 
+				    </tbody>
+				</table>
+				</script>
+				<div id="view"></div>
+			</div>
+		</div>
+		
+		<div id="footer" class="footer"></div>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/listRecord.js"></script>
+		
+	</body>
+</html>

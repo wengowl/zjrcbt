@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zj.rcbt.hibernate.model.AllowancehistoryBean" table="allowancehistory" schema="rcbt">
+        <id name="id" column="id"/>
+        <property name="idNum" column="id_num"/>
+        <property name="offerTime" column="offer_time"/>
+        <property name="offerMoney" column="offer_money"/>
+        <property name="allowancetype" column="allowancetype"/>
+        <property name="comment" column="comment"/>
+        <property name="shebao" column="shebao"/>
+        <property name="bank" column="bank"/>
+        <property name="bankCard" column="bank_card"/>
+        <property name="phone" column="phone"/>
+        <property name="name" column="name"/>
+        <property name="company" column="company"/>
+        <property name="isfirstschool" column="isfirstschool"/>
+        <property name="batch" column="batch"/>
+    </class>
+</hibernate-mapping>

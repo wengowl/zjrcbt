@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改用户信息</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="renderer" content="webkit">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link href="layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<!--layui-->
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<!--公用样式-->
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+		  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" href="img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header"></div>
+		<div style="width: 1200px;margin: 0 auto;" class="layui-clear content">
+			<div id="menu"></div>
+
+			<!-- 内容主体区域 -->
+			<div class="content-r1" >
+				<form id="UserRegister" class="layui-form layui-form-pane">
+						<div class="layui-row">
+							<div class="layui-col-md3">&nbsp;</div>
+						    <div class="layui-col-md6" style="margin: 0 auto;">
+						    	<div class="layui-form-item">
+							    	<label class="layui-form-label">用户名</label>
+							    	<div class="layui-input-block">
+								      	<input type="text" class="layui-input" id="user_name" autocomplete="off" readonly="readonly"/>
+							    	</div>
+							  	</div>
+						    </div>
+						    <div class="layui-col-md3">&nbsp;</div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md3">&nbsp;</div>
+						    <div class="layui-col-md6" style="margin: 0 auto;">
+						    	<div class="layui-form-item">
+							    	<label class="layui-form-label">身份证号</label>
+							    	<div class="layui-input-block">
+								      	<input type="text" class="layui-input" id="user_idCard" autocomplete="off" readonly="readonly"/>
+							    	</div>
+							  	</div>
+						    </div>
+						    <div class="layui-col-md3">&nbsp;</div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md3">&nbsp;</div>
+						    <div class="layui-col-md6" style="margin: 0 auto;">
+						    	<div class="layui-form-item">
+							    	<label class="layui-form-label">邮箱</label>
+							    	<div class="layui-input-block">
+								      	<input type="password"  autocomplete="off" placeholder="请输入邮箱" class="layui-input" name="email" id="email" lay-verify="required"/>
+							    	</div>
+							  	</div>
+						    </div>
+						    <div class="layui-col-md3">&nbsp;</div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md3">&nbsp;</div>
+						    <div class="layui-col-md6">
+						    	<div class="layui-form-item">
+							    	<label class="layui-form-label">验证码</label>
+							    	<div class="layui-input-block" style="position: relative;">
+							      		<input type="text" autocomplete="off" placeholder="请输入验证码" class="layui-input" name="identifying-r" id="identifying-r" lay-verify="required|vCode" style="width: 240px;display: inline-block;"/>
+							      		<input type = "button" id="code" class="vCode" onclick="createCode(this)"/>
+							    	</div>
+							  	</div>
+						    </div>
+						    <div class="layui-col-md3">&nbsp;</div>
+						</div>
+						<div class="text-c">
+							<button type="button" class="layui-btn" lay-filter="changeMsgBtn" lay-submit=""  id="changeMsgBtn">修  改</button>
+						</div>
+					</form> 
+			</div>
+		</div>
+		
+		<div id="footer" class="footer"></div>
+		
+		<script src="layui/layui.all.js"></script>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/change.js"></script>
+		<script>
+			i=2
+		</script>
+	</body>
+</html>

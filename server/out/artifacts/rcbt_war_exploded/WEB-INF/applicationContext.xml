@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!-- 引入属性文件 -->
+    <context:property-placeholder location="/WEB-INF/db.properties" />
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host">
+            <value>${mail.host}</value>
+        </property>
+        <property name="port" value="${mail.port}"></property>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            </props>
+        </property>
+        <property name="username">
+            <value>${mail.username}</value>
+        </property>
+        <property name="password">
+            <value>${mail.password}</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.from}" />
+        <property name="subject" value="${mail.subject}" />
+        <property name="to" value="${mail.to}" />
+        <!--
+        <property name="text" value="邮件内容" />
+        -->
+    </bean>
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"   destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>
+    </bean>
+
+
+    <!-- 配置SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://192.168.0.143:3306/rcbt</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <!--<prop key="hibernate.connection.url">jdbc:mysql://192.168.0.143:3306/rcbt</prop>-->
+                <!--<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>-->
+
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>com.zj.rcbt.hibernate.*</value>
+            </list>
+        </property>
+        <property name="mappingLocations">
+            <list>
+                <!-- 以下用来列出Hibernate映射文件 -->
+                <value>classpath:/com/zj/rcbt/hibernate/model/*.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowancehistoryBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/LoginuserBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/LoginuserBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ResumeBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/LoginuserBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/SocialsecurityBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/TopschoolBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/TopmajorBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ArchivesBean.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 注解包扫描  -->
+    <context:annotation-config />
+    <context:component-scan base-package="com.zj.rcbt.hibernate" />
+    <context:component-scan base-package="com.zj.rcbt.spring.service"/>
+    <context:component-scan base-package="com.zj.rcbt.spring.job"/>
+    <import resource="quartz.xml" />
+    <!-- 配置一个事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 配置事务增强处理,指定事务管理器 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!-- 用于配置详细的事务语义 -->
+        <tx:attributes>
+            <!-- 所有以'get'开头的方法是read-only的 -->
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="del*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="start*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="stop*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="run*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <!-- 其他方法使用默认的事务设置 -->
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    <aop:config>
+        <!-- 配置一个切入点 -->
+        <aop:pointcut id="pointcut" expression="execution(* com.zj.rcbt.*.*.*.*(..))" />
+        <!-- 指定在leePointcut切入点应用txAdvice事务增强处理 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
+    </aop:config>
+</beans>

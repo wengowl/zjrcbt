@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zj.rcbt.hibernate.model.ArchivesBean" table="archives" schema="rcbt">
+        <id name="id" column="id"/>
+        <property name="userName" column="user_name"/>
+        <property name="idNum" column="id_num"/>
+        <property name="status" column="status"/>
+        <property name="inzhuji" column="inzhuji"/>
+    </class>
+</hibernate-mapping>

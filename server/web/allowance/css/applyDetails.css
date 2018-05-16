@@ -1,0 +1,20 @@
+.layui-form-item {
+    margin-bottom: 0px;
+    line-height: 35px;
+}
+#pictureUrl,#educationQrcode{
+	width: 180px;
+}
+#pictureUrl{
+	height: 240px;
+}
+.details-span{
+	line-height: 32px;
+}
+.details-label{
+	color: #799acc;
+	line-height: 32px;
+}
+.layui-col-space30>* {
+    padding: 0px 15px;
+}

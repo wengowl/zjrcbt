@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zj.rcbt.hibernate.model.SocialsecurityBean" table="socialsecurity" schema="rcbt">
+        <id name="id" column="id"/>
+        <property name="userName" column="user_name"/>
+        <property name="idNum" column="id_num"/>
+        <property name="beginTime" column="begin_time"/>
+        <property name="lastTime" column="last_time"/>
+        <property name="monthes" column="monthes"/>
+        <property name="status" column="status"/>
+    </class>
+</hibernate-mapping>

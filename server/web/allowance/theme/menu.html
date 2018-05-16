@@ -1,0 +1,12 @@
+<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo">
+        <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;" class="nav1" onclick="navopen()">{{ d.title }}<i class="layui-icon" style="font-size: 16px;margin-left: 30px;font-weight: bold;">&#xe61a;</i></a>
+                <dl class="layui-nav-child">
+                    {{#  layui.each(d.list, function(index, item){ }}
+                        <dd>
+                                <a href="{{ item.href }}">{{ item.title }}</a>
+                        </dd>
+                    {{#  }); }}
+                </dl>
+        </li>
+</ul>

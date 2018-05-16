@@ -1,0 +1,67 @@
+body{
+	background: url(../img/loginBg.jpg) no-repeat;
+	background-size: cover;
+	margin: 0;
+	padding: 0;
+}
+.c-login-warp{
+	width: 540px;
+	margin: 7%  auto;	
+}
+.layui-tab-card{
+	border: none;
+}
+.layui-tab-title{
+	height: 60px;
+}
+.layui-tab-title li{
+	width: 150px;
+	background: -webkit-linear-gradient(#4bbaf9, #229adc); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#4bbaf9, #229adc); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#4bbaf9, #229adc); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#4bbaf9, #229adc); /* 标准的语法 */
+ 	height: 60px;
+	font-size: 20px;
+	line-height: 60px;
+	color: #FFFFFF;
+	letter-spacing:10px;
+}
+.layui-tab-card>.layui-tab-title .layui-this:after {
+    border-top: none;
+    border-width: 0px;
+    border-bottom-color: #fff;
+    height: 60px;
+}
+.layui-tab-content{
+	background: #FFFFFF;
+	
+}
+.layui-tab-card>.layui-tab-title li{
+	margin: 0;
+}
+.layui-tab-item{
+	width: 350px;
+	margin: 20px auto;
+}
+.layui-tab-title .layui-this{
+	color: #FFFFFF;
+	
+}
+.layui-tab-card>.layui-tab-title .layui-this{
+	background: -webkit-linear-gradient(#48b9f8, #0f78b3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#48b9f8, #0f78b3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#48b9f8, #0f78b3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#48b9f8, #0f78b3); /* 标准的语法 */
+   box-shadow: 0px 5px 10px #64c0f5;
+}
+#c-login,#c-register,#c-find{
+	width: 350px;
+	letter-spacing:20px;
+	margin-top: 30px;
+}
+#identifying-code,#identifying-code-r,#identifying-code-f{
+	border: 1px solid #e6e6e6;
+	width: 92px;
+	height: 36px;
+}
+  

@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>"hello"</title>
+  </head>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          var saveDataAry=[];
+          var data1={"idNum":"123456789"};
+          saveDataAry.push(data1);
+          $.ajax({
+              type:"POST",
+              url:"apply/get",
+              dataType:"json",
+              contentType:"application/json",
+              data:JSON.stringify(saveData),
+              success:function(data){
+
+              }
+          });
+      });
+  </script>
+  <body>
+
+  </body>
+</html>
