@@ -22,5 +22,6 @@
         <property name="company" column="company"/>
         <property name="isfirstschool" column="isfirstschool"/>
         <property name="batch" column="batch"/>
+        <property name="over" column="over"/>
     </class>
 </hibernate-mapping>

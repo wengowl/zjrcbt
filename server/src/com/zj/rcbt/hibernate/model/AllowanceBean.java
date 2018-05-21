@@ -23,6 +23,7 @@ public class AllowanceBean {
     private String company;
     private String isfirstschool;
     private String batch;
+    private String over;
 
     @Id
     @Column(name = "allownce_id")
@@ -194,6 +195,16 @@ public class AllowanceBean {
         this.batch = batch;
     }
 
+    @Basic
+    @Column(name = "over")
+    public String getOver() {
+        return over;
+    }
+
+    public void setOver(String over) {
+        this.over = over;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -215,12 +226,13 @@ public class AllowanceBean {
                 Objects.equals(name, that.name) &&
                 Objects.equals(company, that.company) &&
                 Objects.equals(isfirstschool, that.isfirstschool) &&
-                Objects.equals(batch, that.batch);
+                Objects.equals(batch, that.batch) &&
+                Objects.equals(over, that.over);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch);
+        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, over);
     }
 }

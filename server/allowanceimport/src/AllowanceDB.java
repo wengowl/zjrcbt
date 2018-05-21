@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -90,7 +91,7 @@ public class AllowanceDB {
                 System.out.print(allowanceBean.getName()+"\t");
                 preparedStatement.setString(12, allowanceBean.getCompany());
                 System.out.print(allowanceBean.getCompany()+"\t");
-                preparedStatement.setString(13, allowanceBean.getCompany());
+                preparedStatement.setString(13, allowanceBean.getBatch());
                 System.out.print(allowanceBean.getBatch()+"\t");
                 System.out.println();
                 preparedStatement.addBatch();
@@ -139,6 +140,70 @@ public class AllowanceDB {
 
 
     }
+    public void updatex(List<AllowanceBean> allowanceBeans){
+        try {
+            Connection connection= AllowanceDB.getConnection(url,user,passwd);
+
+            connection.setAutoCommit(false);
+            String sql = "update allowance set monthes=? , sum_money=? where id_num=?";
+            PreparedStatement preparedStatement =connection.prepareStatement(sql);
+            for (AllowanceBean allowanceBean:allowanceBeans) {
+                preparedStatement.setString(3, allowanceBean.getIdNum());
+                System.out.print(allowanceBean.getIdNum()+"\t");
+                preparedStatement.setInt(2,allowanceBean.getSumMoney());
+                System.out.print(allowanceBean.getSumMoney()+"\t");
+                preparedStatement.setInt(1,allowanceBean.getMonthes());
+                System.out.print(allowanceBean.getMonthes()+"\t");
+                System.out.println();
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            connection.commit();
+
+            free(preparedStatement,connection);
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public AllowanceBean find(AllowanceBean allowanceBean){
+        try {
+            Connection connection= AllowanceDB.getConnection(url,user,passwd);
+
+            String sql = "select * from allowance  where id_num=?";
+            PreparedStatement preparedStatement =connection.prepareStatement(sql);
+            preparedStatement.setString(1,allowanceBean.getIdNum());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            AllowanceBean abc = null;
+            while(resultSet.next()){
+                abc = new AllowanceBean();
+                abc.setIdNum(resultSet.getString("id_num"));
+                abc.setMonthes(resultSet.getInt("monthes"));
+                abc.setSumMoney(resultSet.getInt("sum_money"));
+            }
+
+
+            free(preparedStatement,connection);
+            return abc;
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+
+
+    }
 
 
     public void importExcel(File file, List<AllowanceBean> allowanceBeans,String batch){
@@ -171,7 +236,7 @@ public class AllowanceDB {
                 return;
 
 
-            for (int i = 4; i < rowCount; i++) {
+            for (int i = 3; i < rowCount; i++) {
                 Row row = sheet.getRow(i);
                 AllowanceBean allowanceBean = new AllowanceBean();
               /*  for(int j = 0;j<26;j++){
@@ -232,6 +297,83 @@ public class AllowanceDB {
             e.printStackTrace();
         }
     }
+
+
+    public void importExcelx(File file, List<AllowanceBean> allowanceBeans,String batch){
+
+        if (!file.exists()) {
+            System.out.println("file not exist");
+            return;
+        }
+        boolean isE2007 = false;
+        //判断是否是excel2007格式
+        if(file.getName().endsWith("xlsx")){
+            isE2007 = true;
+        }
+
+        FileInputStream is=null;
+        try {
+            is = new FileInputStream(file);
+            Workbook wb;
+            if(isE2007){
+                wb = new XSSFWorkbook(is);
+            }else{
+                wb = new HSSFWorkbook(is);
+            }
+            Sheet sheet = wb.getSheetAt(0);
+
+            int rowCount = sheet.getPhysicalNumberOfRows(); //获取总行数
+
+            if (rowCount < 2) {
+                System.out.println("sheet is null");
+            }
+            if (sheet == null)
+                return;
+
+
+            for (int i = 3; i < rowCount; i++) {
+                Row row = sheet.getRow(i);
+                AllowanceBean allowanceBean = new AllowanceBean();
+                Cell cella=row.getCell(0);
+                if (getCellValue(cella)==null||getCellValue(cella).equals("")){
+                    continue;
+                }
+                System.out.println(getCellValue(cella));
+                Cell cellb=row.getCell(1);
+                allowanceBean.setName(getCellValue(cellb));
+                Cell cellc=row.getCell(2);
+                allowanceBean.setCompany(getCellValue(cellc));
+                Cell celld=row.getCell(3);
+                allowanceBean.setIdNum(getCellValue(celld));
+                Cell celle=row.getCell(4);
+
+                Cell cellf = row.getCell(5);
+                allowanceBean.setBeginTime(getCellValue(cellf));
+                Cell cellg = row.getCell(6);
+                allowanceBean.setMonthes(new Integer(getCellValue(cellg)));
+                Cell cellh = row.getCell(7);
+                allowanceBean.setSumMoney(new Integer(getCellValue(cellh)));
+                Cell celli = row.getCell(8);
+                allowanceBean.setBank(getCellValue(celli));
+                Cell cellj = row.getCell(9);
+                allowanceBean.setBankCard(getCellValue(cellj));
+                Cell cellk = row.getCell(10);
+                allowanceBean.setPhone(getCellValue(cellk));
+
+                allowanceBean.setBatch(batch);
+                allowanceBean.setLastTime("2017-12");
+                allowanceBean.setUpdatetime("2017-12");
+                allowanceBean.setAllowancetype(allowanceBean.getSumMoney()/allowanceBean.getMonthes()+"");
+                allowanceBeans.add(allowanceBean);
+
+
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 获取合并单元格的值

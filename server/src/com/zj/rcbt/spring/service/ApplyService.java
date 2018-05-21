@@ -175,7 +175,7 @@ public class ApplyService {
             String qrcode = FileUtils.getdestUrl(applytableBean.getEducationQrcode(), "QRCode", request);
             applytableBean.setEducationQrcode(qrcode);
         }
-        if (applytableBean.getAttatchment() != null && !applytableBean.equals("")) {
+        if (applytableBean.getAttatchment() != null && !applytableBean.getAttatchment().equals("")) {
 
             String attatchement = FileUtils.getdestUrl(applytableBean.getAttatchment(), "attachment", request);
             applytableBean.setAttatchment(attatchement);
@@ -206,7 +206,7 @@ public class ApplyService {
         if (applytableBean.getEducationQrcode() != null && !applytableBean.getEducationQrcode().equals("")) {
             FileUtils.moveFile(applytableBean.getEducationQrcode(), "QRCode", request);
         }
-        if (applytableBean.getAttatchment() != null && !applytableBean.equals("")) {
+        if (applytableBean.getAttatchment() != null && !applytableBean.getAttatchment().equals("")) {
 
             FileUtils.moveFile(applytableBean.getAttatchment(), "attachment", request);
         }

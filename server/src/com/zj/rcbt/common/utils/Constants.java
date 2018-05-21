@@ -16,6 +16,8 @@ public final class Constants {
     public final static String socialsecurity_old="1";
 
 
+    public final static String allowance_over="1";//引进时间已经满三年
+
 
     //补贴类型，金额
     public final static String allowance_1="1";//600元

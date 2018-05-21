@@ -40,7 +40,7 @@ public class AllowanceController {
 
     @RequestMapping({"/gethistory"})
     @ResponseBody
-    public Map<String, Object> getAllowanceHistory(@RequestParam("batch") String batch, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+    public Map<String, Object> getAllowanceHistory(@RequestParam("offertime") String offertime,@RequestParam("batch") String batch, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard, @RequestParam("page") int page, @RequestParam("limit") int limit) {
 //        JSONObject jsonObject = JSONObject.parseObject(requestBody);
 //        String batch = jsonObject.getString("batch");
 //        String applicationCategory = jsonObject.getString("applicationCategory");
@@ -48,7 +48,7 @@ public class AllowanceController {
 //        int page=jsonObject.getInteger("page");
 //        int limit = jsonObject.getInteger("limit");
         log.info("getAllowanceHistory");
-        List<AllowancehistoryBean> allowancehistoryBeanList = allowanceService.findhistoryByPages(batch, applicationCategory, idCard, batch,(page - 1) * limit, limit);
+        List<AllowancehistoryBean> allowancehistoryBeanList = allowanceService.findhistoryByPages(offertime, applicationCategory, idCard, batch,(page - 1) * limit, limit);
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (AllowancehistoryBean allowancehistoryBean : allowancehistoryBeanList) {
@@ -71,7 +71,7 @@ public class AllowanceController {
 
         Map<String, Object> data = new HashMap<>();
         data.put("data", list);
-        data.put("count", allowanceService.getCounthistory(batch, applicationCategory, idCard,batch));
+        data.put("count", allowanceService.getCounthistory(offertime, applicationCategory, idCard,batch));
         data.put("code", "0");
         data.put("msg", "");
 

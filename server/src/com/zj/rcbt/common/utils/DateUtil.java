@@ -31,6 +31,26 @@ public class DateUtil {
         String reStr = sdf.format(dt1);
         return reStr;
     }
+    public static int getMonthNum(String month1,String month2) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = sdf.parse(month1);
+            date2 = sdf.parse(month2);
+        } catch (ParseException e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+        }
+        Calendar cal1=Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2=Calendar.getInstance();
+        cal2.setTime(date2);
+        return (cal2.get(1)-cal1.get(1))*12+(cal2.get(2)-cal1.get(2));
+
+    }
+
+
 
     public static String getCurrentTime(){
         Date day=new Date();
@@ -61,7 +81,7 @@ public class DateUtil {
 
     public static void main(String[] args){
         try {
-            System.out.println(DateUtil.dateAddMonth("2017-09",4));
+            System.out.println(DateUtil.getMonthNum("2017-09","2018-09"));
         } catch (Exception e) {
             e.printStackTrace();
         }

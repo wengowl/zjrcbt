@@ -106,6 +106,7 @@ phone varchar (32),
 name varchar (32),
 company varchar (32),
 batch varchar (255),
+over varchar (32),
 primary key (allownce_id),
 UNIQUE KEY id_num (id_num)
 );
