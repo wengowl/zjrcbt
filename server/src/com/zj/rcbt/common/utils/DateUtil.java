@@ -81,7 +81,7 @@ public class DateUtil {
 
     public static void main(String[] args){
         try {
-            System.out.println(DateUtil.getMonthNum("2017-09","2018-09"));
+            System.out.println(new Integer(""));
         } catch (Exception e) {
             e.printStackTrace();
         }

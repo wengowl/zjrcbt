@@ -39,6 +39,8 @@ public class ArchivesDao extends HibernateDaoSupport {
 
     public void update(ArchivesBean archivesBean){
         getHibernateTemplate().saveOrUpdate(archivesBean);
+        getHibernateTemplate().flush();
+        getHibernateTemplate().clear();
     }
 
     public ArchivesBean findByIDnum(String id_num){
@@ -59,7 +61,7 @@ public class ArchivesDao extends HibernateDaoSupport {
 
 
             session = getSessionFactory().openSession();
-            String sql="delete from ArchivesBean t  where t.id<>-1";
+            String sql="delete from ArchivesBean t  where t.id<>-1 and t.status='1'";
             Transaction tx = session.beginTransaction();
             session.createQuery(sql).executeUpdate();
             tx.commit();
@@ -150,7 +152,7 @@ public class ArchivesDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from ArchivesBean t where 1=1 ";
+            String sql = "from ArchivesBean t where 1=1 and t.status='0'";
             if (idnum != null&& !idnum.equals("") ) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
             }
@@ -185,7 +187,7 @@ public class ArchivesDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from ArchivesBean t where 1=1 ";
+            String sql = "select count(*) from ArchivesBean t where 1=1 and t.status='0'";
 
             if (idnum != null&& !idnum.equals("") ) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";

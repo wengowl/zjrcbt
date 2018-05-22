@@ -204,12 +204,14 @@ public class ExporttoExcel {
         int column1 =-1;
         row1.createCell(++column1).setCellValue("姓名");
         row1.createCell(++column1).setCellValue("身份证号");
+        row1.createCell(++column1).setCellValue("毕业时间");
         for (ApplytableBean  idnums:idnums1){
             Row row = sheet.createRow(++rowNo);
 
             int column =-1;
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
+            row.createCell(++column).setCellValue(idnums.getGraduateDate());
         }
 
         for (AllowanceBean  idnums:idnums2){
@@ -218,6 +220,7 @@ public class ExporttoExcel {
             int column =-1;
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
+//            TODO 是否要添加毕业时间或者起始时间
         }
 
 

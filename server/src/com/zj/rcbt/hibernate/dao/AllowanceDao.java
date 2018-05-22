@@ -51,11 +51,11 @@ public class AllowanceDao extends HibernateDaoSupport {
 
 
     public List<AllowanceBean> findMonthesRemain(){
-        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where t.monthes<36 and t.over <>'1'",new Object[]{});
+        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where t.monthes<36 ",new Object[]{});
     }
 
     public List<AllowanceBean> findMonthesOver(){
-        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where (t.monthes>=36 or t.over ='1' ) and t.lastMoney<>0 ",new Object[]{});
+        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where t.monthes>=36  and t.lastMoney<>0 ",new Object[]{});
     }
 
     public List<AllowanceBean> findLastMoneyBack(){
@@ -205,7 +205,9 @@ public class AllowanceDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36 and a.over <> '1'";
+//            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
+//           每次导出仍为全量导出
+            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  ";
             Query queryObject = session.createQuery(sql1);
 
             idnums = queryObject.list();

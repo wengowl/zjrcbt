@@ -182,8 +182,15 @@ public class VerifyService {
     public String  updateSocialsecurity(ApplytableBean applytableBean){
          SocialsecurityBean socialsecurityBean = socialsecurityDao.findByIDnum(applytableBean.getIdNum());
          if (socialsecurityBean==null){
-             return "没有社保信息";
+             return "-1";
          }
+        ArchivesBean archivesBean = archivesDao.findByIDnum(applytableBean.getIdNum());
+        if (archivesBean==null){
+            return "-1";
+        }
+        if (socialsecurityBean.getBeginTime()==null||socialsecurityBean.getBeginTime().equals("")){
+            return "1";
+        }
         ApplytablecompareBean applytablecompareBean =applyCompareDao.findByIdnum(applytableBean.getIdNum());
          if (applytablecompareBean==null){
              applytablecompareBean=new ApplytablecompareBean();
@@ -213,7 +220,10 @@ public class VerifyService {
             applytablecompareBean.setIdNum(applytableBean.getIdNum());
         }
         ArchivesBean archivesBean = archivesDao.findByIDnum(applytableBean.getIdNum());
-        if (archivesBean!=null&&archivesBean.getInzhuji().equalsIgnoreCase("Y")){
+        if (archivesBean==null){
+            return;
+        }
+        if (archivesBean.getInzhuji().equalsIgnoreCase("Y")){
             applytablecompareBean.setIsarchive(1);
         }else {
             applytablecompareBean.setIsarchive(0);

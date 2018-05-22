@@ -67,15 +67,21 @@ public class QuartzAuditJob {
         if (archivesBeanList!=null&&archivesBeanList.size()>0&&socialsecurityBeanList!=null&&socialsecurityBeanList.size()>0){
             List<ApplytableBean> applytables = applyService.findBystatus(Constants.applystatus_first);
             for (ApplytableBean applytableBean:applytables){
+                log.info("shebao xiaoyan "+applytableBean.getIdNum());
                 String socialSecurityreturn = verifyService.updateSocialsecurity(applytableBean);//判断社保
 //               //判断档案
                     verifyService.updateisAchive(applytableBean);
 
 
-                if (!socialSecurityreturn.equals("0")){
+                if (socialSecurityreturn.equals("-1")){
+//                    TODO 必须存在社保数据和档案数据才会进行下一步
+//                    applytableBean.setApplyStatus(Constants.applystatus_deny);
+                    applytableBean.setAuditComment("暂无社保和档案数据比对");
+                }else if (socialSecurityreturn.equals("1")){
                     applytableBean.setApplyStatus(Constants.applystatus_deny);
-                    applytableBean.setAuditComment(socialSecurityreturn);
-                }else {
+                    applytableBean.setAuditComment("社保数据为空");
+                }
+                else{
                     applytableBean.setApplyStatus(Constants.applystatus_second);
                     applytableBean.setAuditComment("");
                 }

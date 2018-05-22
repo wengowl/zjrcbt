@@ -80,7 +80,7 @@ public class AllowanceService {
             allowancebean.setLastMoney(0);
 
 //            社保不为空--*---
-            if (socialsecurityBean != null && socialsecurityBean.getMonthes() >=allowancebean.getMonthes()) {
+            if (socialsecurityBean != null&&socialsecurityBean.getBeginTime()!=null &&!socialsecurityBean.getBeginTime().equals("") && socialsecurityBean.getMonthes() >=allowancebean.getMonthes()) {
 
                 int monthes = 0;
                 //社保连续缴纳月份
@@ -131,12 +131,12 @@ public class AllowanceService {
                 allowancehistoryBean.setIdNum(allowancebean.getIdNum());
 
 
-                allowancebean.setMonthes(socialsecurityBean.getMonthes());
+                allowancebean.setMonthes(allowancebean.getMonthes()+monthes);
                 allowancebean.setSumMoney(allowancebean.getSumMoney() + allowancebean.getLastMoney());
-//引进时间已经超过36个月后，停止发放
-                if (DateUtil.getMonthNum(socialsecurityBean.getBeginTime(),DateUtil.getCurrentMonth())>=36){
-                    allowancebean.setOver(Constants.allowance_over);
-                }
+//引进时间已经超过36个月后，停止发放(由社保导出时间控制)
+//                if (DateUtil.getMonthNum(socialsecurityBean.getBeginTime(),DateUtil.getCurrentMonth())>=36){
+//                    allowancebean.setOver(Constants.allowance_over);
+//                }
 
 
             }

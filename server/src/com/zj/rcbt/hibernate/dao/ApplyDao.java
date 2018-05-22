@@ -157,7 +157,10 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
+//            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
+//           每次导出仍为全量导出
             String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') ";
+
             Query queryObject = session.createQuery(sql1);
 
             idnums = queryObject.list();

@@ -45,6 +45,8 @@ public class SocialsecurityDao extends HibernateDaoSupport {
 
     public void update(SocialsecurityBean socialsecurityBean){
         getHibernateTemplate().saveOrUpdate(socialsecurityBean);
+        getHibernateTemplate().flush();
+        getHibernateTemplate().clear();
     }
 
     public SocialsecurityBean findByIDnum(String id_num){
@@ -62,6 +64,9 @@ public class SocialsecurityDao extends HibernateDaoSupport {
         return (List<SocialsecurityBean> )getHibernateTemplate().find("from  SocialsecurityBean t where  t.status= ? ", new Object[]
                 { status });
     }
+
+
+
 
     public void updateAll(){
         Session session=null;
@@ -99,7 +104,7 @@ public class SocialsecurityDao extends HibernateDaoSupport {
 
 
          session = getSessionFactory().openSession();
-        String sql="delete  from SocialsecurityBean t where t.id<>-1";
+        String sql="delete  from SocialsecurityBean t where t.id<>-1 and t.status='1'";
         Transaction tx = session.beginTransaction();
         session.createQuery(sql).executeUpdate();
         tx.commit();
@@ -157,7 +162,7 @@ public class SocialsecurityDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from SocialsecurityBean t where 1=1 ";
+            String sql = "from SocialsecurityBean t where 1=1 and t.status='0'";
 
             if (idnum != null && !idnum.equals("")) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
@@ -190,7 +195,7 @@ public class SocialsecurityDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from SocialsecurityBean t where 1=1 ";
+            String sql = "select count(*) from SocialsecurityBean t where 1=1 and t.status='0'";
 
             if (idnum != null && !idnum.equals("")) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";

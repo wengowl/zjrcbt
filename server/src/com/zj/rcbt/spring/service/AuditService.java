@@ -41,6 +41,7 @@ AuditService {
 
         allowanceBean.setBeginTime(applytableBean.getComeDate());
         allowanceBean.setBatch(applytableBean.getBatch());
+//        allowanceBean.setOver("0");
         try {
             allowanceBean.setLastTime(DateUtil.dateAddMonth(applytableBean.getComeDate(),-1));
         } catch (Exception e) {
