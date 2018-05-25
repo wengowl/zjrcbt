@@ -3,6 +3,7 @@ package com.zj.rcbt.spring.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
+import com.zj.rcbt.spring.service.AllowanceService;
 import com.zj.rcbt.spring.service.ApplyService;
 import com.zj.rcbt.spring.service.AuditService;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +28,9 @@ public class AuditController {
     @Autowired
     private ApplyService applyService;
 
+    @Autowired
+    private AllowanceService allowanceService;
+
 
     @RequestMapping({"/update"})
     @ResponseBody
@@ -44,7 +48,7 @@ public class AuditController {
 
         ApplytableBean applytableBean = applyService.findByIDnum(idNUm);
 
-        applytableBean.setApplyStatus(status);
+//        applytableBean.setApplyStatus(status);
         applytableBean.setAuditComment(commnet);
         applytableBean.setComeDate(comedate);
 
@@ -53,11 +57,19 @@ public class AuditController {
         }
 
         if (status.equals(Constants.applystatus_wait)){
+            if (applytableBean.getApplyStatus().equals(Constants.applystatus_pass)){
+                allowanceService.deleteByidnum(idNUm);
+            }
             auditService.updateauditDenyEdit(applytableBean);
+
         }
 
         if (status.equals(Constants.applystatus_deny)){
+            if (applytableBean.getApplyStatus().equals(Constants.applystatus_pass)){
+                allowanceService.deleteByidnum(idNUm);
+            }
             auditService.updateauditDeny(applytableBean);
+
         }
 
         result.setData("");

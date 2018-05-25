@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,13 +110,25 @@ public class ExcelExportController {
 
     @RequestMapping({"/idCard"})
     @ResponseBody
-    public RequestResult getidCard(HttpServletRequest request){
-        log.info("get idnums");
+    public RequestResult getidCard(HttpServletRequest request,@RequestParam("type") String type){
+        log.info("get idnums" +type);
 
         RequestResult result = new RequestResult();
 
-      List<AllowanceBean> idCardsallowance = allowanceService.getIdnumsAllowance();
-        List<ApplytableBean> idCardapply = applyService.getIdnumsApply();
+      List<AllowanceBean> idCardsallowance = new ArrayList<>();
+        List<ApplytableBean> idCardapply = new ArrayList<>();
+        if (type.equals("1")) {
+//            全量
+            idCardsallowance   =allowanceService.getIdnumsAllowance();
+            idCardapply  =applyService.getIdnumsApply();
+        }
+
+        if (type.equals("0")) {
+//            增量
+            idCardsallowance   =allowanceService.getIdnumsAllowancenew();
+            idCardapply  =applyService.getIdnumsApplynew();
+        }
+
 
         ExporttoExcel exporttoExcel = new ExporttoExcel();
         String filename="idCards.xls";

@@ -12,5 +12,6 @@
         <property name="lastTime" column="last_time"/>
         <property name="monthes" column="monthes"/>
         <property name="status" column="status"/>
+        <property name="company" column="company"/>
     </class>
 </hibernate-mapping>

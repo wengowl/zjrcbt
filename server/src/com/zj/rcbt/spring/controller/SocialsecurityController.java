@@ -39,6 +39,7 @@ public class SocialsecurityController {
             so.put("beginTime",socialsecurityBean.getBeginTime());
             so.put("lastTime",socialsecurityBean.getLastTime());
             so.put("monthes",socialsecurityBean.getMonthes());
+            so.put("company",socialsecurityBean.getCompany());
 
             list.add(so);
         }

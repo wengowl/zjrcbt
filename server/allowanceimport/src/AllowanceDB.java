@@ -64,14 +64,14 @@ public class AllowanceDB {
             Connection connection= AllowanceDB.getConnection(url,user,passwd);
 
             connection.setAutoCommit(false);
-            String sql = "insert into allowance(id_num, begin_time, last_time, sum_money,  monthes, allowancetype, updatetime, bank, bank_card, phone, name, company,batch) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into allowance(id_num, begin_time, last_time, sum_money,  monthes, allowancetype, updatetime, bank, bank_card, phone, name, company,batch,graduatetime,education) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement =connection.prepareStatement(sql);
             for (AllowanceBean allowanceBean:allowanceBeans) {
                 preparedStatement.setString(1, allowanceBean.getIdNum());
                 System.out.print(allowanceBean.getIdNum()+"\t");
                 preparedStatement.setString(2, allowanceBean.getBeginTime());
                 System.out.print(allowanceBean.getBeginTime()+"\t");
-                preparedStatement.setString(3, allowanceBean.getLastTime());
+                preparedStatement.setString(3, "");
                 System.out.print(allowanceBean.getLastTime()+"\t");
                 preparedStatement.setInt(4, allowanceBean.getSumMoney());
                 System.out.print(allowanceBean.getSumMoney()+"\t");
@@ -93,6 +93,10 @@ public class AllowanceDB {
                 System.out.print(allowanceBean.getCompany()+"\t");
                 preparedStatement.setString(13, allowanceBean.getBatch());
                 System.out.print(allowanceBean.getBatch()+"\t");
+                preparedStatement.setString(14, allowanceBean.getGraduatetime());
+                System.out.print(allowanceBean.getGraduatetime()+"\t");
+                preparedStatement.setString(15, allowanceBean.getEducation());
+                System.out.print(allowanceBean.getEducation()+"\t");
                 System.out.println();
                 preparedStatement.addBatch();
             }
@@ -247,24 +251,32 @@ public class AllowanceDB {
                         System.out.print(row.getCell(j)+"\t");
                     }
                 }*/
-                Cell cella=row.getCell(0);
-                if (getCellValue(cella)==null||getCellValue(cella).equals("")){
+                Cell cella = row.getCell(0);
+                if (getCellValue(cella) == null || getCellValue(cella).equals("")) {
                     continue;
                 }
                 System.out.println(getCellValue(cella));
-                Cell cellb=row.getCell(1);
-                if(isMergedRegion(sheet,i,1)) {
+                Cell cellb = row.getCell(1);
+                if (isMergedRegion(sheet, i, 1)) {
                     System.out.println(getMergedRegionValue(sheet, i, 1) + "\t");
                     allowanceBean.setCompany(getMergedRegionValue(sheet, i, 1));
-                }else {
+                } else {
                     allowanceBean.setCompany(getCellValue(cellb));
                 }
-                Cell cellc=row.getCell(2);
+                Cell cellc = row.getCell(2);
                 allowanceBean.setName(getCellValue(cellc));
-                Cell celld=row.getCell(3);
-                allowanceBean.setIdNum(getCellValue(celld));
-                Cell celle=row.getCell(4);
+                Cell celld = row.getCell(3);
+                allowanceBean.setIdNum(getCellValue(celld).trim().toUpperCase());
+                Cell celle = row.getCell(4);
                 System.out.println(getCellValue(celle) + "\t");
+                String xueli = getCellValue(celle);
+                if (xueli.startsWith("2")){
+                    allowanceBean.setGraduatetime(xueli.substring(0, 4)+"-06");
+                allowanceBean.setEducation(getCellValue(celle).substring(4));
+            }else{
+                allowanceBean.setGraduatetime("20"+xueli.substring(0, 2)+"-06");
+                allowanceBean.setEducation(xueli.substring(2));
+            }
                allowanceBean.setBeginTime(" ");
                 Cell cellf = row.getCell(5);
                 allowanceBean.setBank(getCellValue(cellf));
@@ -275,7 +287,7 @@ public class AllowanceDB {
                 Cell celli = row.getCell(8);
                 allowanceBean.setPhone(getCellValue(celli));
                 allowanceBean.setSumMoney(allowanceBean.getMonthes()*600);
-                allowanceBean.setLastTime("2017-12");
+//                allowanceBean.setLastTime("2017-12");
                 allowanceBean.setUpdatetime("2017-12");
                 allowanceBean.setBatch(batch);
 
@@ -344,7 +356,7 @@ public class AllowanceDB {
                 Cell cellc=row.getCell(2);
                 allowanceBean.setCompany(getCellValue(cellc));
                 Cell celld=row.getCell(3);
-                allowanceBean.setIdNum(getCellValue(celld));
+                allowanceBean.setIdNum(getCellValue(celld).trim().toUpperCase());
                 Cell celle=row.getCell(4);
 
                 Cell cellf = row.getCell(5);
@@ -361,7 +373,7 @@ public class AllowanceDB {
                 allowanceBean.setPhone(getCellValue(cellk));
 
                 allowanceBean.setBatch(batch);
-                allowanceBean.setLastTime("2017-12");
+//                allowanceBean.setLastTime("2017-12");
                 allowanceBean.setUpdatetime("2017-12");
                 allowanceBean.setAllowancetype(allowanceBean.getSumMoney()/allowanceBean.getMonthes()+"");
                 allowanceBeans.add(allowanceBean);

@@ -124,14 +124,15 @@ public class UserLoginController {
     @ResponseBody
     public RequestResult passwordReset(@RequestBody String requestBody) {
         JSONObject jsonObject = JSON.parseObject(requestBody);
-        String userName = jsonObject.getString("user_name");
+//        String userName = jsonObject.getString("user_name");
+        String idnum = jsonObject.getString("idcard");
         String user_e_mail = jsonObject.getString("user_e_mail");
-        log.info("passwordReset "+userName);
+        log.info("passwordReset "+idnum);
 
 
         RequestResult result = null;
 
-            int iRtn =userService.savepasswordReset(userName, user_e_mail);
+            int iRtn =userService.savepasswordReset(idnum, user_e_mail);
             result = RequestResult.statusCode(iRtn);
             return result;
 

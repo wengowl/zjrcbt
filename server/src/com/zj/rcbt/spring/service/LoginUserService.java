@@ -83,8 +83,9 @@ public class LoginUserService {
 
     }
 
-    public int savepasswordReset(String userName, String user_e_mail) {
-        LoginuserBean user = findByUserName(userName);
+    public int savepasswordReset(String idnum, String user_e_mail) {
+//        LoginuserBean user = findByUserName(userName);
+        LoginuserBean user = loginuserDao.findByIDnum(idnum);
         if (user == null) {
             return 4;
         } else if (!user.getEmail().equals(user_e_mail)) {
@@ -95,8 +96,8 @@ public class LoginUserService {
             mail.setToEmails(user_e_mail);
             String newPass = this.getRandomString(6);
             StringBuilder builder = new StringBuilder();
-            builder.append("  你好！\r\n");
-            builder.append("         您的个人密码重置为: ");
+            builder.append(user.getUserName()+" 你好！\r\n");
+            builder.append("         您在诸暨市人才补贴申报系统中的个人密码重置为: ");
             builder.append("                         " + newPass + "\r\n");
             builder.append("  请及时修改您的密码");
             String content = builder.toString();

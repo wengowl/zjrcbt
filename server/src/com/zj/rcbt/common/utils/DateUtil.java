@@ -70,6 +70,21 @@ public class DateUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return  df.format(day);
     }
+    public static String getYear(String date){
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM");
+        Date ss = null;
+        try {
+            ss = format1.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        return  df.format(ss);
+    }
 
     public static String getCurrentMonth(){
         Date day=new Date();

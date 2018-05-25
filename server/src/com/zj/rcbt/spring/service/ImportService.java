@@ -34,6 +34,7 @@ public class ImportService {
                oldbean.setLastTime(bean.getLastTime());
                oldbean.setBeginTime(bean.getBeginTime());
                oldbean.setUserName(bean.getUserName());
+               oldbean.setCompany(bean.getCompany());
                bean=oldbean;
             }
             socialsecurityDao.update(bean);

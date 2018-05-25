@@ -20,6 +20,8 @@ public class AllowancehistoryBean {
     private String company;
     private String isfirstschool;
     private String batch;
+    private String education;
+    private String graduatetime;
 
     @Id
     @Column(name = "id")
@@ -161,6 +163,26 @@ public class AllowancehistoryBean {
         this.batch = batch;
     }
 
+    @Basic
+    @Column(name = "education")
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    @Basic
+    @Column(name = "graduatetime")
+    public String getGraduatetime() {
+        return graduatetime;
+    }
+
+    public void setGraduatetime(String graduatetime) {
+        this.graduatetime = graduatetime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,12 +201,14 @@ public class AllowancehistoryBean {
                 Objects.equals(name, that.name) &&
                 Objects.equals(company, that.company) &&
                 Objects.equals(isfirstschool, that.isfirstschool) &&
-                Objects.equals(batch, that.batch);
+                Objects.equals(batch, that.batch) &&
+                Objects.equals(education, that.education) &&
+                Objects.equals(graduatetime, that.graduatetime);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, idNum, offerTime, offerMoney, allowancetype, comment, shebao, bank, bankCard, phone, name, company, isfirstschool, batch);
+        return Objects.hash(id, idNum, offerTime, offerMoney, allowancetype, comment, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, education, graduatetime);
     }
 }

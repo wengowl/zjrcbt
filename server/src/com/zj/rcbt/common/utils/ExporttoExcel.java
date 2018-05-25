@@ -114,7 +114,7 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("已发放金额");
         row1.createCell(++column1).setCellValue("最新一次发放金额");
         row1.createCell(++column1).setCellValue("总共发放月数");
-        row1.createCell(++column1).setCellValue("补贴类型（0：租房补助，1：生活津贴）");
+        row1.createCell(++column1).setCellValue("补贴金额（元/月）");
 
 
         row1.createCell(++column1).setCellValue("银行");
@@ -122,6 +122,9 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("联系电话");
         row1.createCell(++column1).setCellValue("备注");
         row1.createCell(++column1).setCellValue("申请时间");
+        row1.createCell(++column1).setCellValue("毕业时间");
+        row1.createCell(++column1).setCellValue("学历");
+
         row1.createCell(++column1).setCellValue("更新时间");
 
 
@@ -146,6 +149,8 @@ public class ExporttoExcel {
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getPhone()));
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getShebao()));
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getBatch()));
+            row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getGraduatetime()));
+            row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getEducation()));
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getUpdatetime()));
         }
 
@@ -168,6 +173,8 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("联系电话");
         row1.createCell(++column1).setCellValue("申请时间");
         row1.createCell(++column1).setCellValue("其他");
+        row1.createCell(++column1).setCellValue("毕业时间");
+        row1.createCell(++column1).setCellValue("学历");
 
         for (AllowancehistoryBean allowanceBean:allowanceBeans){
             Row row = sheet.createRow(++rowNo);
@@ -186,6 +193,8 @@ public class ExporttoExcel {
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getPhone()));
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getBatch()));
             row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getComment()));
+            row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getGraduatetime()));
+            row.createCell(++column).setCellValue(StringUtils.checkNULL(allowanceBean.getEducation()));
         }
 
     }
@@ -205,13 +214,19 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("姓名");
         row1.createCell(++column1).setCellValue("身份证号");
         row1.createCell(++column1).setCellValue("毕业时间");
+        row1.createCell(++column1).setCellValue("申请时间");
+        row1.createCell(++column1).setCellValue("引进时间");
         for (ApplytableBean  idnums:idnums1){
+            if (idnums.getApplyType().equals("1")){
+                idnums.setGraduateDate("");
+            }
             Row row = sheet.createRow(++rowNo);
 
             int column =-1;
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
             row.createCell(++column).setCellValue(idnums.getGraduateDate());
+            row.createCell(++column).setCellValue(idnums.getBatch());
         }
 
         for (AllowanceBean  idnums:idnums2){
@@ -220,7 +235,9 @@ public class ExporttoExcel {
             int column =-1;
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
-//            TODO 是否要添加毕业时间或者起始时间
+            row.createCell(++column).setCellValue(idnums.getGraduatetime());
+            row.createCell(++column).setCellValue(idnums.getBatch());
+            row.createCell(++column).setCellValue(idnums.getBeginTime());
         }
 
 

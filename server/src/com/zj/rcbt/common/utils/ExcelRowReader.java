@@ -37,6 +37,7 @@ public class ExcelRowReader {
             if (monthes.equals("")){
                 monthes="0";
             }
+            socialsecurityBean.setCompany(getCellValue(row,5));
             socialsecurityBean.setMonthes(new Integer(monthes));
             socialsecurityBean.setStatus(Constants.socialsecurity_new);
             socialsecurityBeans.add(socialsecurityBean);

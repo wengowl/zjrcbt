@@ -282,4 +282,7 @@ public class ApplyService {
     public List<ApplytableBean> getIdnumsApply(){
         return applyDao.getIdnumsApply();
     }
+    public List<ApplytableBean> getIdnumsApplynew(){
+        return applyDao.getIdnumsApplynew();
+    }
 }

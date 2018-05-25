@@ -24,6 +24,8 @@ public class AllowanceBean {
     private String isfirstschool;
     private String batch;
     private String over;
+    private String graduatetime;
+    private String education;
 
     @Id
     @Column(name = "allownce_id")
@@ -205,6 +207,26 @@ public class AllowanceBean {
         this.over = over;
     }
 
+    @Basic
+    @Column(name = "graduatetime")
+    public String getGraduatetime() {
+        return graduatetime;
+    }
+
+    public void setGraduatetime(String graduatetime) {
+        this.graduatetime = graduatetime;
+    }
+
+    @Basic
+    @Column(name = "education")
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -227,12 +249,14 @@ public class AllowanceBean {
                 Objects.equals(company, that.company) &&
                 Objects.equals(isfirstschool, that.isfirstschool) &&
                 Objects.equals(batch, that.batch) &&
-                Objects.equals(over, that.over);
+                Objects.equals(over, that.over) &&
+                Objects.equals(graduatetime, that.graduatetime) &&
+                Objects.equals(education, that.education);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, over);
+        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, over, graduatetime, education);
     }
 }

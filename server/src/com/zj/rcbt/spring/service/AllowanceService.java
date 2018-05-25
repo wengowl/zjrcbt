@@ -38,6 +38,14 @@ public class AllowanceService {
         allowanceDao.update(allowanceBean);
     }
 
+    public void deleteByidnum(String  idnum) {
+        List<AllowanceBean> allowanceBeans = allowanceDao.findByIDnum(idnum);
+        for (AllowanceBean allowanceBean:allowanceBeans) {
+            allowanceDao.delete(allowanceBean);
+        }
+    }
+
+
     /**
      * 发放补贴
      */
@@ -134,9 +142,9 @@ public class AllowanceService {
                 allowancebean.setMonthes(allowancebean.getMonthes()+monthes);
                 allowancebean.setSumMoney(allowancebean.getSumMoney() + allowancebean.getLastMoney());
 //引进时间已经超过36个月后，停止发放(由社保导出时间控制)
-//                if (DateUtil.getMonthNum(socialsecurityBean.getBeginTime(),DateUtil.getCurrentMonth())>=36){
-//                    allowancebean.setOver(Constants.allowance_over);
-//                }
+                if (DateUtil.getMonthNum(socialsecurityBean.getBeginTime(),DateUtil.getCurrentMonth())>=36){
+                    allowancebean.setOver(Constants.allowance_over);
+                }
 
 
             }
@@ -158,6 +166,8 @@ public class AllowanceService {
 
             allowancebean.setUpdatetime(DateUtil.getCurrentTime());
             allowancehistoryBean.setOfferTime(DateUtil.getCurrentTime());
+            allowancehistoryBean.setGraduatetime(allowancebean.getGraduatetime());
+            allowancehistoryBean.setEducation(allowancebean.getEducation());
 
             allowancehistoryDao.save(allowancehistoryBean);
             allowancehistoryDao.refresh();
@@ -243,6 +253,9 @@ public class AllowanceService {
 
     public List<AllowanceBean> getIdnumsAllowance(){
         return allowanceDao.getIdnumsAllowance();
+    }
+    public List<AllowanceBean> getIdnumsAllowancenew(){
+        return allowanceDao.getIdnumsAllowancenew();
     }
 
 

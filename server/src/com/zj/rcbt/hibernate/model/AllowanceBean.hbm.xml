@@ -23,5 +23,7 @@
         <property name="isfirstschool" column="isfirstschool"/>
         <property name="batch" column="batch"/>
         <property name="over" column="over"/>
+        <property name="graduatetime" column="graduatetime"/>
+        <property name="education" column="education"/>
     </class>
 </hibernate-mapping>

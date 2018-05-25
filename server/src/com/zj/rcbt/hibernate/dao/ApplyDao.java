@@ -172,5 +172,23 @@ public class ApplyDao extends HibernateDaoSupport {
 
         return idnums;
     }
+    public List<ApplytableBean > getIdnumsApplynew(){
+        List<ApplytableBean> idnums = new ArrayList<>();
+        Session session=null;
+        try {
+            session = getSessionFactory().openSession();
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
+
+            Query queryObject = session.createQuery(sql1);
+
+            idnums = queryObject.list();
+        }finally {
+            if (session!=null){
+                session.close();
+            }
+        }
+
+        return idnums;
+    }
 
 }

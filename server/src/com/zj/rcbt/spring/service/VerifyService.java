@@ -70,7 +70,7 @@ public class VerifyService {
         System.out.println(x);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return "二维码识别失败";
+//            return "二维码识别失败";
         }
         ChsiParser chsiParser = new ChsiParser();
 
@@ -86,6 +86,7 @@ public class VerifyService {
 
 
 //        applytablecompareBean.setId(applytableBean.getApplyId());
+            applytablecompareBean.setAuditComment("");
             applytablecompareBean.setEducationQrcode(x);
             applytablecompareBean.setBirthDate(chsi.getBirthdate());
             applytablecompareBean.setNation(chsi.getMingzu());
@@ -139,11 +140,11 @@ public class VerifyService {
 
 
             if (!applytableBean.getEducation().equals(applytablecompareBean.getEducation())) {
-                return "学历不符合";
+                return "学历与学信网信息不一致";
             }
 
             if (!applytableBean.getMajor().equals(applytablecompareBean.getMajor())){
-                return "专业不符合";
+                return "专业与学信网信息不一致";
             }
        /* if (!applytableBean.getBirthDate().equals(applytablecompareBean.getBirthDate())){
             return "生日不符合";
@@ -155,13 +156,13 @@ public class VerifyService {
                 return "不为全日制";
             }
             if (!applytableBean.getSchool().equals(applytablecompareBean.getSchool())) {
-                return "毕业院校不符合";
+                return "毕业院校与学信网信息不一致";
             }
             if (!applytableBean.getIdNum().equals(applytablecompareBean.getIdNum())) {
-                return "身份证不符合";
+                return "身份证与学信网信息不一致";
             }
             if (!applytableBean.getGraduateDate().equals(applytablecompareBean.getGraduateDate().substring(0, 7))) {
-                return "毕业时间不符合";
+                return "毕业时间与学信网信息不一致";
             }
 //            TODO 双一流暂不比较
 
@@ -199,6 +200,10 @@ public class VerifyService {
 
 
         applytablecompareBean.setComeDate(socialsecurityBean.getBeginTime());
+        applytablecompareBean.setCompanyName(socialsecurityBean.getCompany());
+        if (applytableBean.getCompanyName().trim().equals(socialsecurityBean.getCompany().trim())){
+            return "社保参保单位与用人单位不一致";
+        }
         // TODO: 2018/4/20  引进时间做条件判断
     /*  if (!socialsecurityBean.getBeginTime().equals(applytableBean.getComeDate())){
           return "引进时间与初次缴社保时间不一致";

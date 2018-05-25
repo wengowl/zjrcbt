@@ -41,7 +41,7 @@ AuditService {
 
         allowanceBean.setBeginTime(applytableBean.getComeDate());
         allowanceBean.setBatch(applytableBean.getBatch());
-//        allowanceBean.setOver("0");
+        allowanceBean.setOver("0");
         try {
             allowanceBean.setLastTime(DateUtil.dateAddMonth(applytableBean.getComeDate(),-1));
         } catch (Exception e) {
@@ -58,6 +58,9 @@ AuditService {
         allowanceBean.setBank(applytableBean.getBank());
         allowanceBean.setBankCard(applytableBean.getBankCard());
         allowanceBean.setPhone(applytableBean.getPhoneNum());
+        allowanceBean.setGraduatetime(applytableBean.getGraduateDate());
+
+        allowanceBean.setEducation(applytableBean.getEducation());
 
         allowanceDao.save(allowanceBean);
 

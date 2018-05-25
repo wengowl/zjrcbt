@@ -51,7 +51,7 @@ public class AllowanceDao extends HibernateDaoSupport {
 
 
     public List<AllowanceBean> findMonthesRemain(){
-        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where t.monthes<36 ",new Object[]{});
+        return (List<AllowanceBean>) getHibernateTemplate().find("from AllowanceBean t where t.monthes<36 and (t.over <>'1' OR t.over is null )",new Object[]{});
     }
 
     public List<AllowanceBean> findMonthesOver(){
@@ -117,11 +117,11 @@ public class AllowanceDao extends HibernateDaoSupport {
             session = getSessionFactory().openSession();
             String sql = "select count(*) from AllowanceBean t where 1=1 ";
             if (month != null&&!month.equals("") && month.equals("0")) {
-                sql = sql + "and t.monthes>=36";
+                sql = sql + "and t.monthes>=36 or t.over='1'";
             }
 
-            if (month != null&&!month.equals("") && month.equals("1")) {
-                sql = sql + "and t.monthes<36";
+            if ( month != null&&!month.equals("") &&month.equals("1")) {
+                sql = sql + "and t.monthes<36 and (t.over <>'1' OR t.over is null )";
             }
 
             if (allowancetype != null && !allowancetype.equals("")) {
@@ -164,11 +164,11 @@ public class AllowanceDao extends HibernateDaoSupport {
             session = getSessionFactory().openSession();
             String sql = "from AllowanceBean t where 1=1 ";
             if (month != null&&!month.equals("") && month.equals("0")) {
-                sql = sql + "and t.monthes>=36";
+                sql = sql + "and t.monthes>=36 or t.over='1'";
             }
 
             if ( month != null&&!month.equals("") &&month.equals("1")) {
-                sql = sql + "and t.monthes<36";
+                sql = sql + "and t.monthes<36 and (t.over <>'1' OR t.over is null )";
             }
 
             if ( allowancetype != null &&!allowancetype.equals("")) {
@@ -207,7 +207,7 @@ public class AllowanceDao extends HibernateDaoSupport {
             session = getSessionFactory().openSession();
 //            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
 //           每次导出仍为全量导出
-            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  ";
+            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  and (a.over <>'1' OR a.over is null ) ";
             Query queryObject = session.createQuery(sql1);
 
             idnums = queryObject.list();
@@ -220,6 +220,25 @@ public class AllowanceDao extends HibernateDaoSupport {
         return idnums;
     }
 
+
+    public List<AllowanceBean > getIdnumsAllowancenew(){
+        List<AllowanceBean> idnums = new ArrayList<>();
+        Session session=null;
+        try {
+            session = getSessionFactory().openSession();
+            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') )  and (a.over <>'1' OR a.over is null ) and a.monthes<36  and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
+
+            Query queryObject = session.createQuery(sql1);
+
+            idnums = queryObject.list();
+        }finally {
+            if (session!=null){
+                session.close();
+            }
+        }
+
+        return idnums;
+    }
 
 
 

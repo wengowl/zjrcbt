@@ -19,6 +19,9 @@ public class AllowanceBean {
     private String company;
     private String isfirstschool;
     private String batch;
+    private String graduatetime;
+    private String education;
+
 
 
     public int getAllownceId() {
@@ -169,33 +172,19 @@ public class AllowanceBean {
         this.batch = batch;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AllowanceBean that = (AllowanceBean) o;
-        return allownceId == that.allownceId &&
-                sumMoney == that.sumMoney &&
-                monthes == that.monthes &&
-                Objects.equals(idNum, that.idNum) &&
-                Objects.equals(beginTime, that.beginTime) &&
-                Objects.equals(lastTime, that.lastTime) &&
-                Objects.equals(lastMoney, that.lastMoney) &&
-                Objects.equals(allowancetype, that.allowancetype) &&
-                Objects.equals(updatetime, that.updatetime) &&
-                Objects.equals(shebao, that.shebao) &&
-                Objects.equals(bank, that.bank) &&
-                Objects.equals(bankCard, that.bankCard) &&
-                Objects.equals(phone, that.phone) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(company, that.company) &&
-                Objects.equals(isfirstschool, that.isfirstschool) &&
-                Objects.equals(batch, that.batch);
+    public String getGraduatetime() {
+        return graduatetime;
     }
 
-    @Override
-    public int hashCode() {
+    public void setGraduatetime(String graduatetime) {
+        this.graduatetime = graduatetime;
+    }
 
-        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch);
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
     }
 }

@@ -9,8 +9,8 @@ public class Test {
         allowanceDB.setPasswd("123456");
         allowanceDB.setUser("rcbt");
 //        allowanceDB.setUrl("jdbc:mysql://127.0.0.1:3306/rcbt?useUnicode=true&characterEncoding=utf-8&useSSL=false");
-//        allowanceDB.setUrl("jdbc:mysql://192.168.0.143:3306/rcbt?useUnicode=true&characterEncoding=utf-8&useSSL=false");
-        allowanceDB.setUrl("jdbc:mysql://120.55.45.237:3306/rcbt?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+        allowanceDB.setUrl("jdbc:mysql://192.168.0.143:3306/rcbt?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+//        allowanceDB.setUrl("jdbc:mysql://120.55.45.237:3306/rcbt?useUnicode=true&characterEncoding=utf-8&useSSL=false");
 //        123
 //        File file = new File("D:\\工作\\文档\\2015年上租房补贴兑现记录A1.xls");
 //        String batch = "2015-06";
@@ -27,8 +27,8 @@ public class Test {
 //        File file = new File("D:\\工作\\文档\\2017年第一期本科生租房补贴兑现记录表.xlsx");
 //        String batch = "2017-06";
 //        859
-//        File file = new File("D:\\工作\\文档\\2017年第二期本科生租房补贴兑现记录表.xlsx");
-//        String batch = "2017-12";
+/*        File file = new File("D:\\工作\\文档\\2017年第二期本科生租房补贴兑现记录表.xlsx");
+        String batch = "2017-12";*/
 //                File file = new File("D:\\工作\\文档\\2017年.xlsx");
 
 //        File file = new File("D:\\工作\\文档\\shuoshi\\2016_12_01.xlsx");
@@ -59,7 +59,6 @@ public class Test {
             }
 
         }
-
 
 
 

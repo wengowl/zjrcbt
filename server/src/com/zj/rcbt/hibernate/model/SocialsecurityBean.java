@@ -13,6 +13,7 @@ public class SocialsecurityBean {
     private String lastTime;
     private int monthes;
     private String status;
+    private String company;
 
     @Id
     @Column(name = "id")
@@ -84,6 +85,16 @@ public class SocialsecurityBean {
         this.status = status;
     }
 
+    @Basic
+    @Column(name = "company")
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,12 +106,13 @@ public class SocialsecurityBean {
                 Objects.equals(idNum, that.idNum) &&
                 Objects.equals(beginTime, that.beginTime) &&
                 Objects.equals(lastTime, that.lastTime) &&
-                Objects.equals(status, that.status);
+                Objects.equals(status, that.status) &&
+                Objects.equals(company, that.company);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, userName, idNum, beginTime, lastTime, monthes, status);
+        return Objects.hash(id, userName, idNum, beginTime, lastTime, monthes, status, company);
     }
 }
