@@ -1,17 +1,23 @@
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.StringUtil;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xmlbeans.impl.xb.xsdschema.All;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AllowanceDB {
@@ -273,19 +279,25 @@ public class AllowanceDB {
                 if (xueli.startsWith("2")){
                     allowanceBean.setGraduatetime(xueli.substring(0, 4)+"-06");
                 allowanceBean.setEducation(getCellValue(celle).substring(4));
-            }else{
+            }else if (xueli.startsWith("1")){
                 allowanceBean.setGraduatetime("20"+xueli.substring(0, 2)+"-06");
                 allowanceBean.setEducation(xueli.substring(2));
-            }
+            }else {
+                    allowanceBean.setGraduatetime("2015"+"-06");
+                    allowanceBean.setEducation(xueli);
+                }
                allowanceBean.setBeginTime(" ");
                 Cell cellf = row.getCell(5);
                 allowanceBean.setBank(getCellValue(cellf));
                 Cell cellg = row.getCell(6);
                 allowanceBean.setBankCard(getCellValue(cellg));
                 Cell cellh = row.getCell(7);
-                allowanceBean.setMonthes(new Integer(getCellValue(cellh)));
+                allowanceBean.setBeginTime(getCellValue(cellh));
+
                 Cell celli = row.getCell(8);
-                allowanceBean.setPhone(getCellValue(celli));
+                allowanceBean.setMonthes(new Integer(getCellValue(celli)));
+                Cell cellj = row.getCell(9);
+                allowanceBean.setPhone(getCellValue(cellj));
                 allowanceBean.setSumMoney(allowanceBean.getMonthes()*600);
 //                allowanceBean.setLastTime("2017-12");
                 allowanceBean.setUpdatetime("2017-12");
@@ -422,6 +434,12 @@ public class AllowanceDB {
      */
     public  String getCellValue(Cell cell){
         if(cell == null) return "";
+
+        if (cell.getCellType()==Cell.CELL_TYPE_NUMERIC && HSSFDateUtil.isCellDateFormatted(cell)){
+
+                Date date = HSSFDateUtil.getJavaDate(cell.getNumericCellValue());
+                return new SimpleDateFormat("yyyy-MM").format(date);
+        }
 
         if (cell.getCellType()!=Cell.CELL_TYPE_STRING){
             cell.setCellType(Cell.CELL_TYPE_STRING);

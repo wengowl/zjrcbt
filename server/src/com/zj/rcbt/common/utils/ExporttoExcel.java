@@ -165,7 +165,7 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("身份证号");
         row1.createCell(++column1).setCellValue("发放时间");
         row1.createCell(++column1).setCellValue("发放金额");
-        row1.createCell(++column1).setCellValue("补贴类型（元/月）");
+        row1.createCell(++column1).setCellValue("补贴金额（元/月）");
 
         row1.createCell(++column1).setCellValue("社保是否断缴");
         row1.createCell(++column1).setCellValue("银行");
@@ -214,18 +214,20 @@ public class ExporttoExcel {
         row1.createCell(++column1).setCellValue("姓名");
         row1.createCell(++column1).setCellValue("身份证号");
         row1.createCell(++column1).setCellValue("毕业时间");
-        row1.createCell(++column1).setCellValue("申请时间");
         row1.createCell(++column1).setCellValue("引进时间");
+        row1.createCell(++column1).setCellValue("申请时间");
         for (ApplytableBean  idnums:idnums1){
-            if (idnums.getApplyType().equals("1")){
+//            TODO 生活津贴
+           /* if (idnums.getApplyType().equals("1")){
                 idnums.setGraduateDate("");
-            }
+            }*/
             Row row = sheet.createRow(++rowNo);
 
             int column =-1;
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
             row.createCell(++column).setCellValue(idnums.getGraduateDate());
+            row.createCell(++column).setCellValue("");
             row.createCell(++column).setCellValue(idnums.getBatch());
         }
 
@@ -236,8 +238,9 @@ public class ExporttoExcel {
             row.createCell(++column).setCellValue(idnums.getName());
             row.createCell(++column).setCellValue(idnums.getIdNum());
             row.createCell(++column).setCellValue(idnums.getGraduatetime());
-            row.createCell(++column).setCellValue(idnums.getBatch());
             row.createCell(++column).setCellValue(idnums.getBeginTime());
+            row.createCell(++column).setCellValue(idnums.getBatch());
+
         }
 
 

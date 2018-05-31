@@ -201,7 +201,7 @@ public class VerifyService {
 
         applytablecompareBean.setComeDate(socialsecurityBean.getBeginTime());
         applytablecompareBean.setCompanyName(socialsecurityBean.getCompany());
-        if (applytableBean.getCompanyName().trim().equals(socialsecurityBean.getCompany().trim())){
+        if (!(applytableBean.getCompanyName().trim()).equals(socialsecurityBean.getCompany().trim())){
             return "社保参保单位与用人单位不一致";
         }
         // TODO: 2018/4/20  引进时间做条件判断
@@ -251,4 +251,14 @@ public class VerifyService {
 
 
 
+
+
+public static void main(String args[]){
+        String s0="abc  ";
+        System.out.println(s0.trim().length());
+   String  s1="绍兴信息科技有限公司";
+   String s2="绍兴信息科技有限公司   ";
+    System.out.println(s1.trim().length());
+   System.out.println(s2.trim().length());
+}
 }

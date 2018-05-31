@@ -9,8 +9,10 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,6 +90,7 @@ public class ExcelRowReader {
         Cell cell = row.getCell(columnNo);
         if (cell == null)
             return "";
+        System.out.print(cell.getCellType());
         switch (cell.getCellType())
         {
             case Cell.CELL_TYPE_STRING:
@@ -132,9 +135,18 @@ public class ExcelRowReader {
             default:
                 cellValue = "";
         }
+
+        System.out.println("  "+cellValue);
         return cellValue;
     }
 
+    public static void main(String args[]){
+        ExcelReader excelReader= new ExcelReader();
+        List<SocialsecurityBean> socialsecurityBeanList = new ArrayList<>();
+        List<ArchivesBean> archivesBeanList = new ArrayList<>();
+        File file = new File("d:\\社保1.xls");
+        excelReader.readFile(file,"1",archivesBeanList,socialsecurityBeanList);
+    }
 
 
 
