@@ -55,12 +55,12 @@ public class ExcelRowReader {
             return;
         }
 
-        for (int i=1; i<rowCount;i++){
+        for (int i=2; i<rowCount;i++){
             Row row = sheet.getRow(i);
-            int columnNo=-1;
+            int columnNo=0;
             ArchivesBean archivesBean = new ArchivesBean();
-            archivesBean.setUserName(getCellValueOrNull(row,++columnNo));
             archivesBean.setIdNum(getCellValueOrNull(row,++columnNo));
+            archivesBean.setUserName(getCellValueOrNull(row,++columnNo));
             if (archivesBean.getIdNum().equals("")||archivesBean.getIdNum()==null)
                 continue;
             archivesBean.setStatus(Constants.socialsecurity_new);

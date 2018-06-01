@@ -152,7 +152,7 @@ public class VerifyService {
        /* if (!applytableBean.getGraduateDate().equals(applytablecompareBean.getGraduateDate())){
             return "民族不符合";
         }*/
-            if (!applytablecompareBean.getEducationType().equals("普通全日制")) {
+            if (!applytablecompareBean.getEducationType().equals("普通全日制")&&!applytablecompareBean.getEducationType().equals("全日制")) {
                 return "不为全日制";
             }
             if (!applytableBean.getSchool().equals(applytablecompareBean.getSchool())) {

@@ -67,19 +67,21 @@ public class ApplyDao extends HibernateDaoSupport {
             String sql = "from ApplytableBean t where 1=1 ";
 
             if (status != null && !status.equals("")) {
-                sql = sql + "and t.applyStatus in ("+status+")";
+                sql = sql + " and t.applyStatus in ("+status+") ";
             }
 
             if (applyType != null&& !applyType.equals("") ) {
-                sql = sql + "and t.applyType like '%" + applyType + "%'";
+                sql = sql + " and t.applyType like '%" + applyType + "%'";
             }
 
             if (idCard != null && !idCard.equals("")) {
-                sql = sql + "and t.idNum like '%" + idCard + "%'";
+                sql = sql + " and t.idNum like '%" + idCard + "%'";
             }
             if (batch != null && !batch.equals("")) {
-                sql = sql + "and t.batch like '%" + batch + "%'";
+                sql = sql + " and t.batch like '%" + batch + "%'";
             }
+
+            sql = sql+" order by t.applyTime desc";
 
 
 
@@ -172,12 +174,33 @@ public class ApplyDao extends HibernateDaoSupport {
 
         return idnums;
     }
-    public List<ApplytableBean > getIdnumsApplynew(){
+    public List<ApplytableBean > getIdnumsApplynewshebao(){
         List<ApplytableBean> idnums = new ArrayList<>();
         Session session=null;
         try {
             session = getSessionFactory().openSession();
             String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
+
+            Query queryObject = session.createQuery(sql1);
+
+            idnums = queryObject.list();
+        }finally {
+            if (session!=null){
+                session.close();
+            }
+        }
+
+        return idnums;
+    }
+
+
+
+    public List<ApplytableBean > getIdnumsApplynewdangan(){
+        List<ApplytableBean> idnums = new ArrayList<>();
+        Session session=null;
+        try {
+            session = getSessionFactory().openSession();
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from ArchivesBean b where b.status='0')";
 
             Query queryObject = session.createQuery(sql1);
 

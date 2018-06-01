@@ -282,7 +282,11 @@ public class ApplyService {
     public List<ApplytableBean> getIdnumsApply(){
         return applyDao.getIdnumsApply();
     }
-    public List<ApplytableBean> getIdnumsApplynew(){
-        return applyDao.getIdnumsApplynew();
+    public List<ApplytableBean> getIdnumsApplynewshebao(){
+        return applyDao.getIdnumsApplynewshebao();
+    }
+
+    public List<ApplytableBean> getIdnumsApplynewdangan(){
+        return applyDao.getIdnumsApplynewdangan();
     }
 }

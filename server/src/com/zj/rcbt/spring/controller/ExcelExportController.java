@@ -110,23 +110,31 @@ public class ExcelExportController {
 
     @RequestMapping({"/idCard"})
     @ResponseBody
-    public RequestResult getidCard(HttpServletRequest request,@RequestParam("type") String type){
-        log.info("get idnums" +type);
+    public RequestResult getidCard(HttpServletRequest request,@RequestParam("type") String type,@RequestParam("all") String all){
+        log.info("get idnums" +type +" "+all);
 
         RequestResult result = new RequestResult();
 
       List<AllowanceBean> idCardsallowance = new ArrayList<>();
         List<ApplytableBean> idCardapply = new ArrayList<>();
-        if (type.equals("1")) {
+        if (all.equals("1")) {
 //            全量
             idCardsallowance   =allowanceService.getIdnumsAllowance();
             idCardapply  =applyService.getIdnumsApply();
         }
 
-        if (type.equals("0")) {
-//            增量
-            idCardsallowance   =allowanceService.getIdnumsAllowancenew();
-            idCardapply  =applyService.getIdnumsApplynew();
+
+
+        if (type.equals("0")&&all.equals("0")) {
+//            增量社保
+//            idCardsallowance   =allowanceService.getIdnumsAllowancenew();
+            idCardapply  =applyService.getIdnumsApplynewshebao();
+        }
+
+        if (type.equals("1")&&all.equals("0")) {
+//            增量档案
+//            idCardsallowance   =allowanceService.getIdnumsAllowancenew();
+            idCardapply  =applyService.getIdnumsApplynewdangan();
         }
 
 
@@ -141,7 +149,7 @@ public class ExcelExportController {
         }
 
         try {
-            exporttoExcel.exportIdnums(idCardapply,idCardsallowance,filepath);
+            exporttoExcel.exportIdnums(idCardapply,idCardsallowance,filepath,type);
         } catch (IOException e) {
             log.error(e.getMessage());
             result.setStatus(-1);

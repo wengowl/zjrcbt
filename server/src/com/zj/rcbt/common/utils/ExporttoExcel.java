@@ -4,9 +4,11 @@ import com.zj.rcbt.hibernate.model.AllowanceBean;
 import com.zj.rcbt.hibernate.model.AllowancehistoryBean;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.*;
 import java.util.List;
@@ -202,11 +204,15 @@ public class ExporttoExcel {
 
 
 
-    public void exportIdnums(List<ApplytableBean> idnums1, List<AllowanceBean> idnums2, File exportFile) throws IOException {
+    public void exportIdnums(List<ApplytableBean> idnums1, List<AllowanceBean> idnums2, File exportFile,String type) throws IOException {
 
         HSSFWorkbook wb = new HSSFWorkbook();
 
-        Sheet sheet =wb.createSheet("导社保所需身份证");
+        Sheet sheet=null;
+        if (type.equals("0")) {
+
+            sheet = wb.createSheet("导社保所需身份证");
+
 
         int rowNo =-1;
         Row row1 = sheet.createRow(++rowNo);
@@ -241,6 +247,45 @@ public class ExporttoExcel {
             row.createCell(++column).setCellValue(idnums.getBeginTime());
             row.createCell(++column).setCellValue(idnums.getBatch());
 
+        }
+        }else if (type.equals("1")){
+            sheet = wb.createSheet("导档案所需身份证");
+            CellRangeAddress cra=new CellRangeAddress(0, 0, 0, 3);
+            sheet.addMergedRegion(cra);
+            int rowNo =0;
+            Row row0 = sheet.createRow(rowNo);
+            row0.createCell(0).setCellValue(" 档案数据导入表");
+            Row row1 = sheet.createRow(++rowNo);
+            int column1 =-1;
+            row1.createCell(++column1).setCellValue("序号");
+            row1.createCell(++column1).setCellValue("身份证号");
+            row1.createCell(++column1).setCellValue("姓名");
+
+            row1.createCell(++column1).setCellValue("是否在档（Y/N）");
+            int i=0;
+
+            for (ApplytableBean  idnums:idnums1){
+
+                Row row = sheet.createRow(++rowNo);
+
+
+                int column =-1;
+                row.createCell(++column).setCellValue(++i);
+                row.createCell(++column).setCellValue(idnums.getIdNum());
+                row.createCell(++column).setCellValue(idnums.getName());
+                row.createCell(++column).setCellValue("");
+
+            }
+
+            for (AllowanceBean  idnums:idnums2){
+                Row row = sheet.createRow(++rowNo);
+                int column =-1;
+                row.createCell(++column).setCellValue(++i);
+                row.createCell(++column).setCellValue(idnums.getIdNum());
+                row.createCell(++column).setCellValue(idnums.getName());
+                row.createCell(++column).setCellValue("");
+
+            }
         }
 
 

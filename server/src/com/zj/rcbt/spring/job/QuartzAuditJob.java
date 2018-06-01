@@ -34,7 +34,7 @@ public class QuartzAuditJob {
         for (ApplytableBean applytableBean:applytableBeans){
             if (allowanceService.findByidnum(applytableBean.getIdNum()).size()>0){
                 applytableBean.setApplyStatus(Constants.applystatus_deny);
-                applytableBean.setAuditComment("已存在补贴发放记录，请勿重复申请");
+                applytableBean.setAuditComment("系统已有您的补贴申请记录，无需重复申请，此次申请表的审核状态系统会显示为不通过，但您提交的信息将作为最新信息保存并覆盖原有信息，请认真填写！\n");
             }else {
                 if (applytableBean.getEducationQrcode() != null && !applytableBean.getEducationQrcode().equals("")) {
                     String chsireturn = verifyService.updateXueli(applytableBean);
