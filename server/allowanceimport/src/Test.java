@@ -64,7 +64,7 @@ public class Test {
 
          System.out.println(allowanceBeans.size());
 //        allowanceDB.updatex(allowanceBeans);
-       allowanceDB.insertInto(allowanceBeans);
+//       allowanceDB.insertInto(allowanceBeans);
 //        allowanceDB.update(allowanceBeans);
     }
 }

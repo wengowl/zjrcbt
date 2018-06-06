@@ -126,60 +126,47 @@ public class FileUploadController {
     }
 
     //ie客户端请求头 accept为非 application/json格式
-    @RequestMapping(value="/uploadfile",method=RequestMethod.POST)
+    @RequestMapping(value="/getdownloadfile",method=RequestMethod.POST)
     @ResponseBody
-    public void uploadfile(HttpServletRequest request,HttpServletResponse response,
-                          @RequestParam("file") MultipartFile file,@RequestParam("usertype") String usertype) throws Exception {
+    public void getdownloadfile(HttpServletRequest request,HttpServletResponse response,
+                          @RequestParam("code") String code) throws Exception {
         RequestResult result = new RequestResult();
-        log.info("uploadfile "+file.getOriginalFilename());
-        if (usertype.equals("3")) {
-
+        log.info("getfile " + code);
 
 
 //        String filename = ""
-        String originalname=file.getOriginalFilename();
-        Map<String,Object> json= new HashMap<String, Object>();
-
+        String originalname = code+".doc";
+        Map<String, Object> json = new HashMap<String, Object>();
 
 
         //如果文件不为空，写入上传路径
-        if(!file.isEmpty()) {
+        if (!code.isEmpty()) {
             //上传文件路径
-            String path = request.getSession().getServletContext().getRealPath("")+"fujian";
+            String path = request.getSession().getServletContext().getRealPath("") + "fujian";
             //上传文件名
-            File filepath = new File(path,originalname);
+            File filepath = new File(path, originalname);
             //判断路径是否存在，如果不存在就创建一个
-            if (!filepath.getParentFile().exists()) {
-                filepath.getParentFile().mkdirs();
+            if (!filepath.exists()) {
+                result.setStatus(-1);
+                result.setErrorMsg("没有对应的文件");
+            } else {
+                String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/fujian";
+                json.put("fileUrl", basePath + "/" + originalname);
+                log.info("return url:" + basePath + "/" + originalname);
+                result.setData(json);
+                result.setStatus(0);
             }
-            log.info(filepath);
 
-            file.transferTo(filepath);
-            String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/fujian";
-            json.put("fileUrl",basePath + "/" + originalname);
-            log.info("return url:"+basePath + "/" +originalname);
-            result.setData(json);
-            result.setStatus(0);
-        } else {
-            result.setStatus(-1);
-            result.setErrorMsg("please choose the file");
+
+            response.setContentType("application/json; charset=UTF-8");
+            response.setCharacterEncoding("utf-8");
+            response.setHeader("Charset", "utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+
+
+            response.getWriter().print(JSON.toJSON(result));
+
 
         }
-        }else{
-            result.setStatus(-1);
-            result.setErrorMsg("无权限");
-        }
-        response.setContentType("application/json; charset=UTF-8");
-        response.setCharacterEncoding("utf-8");
-        response.setHeader("Charset", "utf-8");
-        response.setHeader("Cache-Control", "no-cache");
-
-
-
-
-
-        response.getWriter().print(JSON.toJSON(result));
-
-
     }
 }

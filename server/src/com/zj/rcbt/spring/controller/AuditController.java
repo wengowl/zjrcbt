@@ -179,6 +179,35 @@ public class AuditController {
     }
 
 
+    @RequestMapping({"/changstatus"})
+    @ResponseBody
+    public RequestResult changestatus(@RequestBody String requestBody){
+        RequestResult result =  new RequestResult();
+        result.setStatus(-1);
+        JSONObject jsonObject=JSONObject.parseObject(requestBody);
+        String status=jsonObject.getString("status");
+        String idNUm = jsonObject.getString("idCard");
+
+        log.info("changestatus "+idNUm+": "+status);
+
+
+        ApplytableBean applytableBean = applyService.findByIDnum(idNUm);
+
+       applytableBean.setApplyStatus(status);
+
+
+       applyService.saveOrupdate(applytableBean);
+
+        result.setData("");
+        result.setStatus(0);
+
+
+
+
+        return result;
+
+    }
+
 
 
 

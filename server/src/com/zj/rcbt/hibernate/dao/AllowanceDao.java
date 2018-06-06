@@ -207,7 +207,7 @@ public class AllowanceDao extends HibernateDaoSupport {
             session = getSessionFactory().openSession();
 //            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
 //           每次导出仍为全量导出
-            String sql1 = " from AllowanceBean a where a.idNum  not in (select  b.idNum from ApplytableBean b where b.applyStatus  not in ('-1','0') ) and a.monthes<36  and (a.over <>'1' OR a.over is null ) ";
+            String sql1 = " from AllowanceBean a where a.monthes<36  and (a.over <>'1' OR a.over is null ) ";
             Query queryObject = session.createQuery(sql1);
 
             idnums = queryObject.list();
