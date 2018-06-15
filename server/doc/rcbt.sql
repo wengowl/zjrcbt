@@ -183,3 +183,11 @@ school varchar (255),
 major varchar (255),
 primary key (id)
 );
+
+create table auditcomment(
+id int (11) not null auto_increment,
+id_num varchar (255),
+audittime varchar (255),
+auditcomment varchar (255),
+primary key (id)
+)

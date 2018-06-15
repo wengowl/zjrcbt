@@ -4,9 +4,11 @@ import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.common.utils.DateUtil;
 import com.zj.rcbt.hibernate.dao.AllowanceDao;
 import com.zj.rcbt.hibernate.dao.ApplyDao;
+import com.zj.rcbt.hibernate.dao.AuditDao;
 import com.zj.rcbt.hibernate.dao.SocialsecurityDao;
 import com.zj.rcbt.hibernate.model.AllowanceBean;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
+import com.zj.rcbt.hibernate.model.AuditcommentBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ AuditService {
 
     @Autowired
     private AllowanceDao allowanceDao;
+    @Autowired
+    private AuditDao auditDao;
 
 
     public int updateauditPass(ApplytableBean applytableBean){
@@ -65,6 +69,11 @@ AuditService {
         allowanceDao.save(allowanceBean);
 
         applyDao.update(applytableBean);
+        AuditcommentBean auditcommentBean = new AuditcommentBean();
+        auditcommentBean.setAuditcomment("通过");
+        auditcommentBean.setAudittime(DateUtil.getCurrentTime());
+        auditcommentBean.setIdNum(applytableBean.getIdNum());
+        auditDao.save(auditcommentBean);
 
         return 0;
 
@@ -74,15 +83,27 @@ AuditService {
 
     public int updateauditDeny(ApplytableBean applytableBean){
         applytableBean.setApplyStatus(Constants.applystatus_over);
+        AuditcommentBean auditcommentBean = new AuditcommentBean();
+        auditcommentBean.setAuditcomment(applytableBean.getAuditComment());
+        auditcommentBean.setAudittime(DateUtil.getCurrentTime());
+        auditcommentBean.setIdNum(applytableBean.getIdNum());
         applyDao.update(applytableBean);
+        auditDao.save(auditcommentBean);
 
         return 0;
     }
 
     public int updateauditDenyEdit(ApplytableBean applytableBean){
+        AuditcommentBean auditcommentBean = new AuditcommentBean();
+        auditcommentBean.setAuditcomment(applytableBean.getAuditComment());
+        auditcommentBean.setAudittime(DateUtil.getCurrentTime());
+        auditcommentBean.setIdNum(applytableBean.getIdNum());
+
 
         applytableBean.setApplyStatus(Constants.applystatus_wait);
         applyDao.update(applytableBean);
+        auditDao.save(auditcommentBean);
+
         return 0;
     }
     public List<ApplytableBean> findByPages( String applyType, String status,String batch, int startRow, int pageSize,String idCard){
@@ -92,6 +113,11 @@ AuditService {
     public int findByPagesCount( String applyType, String status,String batch,String idCard){
         return applyDao.findByPagesCount(applyType,status, batch,idCard);
 
+    }
+
+
+    public List<AuditcommentBean> getAuditComment(String idnum){
+        return auditDao.findByIdNum(idnum);
     }
 
 }

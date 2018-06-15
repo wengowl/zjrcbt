@@ -189,7 +189,7 @@ public class VerifyService {
         if (archivesBean==null){
             return "-1";
         }
-        if (socialsecurityBean.getBeginTime()==null||socialsecurityBean.getBeginTime().equals("")){
+        if (socialsecurityBean.getBeginTime()==null||socialsecurityBean.getBeginTime().trim().equals("")){
             return "1";
         }
         ApplytablecompareBean applytablecompareBean =applyCompareDao.findByIdnum(applytableBean.getIdNum());
@@ -200,14 +200,15 @@ public class VerifyService {
 
 
         applytablecompareBean.setComeDate(socialsecurityBean.getBeginTime());
+        applytablecompareBean.setWorkDate(socialsecurityBean.getLastTime());
         applytablecompareBean.setCompanyName(socialsecurityBean.getCompany());
         if (!(applytableBean.getCompanyName().trim()).equals(socialsecurityBean.getCompany().trim())){
             return "社保参保单位与用人单位不一致";
         }
         // TODO: 2018/4/20  引进时间做条件判断
-    /*  if (!socialsecurityBean.getBeginTime().equals(applytableBean.getComeDate())){
+      if (!socialsecurityBean.getBeginTime().trim().equals(applytableBean.getComeDate().trim())){
           return "引进时间与初次缴社保时间不一致";
-      }*/
+      }
 
         applyCompareDao.save(applytablecompareBean);
 //        applyCompareDao.refresh();

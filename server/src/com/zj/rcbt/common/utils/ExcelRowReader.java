@@ -40,7 +40,7 @@ public class ExcelRowReader {
                 monthes="0";
             }
             socialsecurityBean.setCompany(getCellValue(row,5));
-            socialsecurityBean.setMonthes(new Integer(monthes));
+            socialsecurityBean.setMonthes((int)Double.parseDouble(monthes));
             socialsecurityBean.setStatus(Constants.socialsecurity_new);
             socialsecurityBeans.add(socialsecurityBean);
 
@@ -97,7 +97,7 @@ public class ExcelRowReader {
                 cellValue = cell.getRichStringCellValue().getString().trim();
                 break;
             case Cell.CELL_TYPE_NUMERIC:
-                double value = cell.getNumericCellValue();
+               /* double value = cell.getNumericCellValue();
                 CellStyle style = cell.getCellStyle();
 
                 String temp = style.getDataFormatString();
@@ -122,9 +122,11 @@ public class ExcelRowReader {
                     }
                     Date date = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value);
                     cellValue = sdf.format(date);
-                }
-
+                }*/
+                cellValue = String.valueOf(cell.getNumericCellValue()).trim();
                 break;
+
+
 
             case Cell.CELL_TYPE_BOOLEAN:
                 cellValue = String.valueOf(cell.getBooleanCellValue()).trim();
@@ -141,11 +143,7 @@ public class ExcelRowReader {
     }
 
     public static void main(String args[]){
-        ExcelReader excelReader= new ExcelReader();
-        List<SocialsecurityBean> socialsecurityBeanList = new ArrayList<>();
-        List<ArchivesBean> archivesBeanList = new ArrayList<>();
-        File file = new File("d:\\社保1.xls");
-        excelReader.readFile(file,"1",archivesBeanList,socialsecurityBeanList);
+      String a ="诸暨荣德管业有限公司";
     }
 
 

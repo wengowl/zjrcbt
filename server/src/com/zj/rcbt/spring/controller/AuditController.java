@@ -3,6 +3,7 @@ package com.zj.rcbt.spring.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
+import com.zj.rcbt.hibernate.model.AuditcommentBean;
 import com.zj.rcbt.spring.service.AllowanceService;
 import com.zj.rcbt.spring.service.ApplyService;
 import com.zj.rcbt.spring.service.AuditService;
@@ -208,6 +209,42 @@ public class AuditController {
 
     }
 
+    @RequestMapping({"/getauditcomment"})
+    @ResponseBody
+    public RequestResult getAuditComment(@RequestParam("idCard") String idCard){
+        log.info("getAuditComment");
+        RequestResult result =  new RequestResult();
+
+
+        /*JSONObject jsonObject=JSONObject.parseObject(requestBody);
+        String applytype = jsonObject.getString("applicationCategory");
+        String status = jsonObject.getString("status");
+        int page=jsonObject.getInteger("page");
+        int limit = jsonObject.getInteger("limit");
+*/
+
+
+        List<AuditcommentBean> auditcommentBeans = auditService.getAuditComment(idCard);
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        for (AuditcommentBean auditcommentBean : auditcommentBeans) {
+            Map<String, Object> applytable = new HashMap<String, Object>();
+
+            applytable.put("idCard",auditcommentBean.getIdNum() );
+            applytable.put("auditcomment",auditcommentBean.getAuditcomment() );
+            applytable.put("audittime",auditcommentBean.getAudittime() );
+            list.add(applytable);
+        }
+
+        result.setData(list);
+        result.setStatus(0);
+
+
+
+
+
+
+        return result;
+    }
 
 
 

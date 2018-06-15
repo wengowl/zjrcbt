@@ -78,14 +78,14 @@ public class QuartzAuditJob {
 //                    applytableBean.setApplyStatus(Constants.applystatus_deny);
                     applytableBean.setAuditComment("暂无社保和档案数据比对");
                 }else if (socialSecurityreturn.equals("1")){
-                    applytableBean.setApplyStatus(Constants.applystatus_deny);
+                    applytableBean.setApplyStatus(Constants.applystatus_second);
                     applytableBean.setAuditComment("社保数据为空");
                 }
                 else if (socialSecurityreturn.equals("0")){
                     applytableBean.setApplyStatus(Constants.applystatus_second);
                     applytableBean.setAuditComment("");
                 }else {
-                    applytableBean.setApplyStatus(Constants.applystatus_deny);
+                    applytableBean.setApplyStatus(Constants.applystatus_second);
                     applytableBean.setAuditComment(socialSecurityreturn);
                 }
                 applyService.saveOrupdate(applytableBean);
