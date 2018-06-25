@@ -202,15 +202,19 @@ public class VerifyService {
         applytablecompareBean.setComeDate(socialsecurityBean.getBeginTime());
         applytablecompareBean.setWorkDate(socialsecurityBean.getLastTime());
         applytablecompareBean.setCompanyName(socialsecurityBean.getCompany());
+        applyCompareDao.save(applytablecompareBean);
+        String s="";
         if (!(applytableBean.getCompanyName().trim()).equals(socialsecurityBean.getCompany().trim())){
-            return "社保参保单位与用人单位不一致";
+            s=s+ "社保参保单位与用人单位不一致\n";
         }
         // TODO: 2018/4/20  引进时间做条件判断
-      if (!socialsecurityBean.getBeginTime().trim().equals(applytableBean.getComeDate().trim())){
-          return "引进时间与初次缴社保时间不一致";
-      }
+        if (!socialsecurityBean.getBeginTime().trim().equals(applytableBean.getComeDate().trim())){
+            s=s+ "引进时间与初次缴社保时间不一致";
+        }
+        if (!s.equals("")){
+            return s;
+        }
 
-        applyCompareDao.save(applytablecompareBean);
 //        applyCompareDao.refresh();
 
 

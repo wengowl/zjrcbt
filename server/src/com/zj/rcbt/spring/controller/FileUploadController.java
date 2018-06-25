@@ -135,7 +135,7 @@ public class FileUploadController {
 
 
 //        String filename = ""
-        String originalname = code+".doc";
+        String originalname = code+".xls";
         Map<String, Object> json = new HashMap<String, Object>();
 
 

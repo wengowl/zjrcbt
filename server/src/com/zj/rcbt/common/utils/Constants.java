@@ -12,6 +12,8 @@ public final class Constants {
     public final static String applystatus_over="-1";//复核未通过
     public final static String applystatus_init="5";
 
+    public final static String applystatus_re="-2";//重复申请
+
     public final static String socialsecurity_new="0";//新导入社保未做处理
     public final static String socialsecurity_old="1";
 
