@@ -60,8 +60,8 @@ public class AllowanceService {
 //        查找补贴汇总表中补帖数少于36个月的（若是初次申请，则需复核通过后，自动插入数据为零的信息）
         List<AllowanceBean> allowanceBeanList = allowanceDao.findMonthesRemain();
         for (AllowanceBean allowancebean : allowanceBeanList) {
-//            TODO 去掉获取申请表银行卡等信息，防止重复申请的错误更改
-           /* ApplytableBean applytableBean = applyDao.findByIDnum(allowancebean.getIdNum());
+//            TODO 去掉重复申请的获取申请表银行卡等信息，防止重复申请的错误更改
+            ApplytableBean applytableBean = applyDao.findByIDnum(allowancebean.getIdNum());
             if (applytableBean!=null){
                 allowancebean.setPhone(applytableBean.getPhoneNum());
                 allowancebean.setCompany(applytableBean.getCompanyName());
@@ -69,7 +69,7 @@ public class AllowanceService {
                 allowancebean.setBank(applytableBean.getBank());
                 allowancebean.setBankCard(applytableBean.getBankCard());
 
-            }*/
+            }
             AllowancehistoryBean allowancehistoryBean = new AllowancehistoryBean();
 //            allowancehistoryBean.seta(allowancebean.getAllownceId());
             allowancehistoryBean.setAllowancetype(allowancebean.getAllowancetype());
@@ -184,6 +184,12 @@ public class AllowanceService {
 
         List<ApplytableBean> applytableBeans = applyDao.findBystatus(Constants.applystatus_deny);
         for (ApplytableBean applytableBean:applytableBeans){
+            applytableBean.setApplyStatus(Constants.applystatus_over);
+            applyDao.update(applytableBean);
+        }
+//  已复核待修改未修改的，也置为不通过
+        List<ApplytableBean> applytableBeans1 = applyDao.findBystatus(Constants.applystatus_wait);
+        for (ApplytableBean applytableBean:applytableBeans1){
             applytableBean.setApplyStatus(Constants.applystatus_over);
             applyDao.update(applytableBean);
         }

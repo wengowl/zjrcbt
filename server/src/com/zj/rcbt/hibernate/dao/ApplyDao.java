@@ -179,7 +179,7 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
 
             Query queryObject = session.createQuery(sql1);
 
@@ -200,7 +200,7 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from ArchivesBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from ArchivesBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
 
             Query queryObject = session.createQuery(sql1);
 

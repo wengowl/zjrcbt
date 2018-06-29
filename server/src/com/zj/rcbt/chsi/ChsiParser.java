@@ -94,7 +94,7 @@ public class ChsiParser {
                 chsi.setXingshi(trs2.get(3).select("td").get(1).text());
 
                 String graduation = trs2.get(4).select("td").get(3).getElementsByClass("cnt1").text();
-                String s = graduation.substring(8, 18);
+                String s = graduation.substring(8, 19);
                 System.out.println(s);
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy年MM月dd日");
                 Date ss = null;
