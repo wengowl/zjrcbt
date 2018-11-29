@@ -21,11 +21,13 @@ public class AllowanceBean {
     private String phone;
     private String name;
     private String company;
-    private String isfirstschool;
     private String batch;
+    private String isfirstschool;
     private String over;
     private String graduatetime;
     private String education;
+    private String applyType;
+    private String rcType;
 
     @Id
     @Column(name = "allownce_id")
@@ -178,16 +180,6 @@ public class AllowanceBean {
     }
 
     @Basic
-    @Column(name = "isfirstschool")
-    public String getIsfirstschool() {
-        return isfirstschool;
-    }
-
-    public void setIsfirstschool(String isfirstschool) {
-        this.isfirstschool = isfirstschool;
-    }
-
-    @Basic
     @Column(name = "batch")
     public String getBatch() {
         return batch;
@@ -195,6 +187,16 @@ public class AllowanceBean {
 
     public void setBatch(String batch) {
         this.batch = batch;
+    }
+
+    @Basic
+    @Column(name = "isfirstschool")
+    public String getIsfirstschool() {
+        return isfirstschool;
+    }
+
+    public void setIsfirstschool(String isfirstschool) {
+        this.isfirstschool = isfirstschool;
     }
 
     @Basic
@@ -227,6 +229,26 @@ public class AllowanceBean {
         this.education = education;
     }
 
+    @Basic
+    @Column(name = "apply_type")
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType;
+    }
+
+    @Basic
+    @Column(name = "rc_type")
+    public String getRcType() {
+        return rcType;
+    }
+
+    public void setRcType(String rcType) {
+        this.rcType = rcType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -247,16 +269,18 @@ public class AllowanceBean {
                 Objects.equals(phone, that.phone) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(company, that.company) &&
-                Objects.equals(isfirstschool, that.isfirstschool) &&
                 Objects.equals(batch, that.batch) &&
+                Objects.equals(isfirstschool, that.isfirstschool) &&
                 Objects.equals(over, that.over) &&
                 Objects.equals(graduatetime, that.graduatetime) &&
-                Objects.equals(education, that.education);
+                Objects.equals(education, that.education) &&
+                Objects.equals(applyType, that.applyType) &&
+                Objects.equals(rcType, that.rcType);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, over, graduatetime, education);
+        return Objects.hash(allownceId, idNum, beginTime, lastTime, sumMoney, lastMoney, monthes, allowancetype, updatetime, shebao, bank, bankCard, phone, name, company, batch, isfirstschool, over, graduatetime, education, applyType, rcType);
     }
 }

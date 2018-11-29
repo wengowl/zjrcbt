@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "applytablecompare", schema = "rcbt", catalog = "")
 public class ApplytablecompareBean {
     private String idNum;
-    private int userId;
+    private Integer userId;
     private String photoLocation;
     private String name;
     private String birthDate;
@@ -46,6 +46,7 @@ public class ApplytablecompareBean {
     private String educationType;
     private String school;
     private Integer isarchive;
+    private String inzhuji;
 
     @Id
     @Column(name = "id_num")
@@ -59,11 +60,11 @@ public class ApplytablecompareBean {
 
     @Basic
     @Column(name = "user_id")
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -437,13 +438,23 @@ public class ApplytablecompareBean {
         this.isarchive = isarchive;
     }
 
+    @Basic
+    @Column(name = "inzhuji")
+    public String getInzhuji() {
+        return inzhuji;
+    }
+
+    public void setInzhuji(String inzhuji) {
+        this.inzhuji = inzhuji;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApplytablecompareBean that = (ApplytablecompareBean) o;
-        return userId == that.userId &&
-                Objects.equals(idNum, that.idNum) &&
+        return Objects.equals(idNum, that.idNum) &&
+                Objects.equals(userId, that.userId) &&
                 Objects.equals(photoLocation, that.photoLocation) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(birthDate, that.birthDate) &&
@@ -480,12 +491,12 @@ public class ApplytablecompareBean {
                 Objects.equals(auditComment, that.auditComment) &&
                 Objects.equals(educationType, that.educationType) &&
                 Objects.equals(school, that.school) &&
-                Objects.equals(isarchive, that.isarchive);
+                Objects.equals(isarchive, that.isarchive) &&
+                Objects.equals(inzhuji, that.inzhuji);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(idNum, userId, photoLocation, name, birthDate, sex, graduateDate, major, nation, nativePalce, education, politicalLandscape, professionalTitle, workDate, comeDate, applyDate, rcType, applyType, applyMoney, isFirstschool, phoneNum, companyType, companyName, companyAddress, companyContact, post, contactPhone, bank, bankCard, educationQrcode, attatchment, applyTime, chsiReturn, applyStatus, allowanceId, auditComment, educationType, school, isarchive);
+        return Objects.hash(idNum, userId, photoLocation, name, birthDate, sex, graduateDate, major, nation, nativePalce, education, politicalLandscape, professionalTitle, workDate, comeDate, applyDate, rcType, applyType, applyMoney, isFirstschool, phoneNum, companyType, companyName, companyAddress, companyContact, post, contactPhone, bank, bankCard, educationQrcode, attatchment, applyTime, chsiReturn, applyStatus, allowanceId, auditComment, educationType, school, isarchive, inzhuji);
     }
 }

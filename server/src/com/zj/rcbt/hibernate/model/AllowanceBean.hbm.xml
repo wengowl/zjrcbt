@@ -20,10 +20,12 @@
         <property name="phone" column="phone"/>
         <property name="name" column="name"/>
         <property name="company" column="company"/>
-        <property name="isfirstschool" column="isfirstschool"/>
         <property name="batch" column="batch"/>
+        <property name="isfirstschool" column="isfirstschool"/>
         <property name="over" column="over"/>
         <property name="graduatetime" column="graduatetime"/>
         <property name="education" column="education"/>
+        <property name="applyType" column="apply_type"/>
+        <property name="rcType" column="rc_type"/>
     </class>
 </hibernate-mapping>

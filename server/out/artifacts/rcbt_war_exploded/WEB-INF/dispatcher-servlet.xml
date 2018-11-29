@@ -32,6 +32,18 @@
             <mvc:mapping path="/**"/>
             <bean class="com.zj.rcbt.common.filter.SqlInjectInterceptor"></bean>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/**" />
+            <!-- /register 和 /login 不需要拦截-->
+            <mvc:exclude-mapping path="/user/register" />
+            <mvc:exclude-mapping path="/user/login" />
+            <mvc:exclude-mapping path="/user/password/reset" />
+            <mvc:exclude-mapping path="/user/getkey"/>
+            <mvc:exclude-mapping path="/file/uploadnew" />
+            <mvc:exclude-mapping path="/import/uploadnew" />
+            <bean class="com.zj.rcbt.common.filter.TokenInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 允许对静态资源文件的直接访问 -->

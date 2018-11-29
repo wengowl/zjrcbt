@@ -64,10 +64,10 @@ public class QuartzAuditJob {
         List<SocialsecurityBean> socialsecurityBeanList= verifyService.findBystatus(Constants.socialsecurity_new);
         List<ArchivesBean> archivesBeanList=verifyService.findByArchivesstatus(Constants.socialsecurity_new);
 
-        if (archivesBeanList!=null&&archivesBeanList.size()>0&&socialsecurityBeanList!=null&&socialsecurityBeanList.size()>0){
+        if (archivesBeanList!=null&&archivesBeanList.size()>=0&&socialsecurityBeanList!=null&&socialsecurityBeanList.size()>0){
             List<ApplytableBean> applytables = applyService.findBystatus(Constants.applystatus_first);
             for (ApplytableBean applytableBean:applytables){
-                log.info("shebao xiaoyan "+applytableBean.getIdNum());
+                log.info("shebao jiaoyan "+applytableBean.getIdNum());
                 String socialSecurityreturn = verifyService.updateSocialsecurity(applytableBean);//判断社保
 //               //判断档案
                     verifyService.updateisAchive(applytableBean);

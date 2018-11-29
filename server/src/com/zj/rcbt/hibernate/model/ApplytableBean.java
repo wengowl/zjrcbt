@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "applytable", schema = "rcbt", catalog = "")
 public class ApplytableBean {
     private String idNum;
-    private int userId;
+    private Integer userId;
     private String photoLocation;
     private String name;
     private String birthDate;
@@ -23,6 +23,7 @@ public class ApplytableBean {
     private String professionalTitle;
     private String workDate;
     private String comeDate;
+    private String applyDate;
     private String rcType;
     private String applyType;
     private String applyMoney;
@@ -44,6 +45,7 @@ public class ApplytableBean {
     private Integer allowanceId;
     private String auditComment;
     private String batch;
+    private String inzhuji;
 
     @Id
     @Column(name = "id_num")
@@ -57,11 +59,11 @@ public class ApplytableBean {
 
     @Basic
     @Column(name = "user_id")
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -203,6 +205,16 @@ public class ApplytableBean {
 
     public void setComeDate(String comeDate) {
         this.comeDate = comeDate;
+    }
+
+    @Basic
+    @Column(name = "apply_date")
+    public String getApplyDate() {
+        return applyDate;
+    }
+
+    public void setApplyDate(String applyDate) {
+        this.applyDate = applyDate;
     }
 
     @Basic
@@ -415,13 +427,23 @@ public class ApplytableBean {
         this.batch = batch;
     }
 
+    @Basic
+    @Column(name = "inzhuji")
+    public String getInzhuji() {
+        return inzhuji;
+    }
+
+    public void setInzhuji(String inzhuji) {
+        this.inzhuji = inzhuji;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApplytableBean that = (ApplytableBean) o;
-        return userId == that.userId &&
-                Objects.equals(idNum, that.idNum) &&
+        return Objects.equals(idNum, that.idNum) &&
+                Objects.equals(userId, that.userId) &&
                 Objects.equals(photoLocation, that.photoLocation) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(birthDate, that.birthDate) &&
@@ -436,6 +458,7 @@ public class ApplytableBean {
                 Objects.equals(professionalTitle, that.professionalTitle) &&
                 Objects.equals(workDate, that.workDate) &&
                 Objects.equals(comeDate, that.comeDate) &&
+                Objects.equals(applyDate, that.applyDate) &&
                 Objects.equals(rcType, that.rcType) &&
                 Objects.equals(applyType, that.applyType) &&
                 Objects.equals(applyMoney, that.applyMoney) &&
@@ -456,12 +479,12 @@ public class ApplytableBean {
                 Objects.equals(applyStatus, that.applyStatus) &&
                 Objects.equals(allowanceId, that.allowanceId) &&
                 Objects.equals(auditComment, that.auditComment) &&
-                Objects.equals(batch, that.batch);
+                Objects.equals(batch, that.batch) &&
+                Objects.equals(inzhuji, that.inzhuji);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(idNum, userId, photoLocation, name, birthDate, sex, graduateDate, major, nation, nativePalce, education, school, politicalLandscape, professionalTitle, workDate, comeDate, rcType, applyType, applyMoney, isFirstschool, phoneNum, companyType, companyName, companyAddress, companyContact, post, contactPhone, bank, bankCard, educationQrcode, attatchment, applyTime, chsiReturn, applyStatus, allowanceId, auditComment, batch);
+        return Objects.hash(idNum, userId, photoLocation, name, birthDate, sex, graduateDate, major, nation, nativePalce, education, school, politicalLandscape, professionalTitle, workDate, comeDate, applyDate, rcType, applyType, applyMoney, isFirstschool, phoneNum, companyType, companyName, companyAddress, companyContact, post, contactPhone, bank, bankCard, educationQrcode, attatchment, applyTime, chsiReturn, applyStatus, allowanceId, auditComment, batch, inzhuji);
     }
 }

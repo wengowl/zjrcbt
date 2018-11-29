@@ -120,6 +120,10 @@
                 <value>classpath:com/zj/rcbt/hibernate/model/AllowancehistoryBean.hbm.xml</value>
                 <value>classpath:com/zj/rcbt/hibernate/model/SocialsecurityBean.hbm.xml</value>
                 <value>classpath:com/zj/rcbt/hibernate/model/AuditcommentBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/AllowanceBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/OperationBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytableBean.hbm.xml</value>
+                <value>classpath:com/zj/rcbt/hibernate/model/ApplytablecompareBean.hbm.xml</value>
             </list>
         </property>
     </bean>

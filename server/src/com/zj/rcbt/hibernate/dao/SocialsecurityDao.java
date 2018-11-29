@@ -49,6 +49,11 @@ public class SocialsecurityDao extends HibernateDaoSupport {
         getHibernateTemplate().clear();
     }
 
+    public void saveOrUpdate(SocialsecurityBean socialsecurityBean){
+        getHibernateTemplate().saveOrUpdate(socialsecurityBean);
+
+    }
+
     public SocialsecurityBean findByIDnum(String id_num){
         List<SocialsecurityBean> socialsecurityBeanList=(List<SocialsecurityBean> )getHibernateTemplate().find("from  SocialsecurityBean t where  t.idNum= ? ", new Object[]
                 { id_num });
@@ -59,6 +64,7 @@ public class SocialsecurityDao extends HibernateDaoSupport {
 
        return null;
     }
+
 
     public List<SocialsecurityBean> findBystatus(String status){
         return (List<SocialsecurityBean> )getHibernateTemplate().find("from  SocialsecurityBean t where  t.status= ? ", new Object[]
@@ -157,16 +163,21 @@ public class SocialsecurityDao extends HibernateDaoSupport {
     }
 
 
-    public List<SocialsecurityBean> findByPages(String idnum,int startRow,int pageSize){
+    public List<SocialsecurityBean> findByPages(String idnum,String name,int startRow,int pageSize){
         List<SocialsecurityBean> socialsecurityBeanList=new ArrayList<>();
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from SocialsecurityBean t where 1=1 and t.status='0'";
+//            String sql = "from SocialsecurityBean t where 1=1 and t.status='0'";
 
+            String sql = "from SocialsecurityBean t where 1=1 ";
             if (idnum != null && !idnum.equals("")) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
             }
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.userName like '%" + name + "%'";
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);
@@ -190,16 +201,22 @@ public class SocialsecurityDao extends HibernateDaoSupport {
 
 
 
-    public int  findByPagesCount(String idnum){
+    public int  findByPagesCount(String idnum,String name){
         int count=0;
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from SocialsecurityBean t where 1=1 and t.status='0'";
+//            String sql = "select count(*) from SocialsecurityBean t where 1=1 and t.status='0'";
+
+            String sql = "select count(*) from SocialsecurityBean t where 1=1 ";
 
             if (idnum != null && !idnum.equals("")) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
             }
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.userName like '%" + name + "%'";
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);

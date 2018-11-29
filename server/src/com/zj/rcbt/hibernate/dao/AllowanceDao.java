@@ -63,22 +63,22 @@ public class AllowanceDao extends HibernateDaoSupport {
     }
 
 
-    public List<AllowanceBean> findByPages(String month, String allowancetype, String idnum, String batch,int startRow, int pageSize){
+    public List<AllowanceBean> findByPages(String month, String allowancetype, String idnum, String batch,String name,int startRow, int pageSize,String rcType){
         List<AllowanceBean> allowanceBeanList=new ArrayList<AllowanceBean>();
         Session session=null;
         try {
             session = getSessionFactory().openSession();
             String sql = "from AllowanceBean t where 1=1 ";
             if (month != null&&!month.equals("") && month.equals("0")) {
-                sql = sql + "and t.monthes>=36";
+                sql = sql + "and (t.monthes>=36 or t.over='1')";
             }
 
             if ( month != null&&!month.equals("") &&month.equals("1")) {
-                sql = sql + "and t.monthes<36";
+                sql = sql + "and t.monthes<36 and (t.over <>'1' OR t.over is null )";
             }
 
             if (allowancetype != null && !allowancetype.equals("")) {
-                sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+                sql = sql + "and t.allowancetype  in  (" + allowancetype + ")";
             }
 
             if (idnum != null &&!idnum.equals("") ) {
@@ -87,6 +87,18 @@ public class AllowanceDao extends HibernateDaoSupport {
             if (batch != null &&!batch.equals("") ) {
                 sql = sql + "and t.batch like '%" + batch + "%'";
             }
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.name like '%" + name + "%'";
+            }
+
+            if (rcType!=null && !rcType.equals("")){
+                if (rcType.equals("0")){
+                    sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+                }else if (rcType.equals("1")){
+                    sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+                }
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);
@@ -110,14 +122,14 @@ public class AllowanceDao extends HibernateDaoSupport {
 
 
 
-    public int findByPagesCount(String month, String allowancetype, String idnum,String batch){
+    public int findByPagesCount(String month, String allowancetype, String idnum,String batch,String name,String rcType){
        int count=0;
         Session session=null;
         try {
             session = getSessionFactory().openSession();
             String sql = "select count(*) from AllowanceBean t where 1=1 ";
             if (month != null&&!month.equals("") && month.equals("0")) {
-                sql = sql + "and t.monthes>=36 or t.over='1'";
+                sql = sql + "and (t.monthes>=36 or t.over='1')";
             }
 
             if ( month != null&&!month.equals("") &&month.equals("1")) {
@@ -125,7 +137,7 @@ public class AllowanceDao extends HibernateDaoSupport {
             }
 
             if (allowancetype != null && !allowancetype.equals("")) {
-                sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+                sql = sql + "and t.allowancetype in (" + allowancetype + ")";
             }
 
             if (idnum != null &&!idnum.equals("") ) {
@@ -135,6 +147,18 @@ public class AllowanceDao extends HibernateDaoSupport {
             if (batch != null && !batch.equals("")) {
                 sql = sql + "and t.batch like '%" + batch + "%'";
             }
+
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.name like '%" + name + "%'";
+            }
+            if (rcType!=null && !rcType.equals("")){
+                if (rcType.equals("0")){
+                    sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+                }else if (rcType.equals("1")){
+                    sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+                }
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);
@@ -172,7 +196,7 @@ public class AllowanceDao extends HibernateDaoSupport {
             }
 
             if ( allowancetype != null &&!allowancetype.equals("")) {
-                sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+                sql = sql + "and t.allowancetype in (" + allowancetype + ")";
             }
 
             if (idnum != null && !idnum.equals("")) {

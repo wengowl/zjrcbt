@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.zj.rcbt.common.utils.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,14 +46,16 @@ public class ExceptionResolver extends
                 try {
                     PrintWriter writer = response.getWriter();
                     Map map=new HashMap();
-                    map.put("staus", 1);
+                    map.put("status", 1);
                     map.put("msg", ex.getMessage());
                     ex.printStackTrace();
                     log.error(ex.getMessage());
+                    log.error(ExceptionUtils.getStackTrace(ex));
                     writer.write(JSONUtils.toJSONString(map));
                     writer.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    log.error(ExceptionUtils.getStackTrace(e));
                     log.error(e.getMessage());
                 }
                 return null;

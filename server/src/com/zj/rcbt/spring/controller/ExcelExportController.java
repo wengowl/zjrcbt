@@ -1,7 +1,9 @@
 package com.zj.rcbt.spring.controller;
 
 import com.zj.rcbt.common.utils.DateUtil;
+import com.zj.rcbt.common.utils.ExceptionUtils;
 import com.zj.rcbt.common.utils.ExporttoExcel;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.model.AllowanceBean;
 import com.zj.rcbt.hibernate.model.AllowancehistoryBean;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
@@ -54,6 +56,7 @@ public class ExcelExportController {
             exporttoExcel.export(allowanceBeanList,filepath);
         } catch (IOException e) {
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
             result.setStatus(-1);
             result.setErrorMsg(e.getMessage());
             return result;
@@ -64,6 +67,11 @@ public class ExcelExportController {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/export";
         json.put("fileUrl",basePath + "/" + filename);
         log.info("return url:"+basePath + "/" + filename);
+
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        json.put("token",token);
+
         result.setData(json);
 
 
@@ -91,6 +99,7 @@ public class ExcelExportController {
             exporttoExcel.exportHistory(allowanceBeanList,filepath);
         } catch (IOException e) {
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
             result.setStatus(-1);
             result.setErrorMsg(e.getMessage());
             return result;
@@ -101,6 +110,8 @@ public class ExcelExportController {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/export";
         json.put("fileUrl",basePath + "/" + filename);
         log.info("return url:"+basePath + "/" + filename);
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        json.put("token",token);
         result.setData(json);
 
 
@@ -162,6 +173,9 @@ public class ExcelExportController {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/export";
         json.put("fileUrl",basePath + "/" + filename);
         log.info("return url:"+basePath + "/" + filename);
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        json.put("token",token);
+
         result.setData(json);
 
 

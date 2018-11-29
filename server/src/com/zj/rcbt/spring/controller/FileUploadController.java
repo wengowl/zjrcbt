@@ -1,6 +1,7 @@
 package com.zj.rcbt.spring.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zj.rcbt.common.utils.JWTUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -59,10 +60,19 @@ public class FileUploadController {
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/tempfile";
             json.put("fileUrl",basePath + "/" + filename);
             log.info("return url:"+basePath + "/" + filename);
+
+            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            json.put("token",token);
+
             result.setData(json);
             result.setStatus(0);
             return result;
         } else {
+            Map<String, Object> resultData = new HashMap();
+
+            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            resultData.put("token",token);
+            result.setData(resultData);
             result.setStatus(-1);
             result.setErrorMsg("please choose the file");
             return result;
@@ -107,9 +117,19 @@ public class FileUploadController {
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/tempfile";
             json.put("fileUrl",basePath + "/" + filename);
             log.info("return url:"+basePath + "/" + filename);
+
+
+            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            json.put("token",token);
+
             result.setData(json);
             result.setStatus(0);
         } else {
+            Map<String, Object> resultData = new HashMap();
+
+            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            resultData.put("token",token);
+            result.setData(resultData);
             result.setStatus(-1);
             result.setErrorMsg("please choose the file");
 
@@ -147,6 +167,7 @@ public class FileUploadController {
             File filepath = new File(path, originalname);
             //判断路径是否存在，如果不存在就创建一个
             if (!filepath.exists()) {
+
                 result.setStatus(-1);
                 result.setErrorMsg("没有对应的文件");
             } else {

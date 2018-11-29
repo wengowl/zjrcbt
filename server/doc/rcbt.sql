@@ -57,6 +57,7 @@ chsi_return varchar (255),
 apply_status varchar (32),
 allowance_id int(11),
 audit_comment varchar (255),
+inzhuji varchar (32),
 primary key (id_num)
 );
 create table archives(
@@ -168,6 +169,7 @@ audit_comment varchar (255),
 education_type varchar (32),
 school varchar (32),
 isarchive int (11),
+inzhuji varchar (32),
 primary key (id_num)
 );
 

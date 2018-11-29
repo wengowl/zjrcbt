@@ -3,6 +3,7 @@ package com.zj.rcbt.spring.service;
 
 import com.zj.rcbt.chsi.Chsi;
 import com.zj.rcbt.chsi.ChsiParser;
+import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.hibernate.dao.*;
 import com.zj.rcbt.hibernate.model.*;
 import com.zj.rcbt.qrcode.QRCode;
@@ -97,17 +98,20 @@ public class VerifyService {
             applytablecompareBean.setSchool(chsi.getSchool());
             applytablecompareBean.setMajor(chsi.getMajor());
             if (chsi.getId() != null) {
+                if (!applytableBean.getIdNum().equals(chsi.getId())) {
+                    return "身份证与学信网信息不一致";
+                }
                 applytablecompareBean.setIdNum(chsi.getId());
+
             } else {
                 applytablecompareBean.setIdNum(applytableBean.getIdNum());
             }
 // TODO 双一流学校
-          /*  if (topSchoolDao.findByName(applytablecompareBean.getSchool()) != null ||topSchoolDao.findByNameAndMajor(applytablecompareBean.getSchool(),applytablecompareBean.getMajor())!=null) {
+            if (topSchoolDao.findByName(applytableBean.getSchool()) != null ||topSchoolDao.findByNameAndMajor(applytableBean.getSchool(),applytableBean.getMajor())!=null) {
                 applytablecompareBean.setIsFirstschool("0");
             } else {
                 applytablecompareBean.setIsFirstschool("1");
             }
-*/
         }else {
             applytablecompareBean.setIdNum(applytableBean.getIdNum());
             applytablecompareBean.setEducationQrcode(x);
@@ -120,22 +124,34 @@ public class VerifyService {
             applytablecompareBean.setSex(chsi.getSex());
             applytablecompareBean.setSchool(chsi.getSchool());
             applytablecompareBean.setMajor(chsi.getMajor());
+
 //            TODO 双一流，一流学科
-         /*   if (topSchoolDao.findByName(applytableBean.getSchool()) != null) {
+            if (topSchoolDao.findByName(applytableBean.getSchool()) != null ||topSchoolDao.findByNameAndMajor(applytableBean.getSchool(),applytableBean.getMajor())!=null) {
                 applytablecompareBean.setIsFirstschool("0");
             } else {
                 applytablecompareBean.setIsFirstschool("1");
+            }
+           /* if(applytablecompareBean.getIdNum().startsWith("330681")){
+                applytablecompareBean.setInzhuji("0");
+            }else{
+                applytablecompareBean.setInzhuji("1");
             }*/
             applyCompareDao.save(applytablecompareBean);
-//            TODO 暂不比较
-           /* if (!applytablecompareBean.getIsFirstschool().equals(applytableBean.getIsFirstschool()) && applytableBean.getApplyType().equals("0")) {
-                return "双一流资格不匹配";
-            }*/
+//
+            if (applytableBean.getRcType().equals(Constants.rc_topschoolbenke)||applytableBean.getRcType().equals(Constants.rc_xinzhengtopschoolshuoshi)) {
+                if (applytablecompareBean.getIsFirstschool().equals("1")) {
+                    return "毕业学校与专业不在“双一流”建设高校和学科范围内";
+                }
+            }
             return "0";
 
         }
 
-
+        /*if(applytablecompareBean.getIdNum().startsWith("330681")){
+            applytablecompareBean.setInzhuji("0");
+        }else{
+            applytablecompareBean.setInzhuji("1");
+        }*/
             applyCompareDao.save(applytablecompareBean);
 
 
@@ -155,22 +171,24 @@ public class VerifyService {
             if (!applytableBean.getSchool().equals(applytablecompareBean.getSchool())) {
                 return "毕业院校与学信网信息不一致";
             }
-            if (!applytableBean.getIdNum().equals(applytablecompareBean.getIdNum())) {
-                return "身份证与学信网信息不一致";
-            }
+
             if (!applytableBean.getGraduateDate().equals(applytablecompareBean.getGraduateDate().substring(0, 7))) {
                 return "毕业时间与学信网信息不一致";
             }
+
 
         if (!applytablecompareBean.getEducationType().equals("普通全日制")&&!applytablecompareBean.getEducationType().equals("全日制")) {
             return "不为全日制";
         }
 
-//            TODO 双一流暂不比较
+//
 
-            /*if (!applytablecompareBean.getIsFirstschool().equals(applytableBean.getIsFirstschool()) ) {
-                return "双一流资格不匹配";
-            }*/
+        if (applytableBean.getRcType().equals(Constants.rc_topschoolbenke)||applytableBean.getRcType().equals(Constants.rc_xinzhengtopschoolshuoshi)) {
+            if (applytablecompareBean.getIsFirstschool().equals("1")) {
+                return "毕业学校与专业不在“双一流”建设高校和学科范围内";
+            }
+        }
+
 
 
             return "0";
@@ -188,7 +206,8 @@ public class VerifyService {
              return "-1";
          }
         ArchivesBean archivesBean = archivesDao.findByIDnum(applytableBean.getIdNum());
-        if (archivesBean==null){
+//         行政事业编制不用判断档案
+        if (archivesBean==null && !applytableBean.getRcType().equals("12")&&!applytableBean.getRcType().equals("13")){
             return "-1";
         }
         if (socialsecurityBean.getBeginTime()==null||socialsecurityBean.getBeginTime().trim().equals("")){

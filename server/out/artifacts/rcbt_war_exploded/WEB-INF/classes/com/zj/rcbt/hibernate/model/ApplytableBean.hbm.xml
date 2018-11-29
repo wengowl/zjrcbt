@@ -21,6 +21,7 @@
         <property name="professionalTitle" column="professional_title"/>
         <property name="workDate" column="work_date"/>
         <property name="comeDate" column="come_date"/>
+        <property name="applyDate" column="apply_date"/>
         <property name="rcType" column="rc_type"/>
         <property name="applyType" column="apply_type"/>
         <property name="applyMoney" column="apply_money"/>
@@ -42,5 +43,6 @@
         <property name="allowanceId" column="allowance_id"/>
         <property name="auditComment" column="audit_comment"/>
         <property name="batch" column="batch"/>
+        <property name="inzhuji" column="inzhuji"/>
     </class>
 </hibernate-mapping>

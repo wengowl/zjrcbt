@@ -115,4 +115,9 @@ public class SocialsecurityBean {
 
         return Objects.hash(id, userName, idNum, beginTime, lastTime, monthes, status, company);
     }
+
+
+    public String toString(){
+        return "@id:"+id+"@userName:"+userName+"@idNum:"+idNum+"@beginTime"+beginTime+"@lastTime"+"@monthes"+monthes+"@company"+company+"@status"+status;
+    }
 }

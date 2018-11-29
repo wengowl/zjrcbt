@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.common.utils.ExcelReader;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.model.ArchivesBean;
 import com.zj.rcbt.hibernate.model.SocialsecurityBean;
 import com.zj.rcbt.spring.service.ApplyService;
@@ -48,6 +49,11 @@ public class ImportExcelController {
         filename = filename+originalname;
 
         log.info("import Excel"+filename+"  type:"+type);
+        Map<String, Object> resultData = new HashMap();
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
         //如果文件不为空，写入上传路径
         if(!file.isEmpty()) {
             //上传文件路径
@@ -108,6 +114,11 @@ public class ImportExcelController {
         String originalname=file.getOriginalFilename();
         Map<String,Object> json= new HashMap<String, Object>();
         filename = filename+originalname;
+        Map<String, Object> resultData = new HashMap();
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
 
 
         //如果文件不为空，写入上传路径
@@ -169,10 +180,15 @@ public class ImportExcelController {
 
     @RequestMapping({"/init"})
     @ResponseBody
-    public RequestResult initstatus(@RequestBody String requestBody){
+    public RequestResult initstatus(@RequestBody String requestBody,HttpServletRequest request){
         JSONObject jsonObject = JSONObject.parseObject(requestBody);
         String usertype = jsonObject.getString("userType");
         RequestResult result = new RequestResult();
+        Map<String, Object> resultData = new HashMap();
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
         if (usertype.equals("1")) {
             applyService.updateinitStatus();
             result.setStatus(0);

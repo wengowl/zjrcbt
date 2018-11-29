@@ -12,18 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QRCode {
-    public String Decode(String path) throws Exception{
+    public String Decode(String path) throws Exception {
         BufferedImage image;
 
 
-            image = ImageIO.read(new File(path));
-            LuminanceSource source = new BufferedImageLuminanceSource(image);
-            Binarizer binarizer = new HybridBinarizer(source);
-            BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-            Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
-            hints.put(DecodeHintType.CHARACTER_SET, "GBK");
-            Result result = new MultiFormatReader().decode(binaryBitmap, hints);// 对图像进行解码
-            return result.getText();
+        image = ImageIO.read(new File(path));
+        LuminanceSource source = new BufferedImageLuminanceSource(image);
+        Binarizer binarizer = new HybridBinarizer(source);
+        BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
+        Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
+        hints.put(DecodeHintType.CHARACTER_SET, "GBK");
+        Result result = new MultiFormatReader().decode(binaryBitmap, hints);// 对图像进行解码
+        return result.getText();
 
 
     }

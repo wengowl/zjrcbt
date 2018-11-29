@@ -1,6 +1,7 @@
 package com.zj.rcbt.spring.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
 import com.zj.rcbt.hibernate.model.ApplytablecompareBean;
 import com.zj.rcbt.spring.service.ApplyService;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/apply")
@@ -21,6 +25,8 @@ public class ApplyController {
 
     @Autowired
     private ApplyService applyService;
+    @Autowired
+    private HttpServletRequest request;
 
 
     @RequestMapping({"/get"})
@@ -60,6 +66,7 @@ public class ApplyController {
             result = RequestResult.statusCode(0);
             result.setData(applyService.packApplyCompareinfo(applytableBean));
         }
+
         return result;
 
 
@@ -77,6 +84,11 @@ public class ApplyController {
        if (iret!=0){
            result.setErrorMsg("保存失败");
        }
+        Map<String, Object> resultData = new HashMap();
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
 
        return result;
 

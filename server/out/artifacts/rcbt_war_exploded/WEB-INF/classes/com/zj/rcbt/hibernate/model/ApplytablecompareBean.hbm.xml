@@ -44,5 +44,6 @@
         <property name="educationType" column="education_type"/>
         <property name="school" column="school"/>
         <property name="isarchive" column="isarchive"/>
+        <property name="inzhuji" column="inzhuji"/>
     </class>
 </hibernate-mapping>

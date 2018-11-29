@@ -21,5 +21,8 @@
         <property name="batch" column="batch"/>
         <property name="education" column="education"/>
         <property name="graduatetime" column="graduatetime"/>
+        <property name="comedate" column="comedate"/>
+        <property name="applyType" column="apply_type"/>
+        <property name="rcType" column="rc_type"/>
     </class>
 </hibernate-mapping>

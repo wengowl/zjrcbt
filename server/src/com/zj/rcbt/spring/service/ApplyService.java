@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.common.utils.DateUtil;
 import com.zj.rcbt.common.utils.FileUtils;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.dao.ApplyCompareDao;
 import com.zj.rcbt.hibernate.dao.ApplyDao;
 import com.zj.rcbt.hibernate.dao.ResumeDao;
@@ -104,6 +105,10 @@ public class ApplyService {
         info.put("applystatus", applytableBean.getApplyStatus());
         info.put("auditcomment", applytableBean.getAuditComment());
         info.put("attachment", applytableBean.getAttatchment());
+        info.put("inzhuji",applytableBean.getInzhuji());
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        info.put("token",token);
+
 
         List<Map<String, Object>> resumes = new ArrayList<Map<String, Object>>();
         List<ResumeBean> resumeBeans = resumeDao.findByidnum(applytableBean.getIdNum());
@@ -127,12 +132,17 @@ public class ApplyService {
     public int saveparserJsonObject(JSONObject jsonObject) throws IOException {
         int a = 0;
         String id_num =jsonObject.getString("idCard");
-
         ApplytableBean applytableBean = applyDao.findByIDnum(id_num);
+        //历史未通过的，重新修改提交改为当前批次
+        if (applytableBean!=null && applytableBean.getApplyStatus().equals("-1")){
+            applytableBean.setBatch(DateUtil.getCurrentMonth());
+
+        }
         if (applytableBean==null){
                 applytableBean=new ApplytableBean();
             applytableBean.setBatch(DateUtil.getCurrentMonth());
         }
+
         applytableBean.setName(jsonObject.getString("name"));
         applytableBean.setIdNum(id_num);
         applytableBean.setSex(jsonObject.getString("sex"));
@@ -165,6 +175,7 @@ public class ApplyService {
         applytableBean.setBank(jsonObject.getString("bank"));
         applytableBean.setAttatchment(jsonObject.getString("attachment"));
         applytableBean.setApplyStatus(jsonObject.getString("applyStatus"));
+        applytableBean.setInzhuji(jsonObject.getString("inzhuji"));
 
 //        TODO:move attchement and photo
         String photourl = FileUtils.getdestUrl(applytableBean.getPhotoLocation(), "photo", request);
@@ -271,6 +282,7 @@ public class ApplyService {
         info.put("chsireturn",applytableBean.getChsiReturn());
         info.put("eductiontype",applytableBean.getEducationType());
         info.put("isarchive",applytableBean.getIsarchive());
+        info.put("inzhuji",applytableBean.getInzhuji());
 
 
 

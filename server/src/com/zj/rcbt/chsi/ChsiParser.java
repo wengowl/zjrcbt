@@ -1,5 +1,6 @@
 package com.zj.rcbt.chsi;
 
+import com.zj.rcbt.common.utils.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Connection;
@@ -120,6 +121,7 @@ public class ChsiParser {
         } catch (Exception e) {
             chsi.setError(e.getMessage());
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
         }
 

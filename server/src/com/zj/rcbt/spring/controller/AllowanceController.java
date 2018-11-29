@@ -2,8 +2,10 @@ package com.zj.rcbt.spring.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.model.AllowanceBean;
 import com.zj.rcbt.hibernate.model.AllowancehistoryBean;
+import com.zj.rcbt.hibernate.model.ApplytableBean;
 import com.zj.rcbt.hibernate.model.SocialsecurityBean;
 import com.zj.rcbt.spring.service.AllowanceService;
 import com.zj.rcbt.spring.service.ApplyService;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +40,12 @@ public class AllowanceController {
     ApplyService applyService;
     @Autowired
     VerifyService verifyService;
+    @Autowired
+    HttpServletRequest request;
 
     @RequestMapping({"/gethistory"})
     @ResponseBody
-    public Map<String, Object> getAllowanceHistory(@RequestParam("offertime") String offertime,@RequestParam("batch") String batch, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+    public Map<String, Object> getAllowanceHistory(@RequestParam("offertime") String offertime,@RequestParam("batch") String batch, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard,@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("limit") int limit,@RequestParam("rcType") String rcType) {
 //        JSONObject jsonObject = JSONObject.parseObject(requestBody);
 //        String batch = jsonObject.getString("batch");
 //        String applicationCategory = jsonObject.getString("applicationCategory");
@@ -48,7 +53,7 @@ public class AllowanceController {
 //        int page=jsonObject.getInteger("page");
 //        int limit = jsonObject.getInteger("limit");
         log.info("getAllowanceHistory");
-        List<AllowancehistoryBean> allowancehistoryBeanList = allowanceService.findhistoryByPages(offertime, applicationCategory, idCard, batch,(page - 1) * limit, limit);
+        List<AllowancehistoryBean> allowancehistoryBeanList = allowanceService.findhistoryByPages(offertime, applicationCategory, idCard, batch,name,(page - 1) * limit, limit,rcType);
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (AllowancehistoryBean allowancehistoryBean : allowancehistoryBeanList) {
@@ -71,9 +76,12 @@ public class AllowanceController {
 
         Map<String, Object> data = new HashMap<>();
         data.put("data", list);
-        data.put("count", allowanceService.getCounthistory(offertime, applicationCategory, idCard,batch));
+        data.put("count", allowanceService.getCounthistory(offertime, applicationCategory, idCard,batch,name,rcType));
         data.put("code", "0");
         data.put("msg", "");
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        data.put("token",token);
+
 
 //        RequestResult result = new RequestResult();
 //        result.setStatus(0);
@@ -84,7 +92,7 @@ public class AllowanceController {
 
     @RequestMapping({"/get"})
     @ResponseBody
-    public Map<String, Object> getAllowance(@RequestParam("month") String month, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard,@RequestParam("batch") String batch, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+    public Map<String, Object> getAllowance(@RequestParam("month") String month, @RequestParam("applicationCategory") String applicationCategory, @RequestParam("idCard") String idCard,@RequestParam("batch") String batch, @RequestParam("name") String name,@RequestParam("page") int page, @RequestParam("limit") int limit,@RequestParam("rcType") String rcType) {
 //        JSONObject jsonObject = JSONObject.parseObject(requestBody);
 //        String month = jsonObject.getString("month");
 //        String applicationCategory = jsonObject.getString("applicationCategory");
@@ -92,7 +100,7 @@ public class AllowanceController {
 //        int page=jsonObject.getInteger("page");
 //        int limit = jsonObject.getInteger("limit");
         log.info("getAllowance");
-        List<AllowanceBean> allowanceBeanList = allowanceService.findByPages(month, applicationCategory, idCard, batch,(page - 1) * limit, limit);
+        List<AllowanceBean> allowanceBeanList = allowanceService.findByPages(month, applicationCategory, idCard, batch,name,(page - 1) * limit, limit,rcType);
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (AllowanceBean allowanceBean : allowanceBeanList) {
@@ -114,9 +122,11 @@ public class AllowanceController {
         }
         Map<String, Object> data = new HashMap<>();
         data.put("data", list);
-        data.put("count", allowanceService.getCount(month, applicationCategory, idCard,batch));
+        data.put("count", allowanceService.getCount(month, applicationCategory, idCard,batch,name,rcType));
         data.put("code", "0");
         data.put("msg", "");
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        data.put("token",token);
 
 
 //        RequestResult result = new RequestResult();
@@ -133,6 +143,10 @@ public class AllowanceController {
         JSONObject jsonObject = JSONObject.parseObject(requestBody);
         String usertype = jsonObject.getString("userType");
         RequestResult result = new RequestResult();
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        Map<String, Object> resultData = new HashMap();
+        resultData.put("token",token);
+        result.setData(resultData);
         if (usertype.equals("1")) {
 
             if (applyService.findBystatus(Constants.applystatus_second).size() > 0) {
@@ -160,6 +174,8 @@ public class AllowanceController {
             result.setStatus(0);
             return result;
         }
+
+
         result.setErrorMsg("无权限");
         result.setStatus(-1);
         return result;
@@ -181,13 +197,14 @@ public class AllowanceController {
             result.setStatus(0);
             return result;
         }
+        Map<String, Object> resultData = new HashMap();
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
         result.setErrorMsg("无权限");
         result.setStatus(-1);
         return result;
 
 
-    }
-
-
-
-}
+    }   }

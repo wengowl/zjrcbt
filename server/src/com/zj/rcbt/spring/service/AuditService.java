@@ -64,9 +64,36 @@ AuditService {
         allowanceBean.setPhone(applytableBean.getPhoneNum());
         allowanceBean.setGraduatetime(applytableBean.getGraduateDate());
 
+
+        if(applytableBean.getRcType().equals("0")){
+            allowanceBean.setRcType("大专");
+        }else if(applytableBean.getRcType().equals("1")){
+            allowanceBean.setRcType("本科");
+        }else if(applytableBean.getRcType().equals("2")){
+            allowanceBean.setRcType("硕士");
+        }else if(applytableBean.getRcType().equals("3")){
+            allowanceBean.setRcType("副高");
+        }else if(applytableBean.getRcType().equals("4")){
+            allowanceBean.setRcType("高级技师");
+        }else if (applytableBean.getRcType().equals("5")){
+            allowanceBean.setRcType("博士");
+        }else if (applytableBean.getRcType().equals("6")){
+            allowanceBean.setRcType("正高");
+        }else{
+            allowanceBean.setRcType(applytableBean.getRcType());
+        }
+
         allowanceBean.setEducation(applytableBean.getEducation());
 
-        allowanceDao.save(allowanceBean);
+        if (applytableBean.getApplyType().equals("0")){
+            allowanceBean.setApplyType("租房补贴");
+            allowanceDao.save(allowanceBean);
+        }else if (applytableBean.getApplyType().equals("1")){
+            allowanceBean.setApplyType("生活津贴");
+            allowanceDao.save(allowanceBean);
+        }
+
+
 
         applyDao.update(applytableBean);
         AuditcommentBean auditcommentBean = new AuditcommentBean();
@@ -82,9 +109,22 @@ AuditService {
 
 
     public int updateauditDeny(ApplytableBean applytableBean){
-        applytableBean.setApplyStatus(Constants.applystatus_over);
+        applytableBean.setApplyStatus(Constants.applystatus_auditdeny);
         AuditcommentBean auditcommentBean = new AuditcommentBean();
-        auditcommentBean.setAuditcomment(applytableBean.getAuditComment());
+        int a=-1;
+        try {
+            a = Integer.parseInt(applytableBean.getRcType());
+        }catch (Exception e){
+            a=-1;
+        }
+        String s="";
+        if (a==-1){
+            s=s+"社会事业人才申请";
+        }
+        else {
+            s=s+"高校毕业生人才申请";
+        }
+        auditcommentBean.setAuditcomment(applytableBean.getAuditComment()+" "+s+" 复核未通过");
         auditcommentBean.setAudittime(DateUtil.getCurrentTime());
         auditcommentBean.setIdNum(applytableBean.getIdNum());
         applyDao.update(applytableBean);
@@ -95,7 +135,20 @@ AuditService {
 
     public int updateauditDenyEdit(ApplytableBean applytableBean){
         AuditcommentBean auditcommentBean = new AuditcommentBean();
-        auditcommentBean.setAuditcomment(applytableBean.getAuditComment());
+        int a=-1;
+        try {
+            a = Integer.parseInt(applytableBean.getRcType());
+        }catch (Exception e){
+            a=-1;
+        }
+        String s="";
+        if (a==-1){
+            s=s+"社会事业人才申请";
+        }
+        else {
+            s=s+"高校毕业生人才申请";
+        }
+        auditcommentBean.setAuditcomment(applytableBean.getAuditComment()+"  "+s+"复核未通过等待修改");
         auditcommentBean.setAudittime(DateUtil.getCurrentTime());
         auditcommentBean.setIdNum(applytableBean.getIdNum());
 
@@ -106,12 +159,12 @@ AuditService {
 
         return 0;
     }
-    public List<ApplytableBean> findByPages( String applyType, String status,String batch, int startRow, int pageSize,String idCard){
-        return applyDao.findByPages(applyType,status,batch,startRow,pageSize,idCard);
+    public List<ApplytableBean> findByPages( String applyType, String status,String batch,String company,String name, int startRow, int pageSize,String idCard,String rcType){
+        return applyDao.findByPages(applyType,status,batch, company,name,startRow,pageSize,idCard,rcType);
     }
 
-    public int findByPagesCount( String applyType, String status,String batch,String idCard){
-        return applyDao.findByPagesCount(applyType,status, batch,idCard);
+    public int findByPagesCount( String applyType, String status,String batch,String company,String name,String idCard,String rcType){
+        return applyDao.findByPagesCount(applyType,status, batch,company,name,idCard,rcType);
 
     }
 

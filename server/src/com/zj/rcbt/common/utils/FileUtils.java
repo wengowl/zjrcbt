@@ -38,7 +38,10 @@ public class FileUtils {
 
     public  static String getdestUrl(String srcfile, String destDirpath, HttpServletRequest request){
         String filename=srcfile.substring(srcfile.lastIndexOf("/")+1);
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  "+request.getServerName());
+        log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  "+request.getServerName());
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/"+destDirpath;
+
         return basePath + "/" + filename;
     }
 

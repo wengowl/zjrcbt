@@ -49,7 +49,7 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
         getHibernateTemplate().delete(allowancehistoryBean);
     }
 
-    public List<AllowancehistoryBean> findByPages(String offer_time,String allowancetype,String idnum,String batch,int startRow,int pageSize){
+    public List<AllowancehistoryBean> findByPages(String offer_time,String allowancetype,String idnum,String batch,String name,int startRow,int pageSize,String rcType){
         List<AllowancehistoryBean> allowancehistoryBeanList=new ArrayList<AllowancehistoryBean>();
         Session session=null;
      try {
@@ -69,6 +69,18 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
          if (batch != null&&!batch.equals("")  ) {
              sql = sql + "and t.batch like '%" + batch + "%'";
          }
+
+         if (name != null && !name.equals("")) {
+             sql = sql + " and t.name like '%" + name + "%'";
+         }
+         if (rcType!=null && !rcType.equals("")){
+             if (rcType.equals("0")){
+                 sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+             }else if (rcType.equals("1")){
+                 sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+             }
+         }
+
          log.info(sql);
 
          Query queryObject = session.createQuery(sql);
@@ -92,12 +104,12 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
 
 
 
-    public int  findByPagesCount(String offer_time,String allowancetype,String idnum,String batch){
+    public int  findByPagesCount(String offer_time,String allowancetype,String idnum,String batch,String name,String rcType){
         int count=0;
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from AllowancehistoryBean t where 1=1 ";
+            String sql = "select count(*) from AllowancehistoryBean t where 1=1  ";
             if (offer_time != null && !offer_time.equals("") ) {
                 sql = sql + "and t.offerTime like '%" + offer_time + "%'";
             }
@@ -112,6 +124,20 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
             if (batch != null && !batch.equals("")) {
                 sql = sql + "and t.batch like '%" + batch + "%'";
             }
+
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.name like '%" + name + "%'";
+            }
+
+            if (rcType!=null && !rcType.equals("")){
+                if (rcType.equals("0")){
+                    sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+                }else if (rcType.equals("1")){
+                    sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+                }
+            }
+
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);

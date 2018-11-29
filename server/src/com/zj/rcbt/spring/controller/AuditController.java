@@ -2,6 +2,7 @@ package com.zj.rcbt.spring.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zj.rcbt.common.utils.Constants;
+import com.zj.rcbt.common.utils.JWTUtils;
 import com.zj.rcbt.hibernate.model.ApplytableBean;
 import com.zj.rcbt.hibernate.model.AuditcommentBean;
 import com.zj.rcbt.spring.service.AllowanceService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -31,6 +33,8 @@ public class AuditController {
 
     @Autowired
     private AllowanceService allowanceService;
+    @Autowired
+    HttpServletRequest request;
 
 
     @RequestMapping({"/update"})
@@ -72,8 +76,13 @@ public class AuditController {
             auditService.updateauditDeny(applytableBean);
 
         }
+        Map<String, Object> resultData = new HashMap();
 
-        result.setData("");
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
+
+
         result.setStatus(0);
 
 
@@ -84,21 +93,21 @@ public class AuditController {
     }
 
 
-    @RequestMapping({"/list"})
+    /*@RequestMapping({"/list"})
     @ResponseBody
-    public RequestResult getAuditList(@RequestParam("status") String status, @RequestParam("applicationCategory") String applytype,@RequestParam("batch") String batch, @RequestParam("page") int page, @RequestParam("limit") int limit,@RequestParam("idCard") String idCard){
+    public RequestResult getAuditList(@RequestParam("status") String status,@RequestParam("company") String company, @RequestParam("applicationCategory") String applytype,@RequestParam("batch") String batch, @RequestParam("page") int page, @RequestParam("limit") int limit,@RequestParam("idCard") String idCard){
         log.info("getAuditList");
         RequestResult result =  new RequestResult();
         result.setStatus(-1);
-        /*JSONObject jsonObject=JSONObject.parseObject(requestBody);
+        *//*JSONObject jsonObject=JSONObject.parseObject(requestBody);
         String applytype = jsonObject.getString("applicationCategory");
         String status = jsonObject.getString("status");
         int page=jsonObject.getInteger("page");
         int limit = jsonObject.getInteger("limit");
-*/
+*//*
 
 
-        List<ApplytableBean> applytableBeans = auditService.findByPages(applytype,status,batch,(page-1)*limit, limit,idCard);
+        List<ApplytableBean> applytableBeans = auditService.findByPages(applytype,status,batch,company,(page-1)*limit, limit,idCard);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (ApplytableBean applytableBean : applytableBeans) {
             Map<String, Object> applytable = new HashMap<String, Object>();
@@ -120,7 +129,7 @@ public class AuditController {
 
         Map<String,Object> data = new HashMap<>();
         data.put("data",list);
-        data.put("totalNum",auditService.findByPagesCount(applytype,status,batch,idCard));
+        data.put("totalNum",auditService.findByPagesCount(applytype,status,batch,company,idCard));
 
         result.setData(data);
 
@@ -129,13 +138,13 @@ public class AuditController {
 
 
         return result;
-    }
+    }*/
 
 
 
     @RequestMapping({"/getlist"})
     @ResponseBody
-    public Map<String,Object> getAuditListnew(@RequestParam("status") String status, @RequestParam("applicationCategory") String applytype, @RequestParam("batch") String batch,@RequestParam("page") int page, @RequestParam("limit")int limit,@RequestParam("idCard") String idCard){
+    public Map<String,Object> getAuditListnew(@RequestParam("status") String status, @RequestParam("company") String company,@RequestParam("name") String name,@RequestParam("applicationCategory") String applytype, @RequestParam("batch") String batch,@RequestParam("page") int page, @RequestParam("limit")int limit,@RequestParam("idCard") String idCard,@RequestParam("rcType") String rcType){
         log.info("getAuditListnew");
         Map<String,Object> result =  new HashMap<String, Object>();
 
@@ -148,7 +157,7 @@ public class AuditController {
 */
 
 
-        List<ApplytableBean> applytableBeans = auditService.findByPages(applytype,status,batch,(page-1)*limit, limit,idCard);
+        List<ApplytableBean> applytableBeans = auditService.findByPages(applytype,status,batch,company,name,(page-1)*limit, limit,idCard,rcType);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (ApplytableBean applytableBean : applytableBeans) {
             Map<String, Object> applytable = new HashMap<String, Object>();
@@ -169,8 +178,13 @@ public class AuditController {
         }
          result.put("code","0");
         result.put("msg","");
-        result.put("count",auditService.findByPagesCount(applytype,status,batch,idCard));
+        result.put("count",auditService.findByPagesCount(applytype,status,batch,company,name,idCard,rcType));
         result.put("data",list);
+
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        result.put("token",token);
+
 
 
 
@@ -198,8 +212,13 @@ public class AuditController {
 
 
        applyService.saveOrupdate(applytableBean);
+        Map<String, Object> resultData = new HashMap();
 
-        result.setData("");
+        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        resultData.put("token",token);
+        result.setData(resultData);
+
+
         result.setStatus(0);
 
 

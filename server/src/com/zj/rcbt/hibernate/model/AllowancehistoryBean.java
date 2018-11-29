@@ -22,6 +22,9 @@ public class AllowancehistoryBean {
     private String batch;
     private String education;
     private String graduatetime;
+    private String comedate;
+    private String applyType;
+    private String rcType;
 
     @Id
     @Column(name = "id")
@@ -183,6 +186,36 @@ public class AllowancehistoryBean {
         this.graduatetime = graduatetime;
     }
 
+    @Basic
+    @Column(name = "comedate")
+    public String getComedate() {
+        return comedate;
+    }
+
+    public void setComedate(String comedate) {
+        this.comedate = comedate;
+    }
+
+    @Basic
+    @Column(name = "apply_type")
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType;
+    }
+
+    @Basic
+    @Column(name = "rc_type")
+    public String getRcType() {
+        return rcType;
+    }
+
+    public void setRcType(String rcType) {
+        this.rcType = rcType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -203,12 +236,15 @@ public class AllowancehistoryBean {
                 Objects.equals(isfirstschool, that.isfirstschool) &&
                 Objects.equals(batch, that.batch) &&
                 Objects.equals(education, that.education) &&
-                Objects.equals(graduatetime, that.graduatetime);
+                Objects.equals(graduatetime, that.graduatetime) &&
+                Objects.equals(comedate, that.comedate) &&
+                Objects.equals(applyType, that.applyType) &&
+                Objects.equals(rcType, that.rcType);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, idNum, offerTime, offerMoney, allowancetype, comment, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, education, graduatetime);
+        return Objects.hash(id, idNum, offerTime, offerMoney, allowancetype, comment, shebao, bank, bankCard, phone, name, company, isfirstschool, batch, education, graduatetime, comedate, applyType, rcType);
     }
 }

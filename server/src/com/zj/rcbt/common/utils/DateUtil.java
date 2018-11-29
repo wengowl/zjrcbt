@@ -21,6 +21,7 @@ public class DateUtil {
             dt = sdf.parse(str);
         } catch (ParseException e) {
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
         }
         Calendar rightNow = Calendar.getInstance();
@@ -40,6 +41,7 @@ public class DateUtil {
             date2 = sdf.parse(month2);
         } catch (ParseException e) {
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
         }
         Calendar cal1=Calendar.getInstance();
@@ -93,13 +95,52 @@ public class DateUtil {
         return  df.format(day);
     }
 
-
-    public static void main(String[] args){
+    public static String formatDate(String date,String format1,String format2){
+        SimpleDateFormat sdf = new SimpleDateFormat(format1);
+        SimpleDateFormat sdf2 = new SimpleDateFormat(format2);
+        Date dt = null;
         try {
-            System.out.println(new Integer(""));
-        } catch (Exception e) {
+            dt = sdf.parse(date);
+
+        } catch (ParseException e) {
+            log.error(e.getMessage());
             e.printStackTrace();
+            log.error(ExceptionUtils.getStackTrace(e));
         }
+       return  sdf2.format(dt);
+
+    }
+
+    public static String  dateChange(String s){
+        if (s.contains("-")||s.equals("")||s==null){
+            return s;
+        }else {
+
+           return formatDate(s,"yyyyMM","yyyy-MM");
+
+
+        }
+
+
+    }
+
+    public static String getLastMonth(){
+       String month1=getCurrentMonth();
+       String month2=getYear(month1)+"-06";
+       String month3=dateAddMonth(month2,-6);
+       int num = getMonthNum(month1,month2);
+       if (num<0){
+           return month2;
+       }
+       return month3;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(dateChange("201801"));
+        System.out.println(dateChange("2018-01"));
+        System.out.println(getLastMonth());
+        System.out.println(getMonthNum("2015-07","2018-07"));
     }
 
 

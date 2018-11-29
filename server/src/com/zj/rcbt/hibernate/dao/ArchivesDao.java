@@ -1,5 +1,6 @@
 package com.zj.rcbt.hibernate.dao;
 
+import com.zj.rcbt.common.utils.ExceptionUtils;
 import com.zj.rcbt.hibernate.model.ArchivesBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,12 @@ public class ArchivesDao extends HibernateDaoSupport {
         getHibernateTemplate().saveOrUpdate(archivesBean);
         getHibernateTemplate().flush();
         getHibernateTemplate().clear();
+    }
+
+
+    public void saveOrupdate(ArchivesBean archivesBean){
+        getHibernateTemplate().saveOrUpdate(archivesBean);
+
     }
 
     public ArchivesBean findByIDnum(String id_num){
@@ -93,6 +100,7 @@ public class ArchivesDao extends HibernateDaoSupport {
             tx.commit();
         }catch (Exception e){
             log.error(e.getMessage());
+            log.error(ExceptionUtils.getStackTrace(e));
         }
 
         finally {
@@ -147,18 +155,23 @@ public class ArchivesDao extends HibernateDaoSupport {
     }
 
 
-    public List<ArchivesBean> findByPages(String idnum,String status,int startRow,int pageSize){
+    public List<ArchivesBean> findByPages(String idnum,String status,String name,int startRow,int pageSize){
         List<ArchivesBean> socialsecurityBeanList=new ArrayList<>();
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from ArchivesBean t where 1=1 and t.status='0'";
+//
+            String sql = "from ArchivesBean t where 1=1 ";
             if (idnum != null&& !idnum.equals("") ) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
             }
             if ( status != null &&!status.equals("")) {
                 sql = sql + "and t.inzhuji like '%" + status + "%'";
             }
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.userName like '%" + name + "%'";
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);
@@ -182,12 +195,13 @@ public class ArchivesDao extends HibernateDaoSupport {
 
 
 
-    public int  findByPagesCount(String idnum,String status){
+    public int  findByPagesCount(String idnum,String status,String name){
         int count=0;
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from ArchivesBean t where 1=1 and t.status='0'";
+//            String sql = "select count(*) from ArchivesBean t where 1=1 and t.status='0'";
+            String sql = "select count(*) from ArchivesBean t where 1=1";
 
             if (idnum != null&& !idnum.equals("") ) {
                 sql = sql + "and t.idNum like '%" + idnum + "%'";
@@ -195,6 +209,10 @@ public class ArchivesDao extends HibernateDaoSupport {
             if ( status != null &&!status.equals("")) {
                 sql = sql + "and t.inzhuji like '%" + status + "%'";
             }
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.userName like '%" + name + "%'";
+            }
+
             log.info(sql);
 
             Query queryObject = session.createQuery(sql);

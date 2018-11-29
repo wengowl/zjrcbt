@@ -47,7 +47,7 @@ public class ApplyDao extends HibernateDaoSupport {
     }
 
     public List<ApplytableBean> findBystatus(String status){
-        return (List<ApplytableBean>) getHibernateTemplate().find("from ApplytableBean  t where t.applyStatus=?",new Object[]{status});
+        return (List<ApplytableBean>) getHibernateTemplate().find("from ApplytableBean  t where t.applyStatus=? and t.applyType in ('0','1')",new Object[]{status});
     }
 
     public  ApplytableBean findByIDnum(String idnum){
@@ -59,7 +59,7 @@ public class ApplyDao extends HibernateDaoSupport {
         return null;
     }
 
-    public List<ApplytableBean> findByPages( String applyType, String status,String batch, int startRow, int pageSize,String idCard){
+    public List<ApplytableBean> findByPages( String applyType, String status,String batch,String company, String name,int startRow, int pageSize,String idCard,String rcType){
         List<ApplytableBean> applytableBeans=new ArrayList<ApplytableBean>();
         Session session=null;
         try {
@@ -71,7 +71,7 @@ public class ApplyDao extends HibernateDaoSupport {
             }
 
             if (applyType != null&& !applyType.equals("") ) {
-                sql = sql + " and t.applyType like '%" + applyType + "%'";
+                sql = sql + " and t.applyType  in ("+ applyType + ")";
             }
 
             if (idCard != null && !idCard.equals("")) {
@@ -79,6 +79,17 @@ public class ApplyDao extends HibernateDaoSupport {
             }
             if (batch != null && !batch.equals("")) {
                 sql = sql + " and t.batch like '%" + batch + "%'";
+            }
+
+            if (company != null && !company.equals("")) {
+                sql = sql + " and t.companyName like '%" + company + "%'";
+            }
+
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.name like '%" + name + "%'";
+            }
+            if (rcType != null && !rcType.equals("")) {
+                sql = sql + " and t.rcType in (" + rcType + ")";
             }
 
             sql = sql+" order by t.applyTime desc";
@@ -109,7 +120,7 @@ public class ApplyDao extends HibernateDaoSupport {
 
 
 
-    public int findByPagesCount( String applyType, String status,String batch,String idCard){
+    public int findByPagesCount( String applyType, String status,String batch,String company,String name,String idCard,String rcType){
        int count=0;
         Session session=null;
         try {
@@ -121,7 +132,7 @@ public class ApplyDao extends HibernateDaoSupport {
             }
 
             if (applyType != null&& !applyType.equals("") ) {
-                sql = sql + "and t.applyType like '%" + applyType + "%'";
+                sql = sql + "and t.applyType in (" + applyType + ")";
             }
 
             if (idCard != null && !idCard.equals("")) {
@@ -129,6 +140,17 @@ public class ApplyDao extends HibernateDaoSupport {
             }
             if (batch != null && !batch.equals("")) {
                 sql = sql + "and t.batch like '%" + batch + "%'";
+            }
+            if (company != null && !company.equals("")) {
+                sql = sql + " and t.companyName like '%" + company + "%'";
+            }
+
+            if (name != null && !name.equals("")) {
+                sql = sql + " and t.name like '%" + name + "%'";
+            }
+
+            if (rcType != null && !rcType.equals("")) {
+                sql = sql + " and t.rcType in (" + rcType + ")";
             }
 
 
@@ -161,7 +183,7 @@ public class ApplyDao extends HibernateDaoSupport {
             session = getSessionFactory().openSession();
 //            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0')";
 //           每次导出仍为全量导出
-            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0')  and a.idNum not in  (select  b.idNum from AllowanceBean b ) ";
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0')  and a.idNum not in  (select  b.idNum from AllowanceBean b ) and a.applyType in ('0','1') ";
 
             Query queryObject = session.createQuery(sql1);
 
@@ -179,7 +201,7 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from SocialsecurityBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c ) and a.applyType in ('0','1')";
 
             Query queryObject = session.createQuery(sql1);
 
@@ -200,7 +222,7 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from ArchivesBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )";
+            String sql1 = "from ApplytableBean a where a.applyStatus  not in ('-1','0','3') and a.idNum not in (select b.idNum from ArchivesBean b where b.status='0') and a.idNum not in  (select  c.idNum from AllowanceBean c )  and a.applyType in ('0','1')";
 
             Query queryObject = session.createQuery(sql1);
 

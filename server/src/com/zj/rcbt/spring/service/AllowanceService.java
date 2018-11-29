@@ -3,6 +3,7 @@ package com.zj.rcbt.spring.service;
 
 import com.zj.rcbt.common.utils.Constants;
 import com.zj.rcbt.common.utils.DateUtil;
+import com.zj.rcbt.common.utils.ExceptionUtils;
 import com.zj.rcbt.hibernate.dao.*;
 import com.zj.rcbt.hibernate.model.*;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,10 @@ public class AllowanceService {
 
     public void update(AllowanceBean allowanceBean) {
         allowanceDao.update(allowanceBean);
+    }
+
+    public void updateHistory(AllowancehistoryBean allowanceBean) {
+        allowancehistoryDao.update(allowanceBean);
     }
 
     public void deleteByidnum(String  idnum) {
@@ -81,6 +86,9 @@ public class AllowanceService {
             allowancehistoryBean.setIdNum(allowancebean.getIdNum());
             allowancehistoryBean.setIsfirstschool(allowancebean.getIsfirstschool());
             allowancehistoryBean.setBatch(allowancebean.getBatch());
+            allowancehistoryBean.setComedate(allowancebean.getBeginTime());
+            allowancehistoryBean.setApplyType(allowancebean.getApplyType());
+            allowancehistoryBean.setRcType(allowancebean.getRcType());
 
 
             SocialsecurityBean socialsecurityBean = socialsecurityDao.findByIDnum(allowancebean.getIdNum());
@@ -93,7 +101,7 @@ public class AllowanceService {
 
                 int monthes = 0;
                 //社保连续缴纳月份
-                if (socialsecurityBean.getMonthes() <= 36) {
+                if (socialsecurityBean.getMonthes() < 36) {
 //                    本次应发放月数
                     monthes = socialsecurityBean.getMonthes() - allowancebean.getMonthes();
 //                    发放的最后社保月份
@@ -105,14 +113,16 @@ public class AllowanceService {
 
 
                 }
-                if (socialsecurityBean.getMonthes() > 36) {
+                if (socialsecurityBean.getMonthes() >=36) {
                     monthes = 36 - allowancebean.getMonthes();
                     try {
-                        allowancebean.setLastTime(DateUtil.dateAddMonth(allowancebean.getLastTime(), monthes));
+                        allowancebean.setLastTime(DateUtil.dateAddMonth(allowancebean.getBeginTime(), 35));
                         allowancebean.setShebao("发放完毕");
+                        allowancehistoryBean.setShebao("发放完毕至"+allowancebean.getLastTime());
                     } catch (Exception e) {
                         e.printStackTrace();
                         log.error(e.getMessage());
+                        log.error(ExceptionUtils.getStackTrace(e));
                     }
                 }
 
@@ -151,17 +161,17 @@ public class AllowanceService {
             }
 
             if (socialsecurityBean==null){
-                allowancehistoryBean.setComment("社保为空");
+                allowancehistoryBean.setShebao("社保为空");
                 allowancehistoryBean.setOfferMoney(0);
             }
 
 
-            //TODO 档案判断
+          /*  //TODO 档案不用判断
             if (archivesBean==null){
                 allowancehistoryBean.setComment("档案信息为空");
             }else if (archivesBean.getInzhuji().equalsIgnoreCase("N")){
                 allowancehistoryBean.setComment("档案不在诸暨");
-            }
+            }*/
 
 
 
@@ -184,15 +194,33 @@ public class AllowanceService {
 
         List<ApplytableBean> applytableBeans = applyDao.findBystatus(Constants.applystatus_deny);
         for (ApplytableBean applytableBean:applytableBeans){
+           /* if (!applytableBean.getApplyType().equals("0")&& !applytableBean.getApplyType().equals("1")){
+                continue;
+            }*/
             applytableBean.setApplyStatus(Constants.applystatus_over);
             applyDao.update(applytableBean);
         }
 //  已复核待修改未修改的，也置为不通过
         List<ApplytableBean> applytableBeans1 = applyDao.findBystatus(Constants.applystatus_wait);
         for (ApplytableBean applytableBean:applytableBeans1){
+          /*  if (!applytableBean.getApplyType().equals("0")&& !applytableBean.getApplyType().equals("1")){
+                continue;
+            }*/
             applytableBean.setApplyStatus(Constants.applystatus_over);
             applyDao.update(applytableBean);
         }
+
+
+//      复核未通过的，设置为历史未通过
+        List<ApplytableBean> applytableBeans2 = applyDao.findBystatus(Constants.applystatus_auditdeny);
+        for (ApplytableBean applytableBean:applytableBeans2){
+            /*if (!applytableBean.getApplyType().equals("0")&& !applytableBean.getApplyType().equals("1")){
+                continue;
+            }*/
+            applytableBean.setApplyStatus(Constants.applystatus_over);
+            applyDao.update(applytableBean);
+        }
+
 
 
     }
@@ -219,24 +247,24 @@ public class AllowanceService {
 
     }
 
-    public List<AllowancehistoryBean> findhistoryByPages(String offer_time,String allowancetype,String idnum,String batch,int startRow,int pageSize ){
-        return allowancehistoryDao.findByPages(offer_time,allowancetype,idnum,batch,startRow,pageSize);
+    public List<AllowancehistoryBean> findhistoryByPages(String offer_time,String allowancetype,String idnum,String batch,String name,int startRow,int pageSize,String rcType ){
+        return allowancehistoryDao.findByPages(offer_time,allowancetype,idnum,batch,name,startRow,pageSize,rcType);
     }
 
-    public List<AllowanceBean> findByPages(String month,String allowancetype,String idnum,String batch,int startRow, int pageSize){
-        return allowanceDao.findByPages(month,allowancetype,idnum,batch,startRow,pageSize);
+    public List<AllowanceBean> findByPages(String month,String allowancetype,String idnum,String batch,String name,int startRow, int pageSize,String rcType){
+        return allowanceDao.findByPages(month,allowancetype,idnum,batch,name,startRow,pageSize,rcType);
     }
 
 
 
 
-    public int getCounthistory(String offer_time,String allowancetype,String idnum,String batch){
-        return allowancehistoryDao.findByPagesCount( offer_time, allowancetype, idnum,batch);
+    public int getCounthistory(String offer_time,String allowancetype,String idnum,String batch,String name,String rcType){
+        return allowancehistoryDao.findByPagesCount( offer_time, allowancetype, idnum,batch,name,rcType);
 
     }
 
-    public int getCount(String month,String allowancetype,String idnum,String batch){
-        return allowanceDao.findByPagesCount(month,allowancetype,idnum,batch);
+    public int getCount(String month,String allowancetype,String idnum,String batch,String name,String rcType){
+        return allowanceDao.findByPagesCount(month,allowancetype,idnum,batch,name,rcType);
     }
 
 
@@ -252,6 +280,7 @@ public class AllowanceService {
     }
 
     public List<AllowanceBean> findByidnum(String idnum){
+
         return allowanceDao.findByIDnum(idnum);
 
 

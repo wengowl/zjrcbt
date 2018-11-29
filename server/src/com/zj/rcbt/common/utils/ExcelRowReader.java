@@ -33,8 +33,8 @@ public class ExcelRowReader {
             socialsecurityBean.setIdNum(getCellValue(row,1));
             if (socialsecurityBean.getIdNum().equals("")||socialsecurityBean.getIdNum()==null)
                 continue;
-            socialsecurityBean.setBeginTime(getCellValue(row,2));
-            socialsecurityBean.setLastTime(getCellValue(row,3));
+            socialsecurityBean.setBeginTime(DateUtil.dateChange(getCellValue(row,2)));
+            socialsecurityBean.setLastTime(DateUtil.dateChange(getCellValue(row,3)));
             String monthes=getCellValue(row,4);
             if (monthes.equals("")){
                 monthes="0";
