@@ -51,7 +51,7 @@ public class ImportExcelController {
         log.info("import Excel"+filename+"  type:"+type);
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
         //如果文件不为空，写入上传路径
@@ -116,7 +116,7 @@ public class ImportExcelController {
         filename = filename+originalname;
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 
@@ -186,7 +186,7 @@ public class ImportExcelController {
         RequestResult result = new RequestResult();
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
         if (usertype.equals("1")) {

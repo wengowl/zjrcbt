@@ -69,7 +69,7 @@ public class ExcelExportController {
         log.info("return url:"+basePath + "/" + filename);
 
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         json.put("token",token);
 
         result.setData(json);
@@ -110,7 +110,7 @@ public class ExcelExportController {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/export";
         json.put("fileUrl",basePath + "/" + filename);
         log.info("return url:"+basePath + "/" + filename);
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         json.put("token",token);
         result.setData(json);
 
@@ -173,7 +173,7 @@ public class ExcelExportController {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/export";
         json.put("fileUrl",basePath + "/" + filename);
         log.info("return url:"+basePath + "/" + filename);
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         json.put("token",token);
 
         result.setData(json);

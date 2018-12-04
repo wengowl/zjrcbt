@@ -141,6 +141,7 @@ public class DateUtil {
         System.out.println(dateChange("2018-01"));
         System.out.println(getLastMonth());
         System.out.println(getMonthNum("2015-07","2018-07"));
+        System.out.println(getYear("2015-07"));
     }
 
 

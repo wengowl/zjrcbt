@@ -65,7 +65,7 @@ public class ArchivesController {
         data.put("msg", "");
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
        data.put("token",token);
 
 
@@ -106,7 +106,7 @@ public class ArchivesController {
         RequestResult result = new RequestResult();
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 

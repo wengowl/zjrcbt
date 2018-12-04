@@ -76,7 +76,7 @@ public class QuartzAuditJob {
                 if (socialSecurityreturn.equals("-1")){
 //                    TODO 必须存在社保数据和档案数据才会进行下一步
 //                    applytableBean.setApplyStatus(Constants.applystatus_deny);
-                    applytableBean.setAuditComment("暂无社保和档案数据比对");
+                    applytableBean.setAuditComment("暂无社保或档案数据比对");
                 }else if (socialSecurityreturn.equals("1")){
                     applytableBean.setApplyStatus(Constants.applystatus_second);
                     applytableBean.setAuditComment("社保数据为空");

@@ -13,7 +13,9 @@ public class RSAUtils {
 
 
     //KeyPair is a simple holder for a key pair.
+    private static Provider provider = new org.bouncycastle.jce.provider.BouncyCastleProvider();
     private static final KeyPair keyPair = initKey();
+
     /**
      * 初始化方法，产生key pair，提供provider和random
      * @return KeyPair instance
@@ -22,7 +24,7 @@ public class RSAUtils {
 
         try {
             //添加provider
-            Provider provider = new org.bouncycastle.jce.provider.BouncyCastleProvider();
+//            Provider provider = new org.bouncycastle.jce.provider.BouncyCastleProvider();
             Security.addProvider(provider);
             //产生用于安全加密的随机数
 
@@ -58,7 +60,7 @@ public class RSAUtils {
 
     private static byte[] decrypt(byte[] byteArray) {
         try {
-            Provider provider = new org.bouncycastle.jce.provider.BouncyCastleProvider();
+
             Security.addProvider(provider);
             //Cipher: 提供加密和解密功能的实例
             //transformation: "algorithm/mode/padding"
@@ -76,8 +78,10 @@ public class RSAUtils {
 
 
     public static void main(String[] args){
-
         System.out.println(generateBase64PublicKey());
+        System.out.println(keyPair);
+        System.out.println(generateBase64PublicKey());
+        System.out.println(keyPair);
 
     }
 

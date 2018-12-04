@@ -39,6 +39,8 @@ public final class Constants {
     public final static String rc_xinzhengtopschoolshuoshi = "12";//全日制“双一流”高校硕士生
     public final static String rc_xingzengboshi  = "13";//全日制博士生
 
+    public final static long tokenexpire= 2700000;
+
 
 
 

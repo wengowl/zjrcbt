@@ -61,7 +61,7 @@ public class FileUploadController {
             json.put("fileUrl",basePath + "/" + filename);
             log.info("return url:"+basePath + "/" + filename);
 
-            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            String token = JWTUtils.createToken(request.getHeader("idcard"));
             json.put("token",token);
 
             result.setData(json);
@@ -70,7 +70,7 @@ public class FileUploadController {
         } else {
             Map<String, Object> resultData = new HashMap();
 
-            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            String token = JWTUtils.createToken(request.getHeader("idcard"));
             resultData.put("token",token);
             result.setData(resultData);
             result.setStatus(-1);
@@ -119,7 +119,7 @@ public class FileUploadController {
             log.info("return url:"+basePath + "/" + filename);
 
 
-            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            String token = JWTUtils.createToken(request.getHeader("idcard"));
             json.put("token",token);
 
             result.setData(json);
@@ -127,7 +127,7 @@ public class FileUploadController {
         } else {
             Map<String, Object> resultData = new HashMap();
 
-            String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+            String token = JWTUtils.createToken(request.getHeader("idcard"));
             resultData.put("token",token);
             result.setData(resultData);
             result.setStatus(-1);

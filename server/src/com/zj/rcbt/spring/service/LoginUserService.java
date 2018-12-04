@@ -82,6 +82,11 @@ public class LoginUserService {
         return loginuserDao.findByUserName(username);
 
     }
+    public LoginuserBean findByIDnum(String id_num){
+        return loginuserDao.findByIDnum(id_num);
+
+    }
+
 
     public int savepasswordReset(String idnum, String user_e_mail) {
 //        LoginuserBean user = findByUserName(userName);
@@ -248,6 +253,7 @@ public class LoginUserService {
 
             messageHelper.setSentDate(new Date());
             log.info("send the mail:"+message);
+
             this.javaMailSender.send(message);
         } catch (MessagingException var11) {
             iRtn = 5;

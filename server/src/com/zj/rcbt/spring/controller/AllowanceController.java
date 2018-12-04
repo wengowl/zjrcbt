@@ -79,7 +79,7 @@ public class AllowanceController {
         data.put("count", allowanceService.getCounthistory(offertime, applicationCategory, idCard,batch,name,rcType));
         data.put("code", "0");
         data.put("msg", "");
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         data.put("token",token);
 
 
@@ -125,7 +125,7 @@ public class AllowanceController {
         data.put("count", allowanceService.getCount(month, applicationCategory, idCard,batch,name,rcType));
         data.put("code", "0");
         data.put("msg", "");
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         data.put("token",token);
 
 
@@ -143,7 +143,7 @@ public class AllowanceController {
         JSONObject jsonObject = JSONObject.parseObject(requestBody);
         String usertype = jsonObject.getString("userType");
         RequestResult result = new RequestResult();
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         Map<String, Object> resultData = new HashMap();
         resultData.put("token",token);
         result.setData(resultData);
@@ -199,7 +199,7 @@ public class AllowanceController {
         }
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
         result.setErrorMsg("无权限");

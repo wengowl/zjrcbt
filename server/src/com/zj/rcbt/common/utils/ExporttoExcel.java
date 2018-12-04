@@ -383,6 +383,7 @@ public class ExporttoExcel {
             row1.createCell(++column1).setCellValue("引进时间");
             row1.createCell(++column1).setCellValue("申请时间");
             row1.createCell(++column1).setCellValue("申请类别（0：租房补贴 1：生活津贴）");
+            row1.createCell(++column1).setCellValue("属于诸暨籍毕业第3年到第5年引进（0：是 ）");
 //        row1.createCell(++column1).setCellValue("政策类别（0：旧政 1：新政）");
 //        row1.createCell(++column1).setCellValue("是否行政事业编(0:否，1：是)");
             int rowNo1 =-1;
@@ -423,6 +424,15 @@ public class ExporttoExcel {
                 row.createCell(++column).setCellValue("");
                 row.createCell(++column).setCellValue(idnums.getBatch());
                 row.createCell(++column).setCellValue(idnums.getApplyType());
+                if((a==8||a==9)&&idnums.getInzhuji().equals("1")){
+                    String graduateyear = DateUtil.getYear(idnums.getGraduateDate());
+                    String comeyear = DateUtil.getYear(idnums.getComeDate());
+                    int g = Integer.parseInt(graduateyear);
+                    int c = Integer.parseInt(comeyear);
+                    if (c>=g+2){
+                        row.createCell(++column).setCellValue("0");
+                    }
+                }
 
 
 

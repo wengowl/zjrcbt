@@ -29,6 +29,61 @@ public class UserLoginController {
     @Autowired
     private HttpServletRequest request;
 
+    @RequestMapping({"/getuser"})
+    @ResponseBody
+    public RequestResult getUser(@RequestBody String requestBody){
+        JSONObject jsonObject = JSONObject.parseObject(requestBody);
+        String id_num = jsonObject.getString("idCard");
+        RequestResult result =  new RequestResult();
+        LoginuserBean loginuserBean = userService.findByIDnum(id_num);
+        Map<String, Object> resultData = new HashMap();
+        if (loginuserBean!=null) {
+            resultData.put("username",loginuserBean.getUserName());
+            resultData.put("idCard",loginuserBean.getIdNum());
+            resultData.put("email",loginuserBean.getEmail());
+
+        }
+
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
+        resultData.put("token",token);
+        result.setData(resultData);
+
+
+        return result;
+
+    }
+
+    @RequestMapping({"/editpasswd"})
+    @ResponseBody
+    public RequestResult editPasswd(@RequestBody String requestBody){
+        JSONObject jsonObject = JSONObject.parseObject(requestBody);
+        String id_num = jsonObject.getString("idCard");
+        String userName = jsonObject.getString("user");
+        String newPassword = jsonObject.getString("newPassword");
+        log.info("editpasswd "+userName);
+
+        RequestResult result =  new RequestResult();
+        LoginuserBean loginuserBean = userService.findByUserName(userName);
+
+        if (loginuserBean!=null) {
+            loginuserBean.setPasswd(newPassword);
+            userService.update(loginuserBean);
+            result.setStatus(0);
+        } else {
+            result.setStatus(1);
+        }
+        Map<String, Object> resultData = new HashMap();
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
+        resultData.put("token",token);
+        result.setData(resultData);
+
+
+        return result;
+
+    }
+
+
+
     @RequestMapping({"/register"})
     @ResponseBody
     public RequestResult userRegister(@RequestBody String requestBody){
@@ -53,7 +108,7 @@ public class UserLoginController {
          int status =userService.save(loginuserBean);
         result.setStatus(status);
         if (status==0){
-            String token = JWTUtils.createToken(loginuserBean.getIdNum(),900000);
+            String token = JWTUtils.createToken(loginuserBean.getIdNum());
             Map<String, Object> resultData = new HashMap();
             resultData.put("token",token);
             result.setData(resultData);
@@ -79,7 +134,7 @@ public class UserLoginController {
 
         LoginuserBean loginuserBean = userService.findByUserName(userName);
         Map<String, Object> resultData = new HashMap();
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
 
 
@@ -131,7 +186,7 @@ public class UserLoginController {
             result.setStatus(0);
         }
         Map<String, Object> resultData = new HashMap();
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 
@@ -197,7 +252,7 @@ public class UserLoginController {
                 resultData.put("user_type", user.getUserType());
                 resultData.put("idCard",user.getIdNum());
                 resultData.put("email",user.getEmail());
-                String token = JWTUtils.createToken(user.getIdNum(),900000);
+                String token = JWTUtils.createToken(user.getIdNum());
                 resultData.put("token",token);
                 result.setData(resultData);
                 this.request.getSession().setAttribute("USER_LOGIN_STATUS", 11);

@@ -6,7 +6,7 @@ import com.zj.rcbt.chsi.ChsiParser;
 public class Test {
     public static void main(String[] args){
         QRCode qrCode = new QRCode();
-        String y="D:\\wxfxueji.jpg";
+        String y="D:\\610426199208160020_qrcode.jpg";
         String x= null;
         try {
             x = qrCode.Decode(y);

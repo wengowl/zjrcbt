@@ -21,7 +21,8 @@ public class JWTUtils {
 
     private static final String PAYLOAD = "payload";
     private static Logger log = LogManager.getLogger(JWTUtils.class.getName());
-    public static String  createToken(String userid,long TTLMillis){
+    public static String  createToken(String userid){
+        long TTLMillis=Constants.tokenexpire;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 

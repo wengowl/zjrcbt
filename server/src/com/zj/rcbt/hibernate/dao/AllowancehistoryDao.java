@@ -54,36 +54,36 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
         Session session=null;
      try {
          session = getSessionFactory().openSession();
-         String sql = "from AllowancehistoryBean t where 1=1 ";
+         StringBuffer sql = new StringBuffer("from AllowancehistoryBean t where 1=1 ");
          if ( offer_time != null&&!offer_time.equals("") ) {
-             sql = sql + "and t.offerTime like '%" + offer_time + "%'";
+             sql = sql .append("and t.offerTime like '%" + offer_time + "%'");
          }
 
          if (allowancetype != null&& !allowancetype.equals("") ) {
-             sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+             sql = sql .append("and t.allowancetype like '%" + allowancetype + "%'");
          }
 
          if (idnum != null&&!idnum.equals("")  ) {
-             sql = sql + "and t.idNum like '%" + idnum + "%'";
+             sql = sql .append( "and t.idNum like '%" + idnum + "%'");
          }
          if (batch != null&&!batch.equals("")  ) {
-             sql = sql + "and t.batch like '%" + batch + "%'";
+             sql = sql .append( "and t.batch like '%" + batch + "%'");
          }
 
          if (name != null && !name.equals("")) {
-             sql = sql + " and t.name like '%" + name + "%'";
+             sql = sql .append(" and t.name like '%" + name + "%'");
          }
          if (rcType!=null && !rcType.equals("")){
              if (rcType.equals("0")){
-                 sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+                 sql = sql .append("and t.rcType not in (7,8,9,10,11,12,13)");
              }else if (rcType.equals("1")){
-                 sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+                 sql = sql .append("and t.rcType in (7,8,9,10,11,12,13)");
              }
          }
 
          log.info(sql);
 
-         Query queryObject = session.createQuery(sql);
+         Query queryObject = session.createQuery(sql.toString());
          queryObject.setFirstResult(startRow);
          queryObject.setMaxResults(pageSize);
 
@@ -109,38 +109,38 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from AllowancehistoryBean t where 1=1  ";
+            StringBuffer sql = new StringBuffer("select count(*) from AllowancehistoryBean t where 1=1  ");
             if (offer_time != null && !offer_time.equals("") ) {
-                sql = sql + "and t.offerTime like '%" + offer_time + "%'";
+                sql = sql .append("and t.offerTime like '%" + offer_time + "%'");
             }
 
             if (allowancetype != null && !allowancetype.equals("") ) {
-                sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+                sql = sql .append("and t.allowancetype like '%" + allowancetype + "%'");
             }
 
             if (idnum != null && !idnum.equals("") ) {
-                sql = sql + "and t.idNum like '%" + idnum + "%'";
+                sql = sql .append( "and t.idNum like '%" + idnum + "%'");
             }
             if (batch != null && !batch.equals("")) {
-                sql = sql + "and t.batch like '%" + batch + "%'";
+                sql = sql .append("and t.batch like '%" + batch + "%'");
             }
 
             if (name != null && !name.equals("")) {
-                sql = sql + " and t.name like '%" + name + "%'";
+                sql = sql .append(" and t.name like '%" + name + "%'");
             }
 
             if (rcType!=null && !rcType.equals("")){
                 if (rcType.equals("0")){
-                    sql = sql + "and t.rcType not in (7,8,9,10,11,12,13)";
+                    sql = sql .append("and t.rcType not in (7,8,9,10,11,12,13)");
                 }else if (rcType.equals("1")){
-                    sql = sql + "and t.rcType in (7,8,9,10,11,12,13)";
+                    sql = sql .append( "and t.rcType in (7,8,9,10,11,12,13)");
                 }
             }
 
 
             log.info(sql);
 
-            Query queryObject = session.createQuery(sql);
+            Query queryObject = session.createQuery(sql.toString());
             count = ((Long) queryObject.uniqueResult()).intValue();
 
 
@@ -165,21 +165,21 @@ public class AllowancehistoryDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from AllowancehistoryBean t where 1=1 ";
+            StringBuffer sql = new StringBuffer("from AllowancehistoryBean t where 1=1 ");
             if (offer_time != null && !offer_time.equals("") ){
-                sql = sql + "and t.offerTime like '%" + offer_time + "%'";
+                sql = sql .append("and t.offerTime like '%" + offer_time + "%'");
             }
 
             if (allowancetype != null && !allowancetype.equals("") ) {
-                sql = sql + "and t.allowancetype like '%" + allowancetype + "%'";
+                sql = sql .append( "and t.allowancetype like '%" + allowancetype + "%'");
             }
 
             if (idnum != null && !idnum.equals("") ) {
-                sql = sql + "and t.idNum like '%" + idnum + "%'";
+                sql = sql .append("and t.idNum like '%" + idnum + "%'");
             }
             log.info(sql);
 
-            Query queryObject = session.createQuery(sql);
+            Query queryObject = session.createQuery(sql.toString());
             allowancehistoryBeanList = queryObject.list();
         }catch(Exception e){
             log.info("",e);

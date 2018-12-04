@@ -78,7 +78,7 @@ public class AuditController {
         }
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 
@@ -182,7 +182,7 @@ public class AuditController {
         result.put("data",list);
 
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         result.put("token",token);
 
 
@@ -214,7 +214,7 @@ public class AuditController {
        applyService.saveOrupdate(applytableBean);
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 

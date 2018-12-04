@@ -64,41 +64,41 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "from ApplytableBean t where 1=1 ";
+            StringBuffer sql = new StringBuffer("from ApplytableBean t where 1=1 ");
 
             if (status != null && !status.equals("")) {
-                sql = sql + " and t.applyStatus in ("+status+") ";
+                sql = sql .append( " and t.applyStatus in ("+status+") ");
             }
 
             if (applyType != null&& !applyType.equals("") ) {
-                sql = sql + " and t.applyType  in ("+ applyType + ")";
+                sql = sql .append(" and t.applyType  in ("+ applyType + ")");
             }
 
             if (idCard != null && !idCard.equals("")) {
-                sql = sql + " and t.idNum like '%" + idCard + "%'";
+                sql = sql .append(" and t.idNum like '%" + idCard + "%'");
             }
             if (batch != null && !batch.equals("")) {
-                sql = sql + " and t.batch like '%" + batch + "%'";
+                sql = sql .append(" and t.batch like '%" + batch + "%'");
             }
 
             if (company != null && !company.equals("")) {
-                sql = sql + " and t.companyName like '%" + company + "%'";
+                sql = sql .append(" and t.companyName like '%" + company + "%'");
             }
 
             if (name != null && !name.equals("")) {
-                sql = sql + " and t.name like '%" + name + "%'";
+                sql = sql .append(" and t.name like '%" + name + "%'");
             }
             if (rcType != null && !rcType.equals("")) {
-                sql = sql + " and t.rcType in (" + rcType + ")";
+                sql = sql .append(" and t.rcType in (" + rcType + ")");
             }
 
-            sql = sql+" order by t.applyTime desc";
+            sql = sql .append(" order by t.applyTime desc");
 
 
 
             log.info(sql);
 
-            Query queryObject = session.createQuery(sql);
+            Query queryObject = session.createQuery(sql.toString());
             queryObject.setFirstResult(startRow);
             queryObject.setMaxResults(pageSize);
 
@@ -125,39 +125,39 @@ public class ApplyDao extends HibernateDaoSupport {
         Session session=null;
         try {
             session = getSessionFactory().openSession();
-            String sql = "select count(*) from ApplytableBean t where 1=1 ";
+            StringBuffer sql = new StringBuffer("select count(*) from ApplytableBean t where 1=1 ");
 
             if (status != null && !status.equals("")) {
-                sql = sql + "and t.applyStatus in ("+status+")";
+                sql =sql .append( "and t.applyStatus in ("+status+")");
             }
 
             if (applyType != null&& !applyType.equals("") ) {
-                sql = sql + "and t.applyType in (" + applyType + ")";
+                sql = sql .append("and t.applyType in (" + applyType + ")");
             }
 
             if (idCard != null && !idCard.equals("")) {
-                sql = sql + "and t.idNum like '%" + idCard + "%'";
+                sql = sql .append( "and t.idNum like '%" + idCard + "%'");
             }
             if (batch != null && !batch.equals("")) {
-                sql = sql + "and t.batch like '%" + batch + "%'";
+                sql = sql .append( "and t.batch like '%" + batch + "%'");
             }
             if (company != null && !company.equals("")) {
-                sql = sql + " and t.companyName like '%" + company + "%'";
+                sql = sql .append(" and t.companyName like '%" + company + "%'");
             }
 
             if (name != null && !name.equals("")) {
-                sql = sql + " and t.name like '%" + name + "%'";
+                sql = sql .append(" and t.name like '%" + name + "%'");
             }
 
             if (rcType != null && !rcType.equals("")) {
-                sql = sql + " and t.rcType in (" + rcType + ")";
+                sql = sql .append(" and t.rcType in (" + rcType + ")");
             }
 
 
 
             log.info(sql);
 
-            Query queryObject = session.createQuery(sql);
+            Query queryObject = session.createQuery(sql.toString());
             count = ((Long) queryObject.uniqueResult()).intValue();
 
         }catch(Exception e){

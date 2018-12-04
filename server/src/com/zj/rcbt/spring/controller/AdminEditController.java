@@ -98,7 +98,7 @@ public class AdminEditController {
         operationBean.setOperation( user_id+" userinfoupdate: "+"@idnum:"+idnum+"@phone:"+phone+"@bank:"+bank+"@bankcard:"+bankcard);
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
         operationService.save(operationBean);
@@ -153,7 +153,7 @@ public class AdminEditController {
         operationService.save(operationBean);
         Map<String, Object> resultData = new HashMap();
 
-        String token = JWTUtils.createToken(request.getHeader("idcard"),900000);
+        String token = JWTUtils.createToken(request.getHeader("idcard"));
         resultData.put("token",token);
         result.setData(resultData);
 
