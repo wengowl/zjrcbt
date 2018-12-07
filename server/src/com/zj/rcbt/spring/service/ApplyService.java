@@ -106,6 +106,7 @@ public class ApplyService {
         info.put("auditcomment", applytableBean.getAuditComment());
         info.put("attachment", applytableBean.getAttatchment());
         info.put("inzhuji",applytableBean.getInzhuji());
+        info.put("batch",applytableBean.getBatch());
         String token = JWTUtils.createToken(request.getHeader("idcard"));
         info.put("token",token);
 

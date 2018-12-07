@@ -68,7 +68,7 @@ public class VerifyService {
             x = qrCode.Decode(srcFile.getAbsolutePath());
 
         x=x.substring(x.indexOf("#")+1,x.lastIndexOf("#"));
-        System.out.println(x);
+       log.info("二维码信息："+x);
         } catch (Exception e) {
             log.error(e.getMessage());
 //            return "二维码识别失败";

@@ -131,7 +131,7 @@ public class ChsiParser {
 
     public Document putCode(String url,String code) throws IOException {
 
-        Connection.Response rs = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0").timeout(5000).method(Connection.Method.POST).execute();
+        Connection.Response rs = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0").timeout(30000).method(Connection.Method.POST).execute();
         Document document = rs.parse();
         Element  chknum =document.getElementById("CHKNUM");
         if (chknum !=null){
